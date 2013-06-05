@@ -14,6 +14,8 @@
             var start_adress = '<?php echo $_POST['adress_start'];?>';
             var price_products = null;
             var handles = null;
+            var wheels = null;
+            var horn = null;
             
             $(document).ready(function(){
                          
@@ -117,6 +119,10 @@
                       var add = '&price_products=' + price_products;
                   }else if(categ=='handles_products'){
                       var add = '&handles=' + handles;
+                  }else if(categ=='wheels_products'){
+                      var add = '&wheels=' +wheels;
+                  }else if(categ=='horn_products'){
+                      var add = '&horn=' + horn;
                   }else{
                       var add = "";
                   }
@@ -156,6 +162,15 @@
                            $("#scooter-list-result").html(arr_result[1]);
                   }
                   });
+            }
+            function CheckUncheck(input){
+                $('#handles-filter-rubber').attr('checked', false);
+                $('#handles-filter-plastic').attr('checked', false);
+                $('#wheels-filter-iron').attr('checked', false);
+                $('#wheels-filter-aluminum').attr('checked', false);
+                $('#horn-filter-no').attr('checked', false);
+                $('#horn-filter-yes').attr('checked', false);
+                input.checked = true;
             }
         </script> 
     </head>
@@ -197,25 +212,26 @@
                             <section id="handles-filter">
                                 <h4>Handles</h4>
                                 <?php $model->HandlesProducts($_POST,$rubber,$plastic);?>
-                                <input type="checkbox" id="handles-filter-rubber" onchange="$('#handles-filter-plastic').attr('checked', false); handles = 'rubber'; MakeFilter('0','first','handles_products',<?php echo $rubber; ?>);">
+                                <input type="checkbox" id="handles-filter-rubber" onchange="CheckUncheck(this); handles = 'rubber'; MakeFilter('0','first','handles_products',<?php echo $rubber; ?>);">
                                 <label>Rubber (<?php echo $rubber; ?>)</label>
-                                <input type="checkbox" id="handles-filter-plastic" onchange="$('#handles-filter-rubber').attr('checked', false); handles = 'plastic'; MakeFilter('0','first','handles_products',<?php echo $plastic; ?>);">
+                                <input type="checkbox" id="handles-filter-plastic" onchange="CheckUncheck(this); handles = 'plastic'; MakeFilter('0','first','handles_products',<?php echo $plastic; ?>);">
                                 <label>Plastic (<?php echo $plastic;?>)</label>
                             </section>
                             <section id="wheels-filter">
                                 <h4>Wheels</h4>
                                 <?php $model->WheelsProducts($_POST,$aluminum,$iron);?>
-                                <input type="checkbox" id="wheels-filter-aluminum">
-                                <label>Aluminum(10)</label>
-                                <input type="checkbox" id="wheels-filter-iron">
-                                <label>Iron(10)</label>
+                                <input type="checkbox" id="wheels-filter-aluminum" onchange="CheckUncheck(this); wheels = 'aluminum'; MakeFilter('0','first','wheels_products',<?php echo $aluminum; ?>);">
+                                <label>Aluminum (<?php echo $aluminum;?>)</label>
+                                <input type="checkbox" id="wheels-filter-iron" onchange="CheckUncheck(this); wheels = 'iron'; MakeFilter('0','first','wheels_products',<?php echo $iron; ?>);">
+                                <label>Iron (<?php echo $iron; ?>)</label>
                             </section>
                             <section id="horn-filter">
                                 <h4>Horn</h4>
-                                <input type="checkbox" id="horn-filter-yes">
-                                <label>Yes(10)</label>
-                                <input type="checkbox" id="horn-filter-no">
-                                <label>No(10)</label>
+                                <?php $model->HornProducts($_POST,$yes,$no);?>
+                                <input type="checkbox" id="horn-filter-yes" onchange="CheckUncheck(this); horn = 'yes'; MakeFilter('0','first','horn_products',<?php echo $yes; ?>);">
+                                <label>Yes (<?php echo $yes; ?>)</label>
+                                <input type="checkbox" id="horn-filter-no" onchange="CheckUncheck(this); horn = 'no'; MakeFilter('0','first','horn_products',<?php echo $no; ?>);">
+                                <label>No (<?php echo $no; ?>)</label>
                             </section>
                         </div>    
                         <div id="search-information">

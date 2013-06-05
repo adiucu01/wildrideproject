@@ -452,5 +452,167 @@
             }
             return $HTML;    
       }
+      public function WheelsProducts($param, &$aluminum, &$iron){
+          if($param['f']){
+          if(isset($param['pageId']) && !empty($param['pageId'])){
+                     $id=$param['pageId'];
+                }else{
+                     $id='0';
+                }
+
+                $pageLimit = $this->_PAGE_PER_NO * $id;
+                $sql = "SELECT a.* FROM trotinete a, puncte_de_lucru b 
+                            WHERE a.id_punct_de_lucru=b.id AND a.caracteristici like '%".$param['wheels']."%' AND b.adresa='{$param['adress_start']}' AND a.nr_bucati>a.nr_bucati_inchiriate AND a.id NOT IN (SELECT id_trotineta FROM inchirieri WHERE '{$param['start-date']}' BETWEEN data_inchiriere AND data_restituire) limit $pageLimit, ".$this->_PAGE_PER_NO;
+                $result = self::$db->query($sql);
+                
+                $count=$param['pag_no']; 
+          }else{
+                $sql01 = "SELECT a.* FROM trotinete a, puncte_de_lucru b 
+                        WHERE a.id_punct_de_lucru=b.id AND a.caracteristici like '%aluminum%' AND b.adresa='{$param['adress_start']}' AND a.nr_bucati>a.nr_bucati_inchiriate AND a.id NOT IN (SELECT id_trotineta FROM inchirieri WHERE '{$param['start-date']}' BETWEEN data_inchiriere AND data_restituire);";
+          
+                $result = self::$db->query($sql01);
+                
+                $sql02 = "SELECT a.* FROM trotinete a, puncte_de_lucru b 
+                        WHERE a.id_punct_de_lucru=b.id AND a.caracteristici like '%iron%' AND b.adresa='{$param['adress_start']}' AND a.nr_bucati>a.nr_bucati_inchiriate AND a.id NOT IN (SELECT id_trotineta FROM inchirieri WHERE '{$param['start-date']}' BETWEEN data_inchiriere AND data_restituire);";
+          
+                $result01 = self::$db->query($sql02);
+                
+                $aluminum=mysqli_num_rows($result);
+                
+                $iron=mysqli_num_rows($result01);
+                $count = null; 
+                                                 
+            }  
+            $paginationCount= floor($count / $this->_PAGE_PER_NO);
+
+              $paginationModCount= $count % $this->_PAGE_PER_NO;
+              if(!empty($paginationModCount)){
+                 $paginationCount++;
+              }
+            
+            $HTML=$paginationCount.'##';
+            $i=0;
+            if($count > 0){
+              while($row=mysqli_fetch_array($result)){
+                    if($row['nr_bucati_inchiriate']>=$row['nr_bucati']){
+                                            $dis = '<font style="color: #E60520;">Rented</font>';
+                                            $disabled = 'disabled';
+                                        }else{
+                                            $dis = '<font style="color: #80BD55;">In Stock</font>';
+                                            $disabled = '';
+                                        }
+                                        if($i == $count){
+                                            $class = 'class="results-row last-li"';
+                                        }else{
+                                            $class = 'class="results-row"';
+                                        }
+                                        $HTML.='<li '.$class.'>
+                                                <div id="scooter-list-img">
+                                                    <img src="../../../'.$row['imagine'].'" width="180"/>
+                                                </div>
+                                                <div id="scooter-list-desc">
+                                                    <h4>'.$row['denumire'].' - '.str_replace(';', ',', $row['caracteristici']).'</h4>
+                                                    <p>'.$row['descriere'].'</p>
+                                                </div>
+                                                <div id="scooter-list-option">
+                                                    <div class="scooter-detailed-price">
+                                                        '.$row['pret_inchiriere'] . ' EUR/day
+                                                    </div>
+                                                    <div class="scooter-detailed-reserved">
+                                                        '.$dis.'
+                                                    </div>
+                                                    <div id="container-right-rent" style="width: 150px; margin: 0 auto;">
+                                                        <input type="button" value="Rent" class="scooter-detailed-rent" onclick="RentScooter(\''.$scooter['id'].'\')" '.$disabled.' style="width: 150px;"/>
+                                                    </div>
+                                                </div>
+                                            </li>'; 
+                                        $i++;     
+              }
+            }else{
+              $HTML='No Data Found';
+            }
+            return $HTML;    
+      }
+      public function HornProducts($param, &$yes, &$no){
+          if($param['f']){
+          if(isset($param['pageId']) && !empty($param['pageId'])){
+                     $id=$param['pageId'];
+                }else{
+                     $id='0';
+                }
+
+                $pageLimit = $this->_PAGE_PER_NO * $id;
+                $sql = "SELECT a.* FROM trotinete a, puncte_de_lucru b 
+                            WHERE a.id_punct_de_lucru=b.id AND a.caracteristici like '%".$param['horn']."%' AND b.adresa='{$param['adress_start']}' AND a.nr_bucati>a.nr_bucati_inchiriate AND a.id NOT IN (SELECT id_trotineta FROM inchirieri WHERE '{$param['start-date']}' BETWEEN data_inchiriere AND data_restituire) limit $pageLimit, ".$this->_PAGE_PER_NO;
+                $result = self::$db->query($sql);
+                
+                $count=$param['pag_no']; 
+          }else{
+                $sql01 = "SELECT a.* FROM trotinete a, puncte_de_lucru b 
+                        WHERE a.id_punct_de_lucru=b.id AND a.caracteristici like '%aluminum%' AND b.adresa='{$param['adress_start']}' AND a.nr_bucati>a.nr_bucati_inchiriate AND a.id NOT IN (SELECT id_trotineta FROM inchirieri WHERE '{$param['start-date']}' BETWEEN data_inchiriere AND data_restituire);";
+          
+                $result = self::$db->query($sql01);
+                
+                $sql02 = "SELECT a.* FROM trotinete a, puncte_de_lucru b 
+                        WHERE a.id_punct_de_lucru=b.id AND a.caracteristici like '%iron%' AND b.adresa='{$param['adress_start']}' AND a.nr_bucati>a.nr_bucati_inchiriate AND a.id NOT IN (SELECT id_trotineta FROM inchirieri WHERE '{$param['start-date']}' BETWEEN data_inchiriere AND data_restituire);";
+          
+                $result01 = self::$db->query($sql02);
+                
+                $yes = mysqli_num_rows($result);
+                
+                $no = mysqli_num_rows($result01);
+                $count = null; 
+                                                 
+            }  
+            $paginationCount= floor($count / $this->_PAGE_PER_NO);
+
+              $paginationModCount= $count % $this->_PAGE_PER_NO;
+              if(!empty($paginationModCount)){
+                 $paginationCount++;
+              }
+            
+            $HTML=$paginationCount.'##';
+            $i=0;
+            if($count > 0){
+              while($row=mysqli_fetch_array($result)){
+                    if($row['nr_bucati_inchiriate']>=$row['nr_bucati']){
+                                            $dis = '<font style="color: #E60520;">Rented</font>';
+                                            $disabled = 'disabled';
+                                        }else{
+                                            $dis = '<font style="color: #80BD55;">In Stock</font>';
+                                            $disabled = '';
+                                        }
+                                        if($i == $count){
+                                            $class = 'class="results-row last-li"';
+                                        }else{
+                                            $class = 'class="results-row"';
+                                        }
+                                        $HTML.='<li '.$class.'>
+                                                <div id="scooter-list-img">
+                                                    <img src="../../../'.$row['imagine'].'" width="180"/>
+                                                </div>
+                                                <div id="scooter-list-desc">
+                                                    <h4>'.$row['denumire'].' - '.str_replace(';', ',', $row['caracteristici']).'</h4>
+                                                    <p>'.$row['descriere'].'</p>
+                                                </div>
+                                                <div id="scooter-list-option">
+                                                    <div class="scooter-detailed-price">
+                                                        '.$row['pret_inchiriere'] . ' EUR/day
+                                                    </div>
+                                                    <div class="scooter-detailed-reserved">
+                                                        '.$dis.'
+                                                    </div>
+                                                    <div id="container-right-rent" style="width: 150px; margin: 0 auto;">
+                                                        <input type="button" value="Rent" class="scooter-detailed-rent" onclick="RentScooter(\''.$scooter['id'].'\')" '.$disabled.' style="width: 150px;"/>
+                                                    </div>
+                                                </div>
+                                            </li>'; 
+                                        $i++;     
+              }
+            }else{
+              $HTML='No Data Found';
+            }
+            return $HTML;    
+      }
   }
 ?>
