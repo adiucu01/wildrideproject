@@ -1,0 +1,77 @@
+body{
+    background: #ffffff; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  #ffffff 0%, #e2e2e2 100%, #e2e2e2 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#e2e2e2), color-stop(100%,#e2e2e2)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  #ffffff 0%,#e2e2e2 100%,#e2e2e2 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  #ffffff 0%,#e2e2e2 100%,#e2e2e2 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  #ffffff 0%,#e2e2e2 100%,#e2e2e2 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  #ffffff 0%,#e2e2e2 100%,#e2e2e2 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e2e2e2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    font-family: Verdana, Corbel;
+    font-size: 16pt;
+    margin: 0px;
+}
+header{
+    height: 170px; 
+}
+.content{
+    margin: 0 auto;
+    width: 1000px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#logo{ 
+    float: left;
+    margin-top: 48px;
+    width: 376px;
+}
+#logo img{
+    margin-left: 66px;
+}
+#contact {
+    float: right;
+    margin-top: 35px;
+    width: 200px;
+}
+#contact h3 {
+    color: #FFFFFF;
+    font-size: 14pt;
+}
+#contact p {
+    color: #9F9F9F;
+    font-size: 10pt;
+    margin: 5px 0;
+}
+#container h1{
+    color: #40aaeb;
+    font-size: 20pt;
+}
+#container p{
+    color: #9F9F9F;
+    font-size: 14pt;
+}
+#container .signature{
+    font-size: 12pt !important;
+    font-weight: bolder;
+}
+table{
+    border-top: 1px solid #9F9F9F;
+    border-right: 1px solid #9F9F9F;
+    border-collapse: collapse;
+}
+th {
+    font-size: 12pt;
+    border-bottom: 1px solid #9F9F9F;
+    padding: .3em 1em;
+    border-left: 1px solid #9F9F9F;
+    text-align: center;
+    color: #678197;
+}
+td {
+    color: #678197;
+    border-bottom: 1px solid #9F9F9F;
+    border-left: 1px solid #9F9F9F;
+    padding: .3em 1em;
+    font-size: 12pt;
+    text-align: center;
+}
