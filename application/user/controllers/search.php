@@ -40,6 +40,16 @@
                             $param['f'] = true;
                             echo $model->HandlesProducts($param,$rubber,$plastic);
                       break;
+                      
+                      case "wheels_products":
+                            $param['f'] = true;
+                            echo $model->WheelsProducts($param,$aluminum,$iron);
+                      break;
+                      
+                      case "horn_products":
+                            $param['f'] = true;
+                            echo $model->HornProducts($param,$yes,$no);
+                      break;
                 }
           break;
       }
