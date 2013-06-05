@@ -4,6 +4,7 @@
     
     if($model->is_logged()){
         header( 'Location: views/default.php' ) ; 
+        
     }
     else
     {
