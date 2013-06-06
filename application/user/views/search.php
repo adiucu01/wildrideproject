@@ -1,4 +1,6 @@
-<?php require_once("/../models/search.php"); $model = new ModelSearch(); $paginationCount = $model->getPagination($_POST,$count);?>
+<?php 
+//require_once("/../models/search.php"); 
+$model = new UserModelSearch(); $paginationCount = $model->getPagination($_POST,$count);?>
 <!DOCTYPE HTML>
 <html>
     <head>

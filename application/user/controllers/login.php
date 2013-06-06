@@ -1,11 +1,11 @@
 <?php
-  require_once("../models/login.php");
+  //require_once("../models/login.php");
   
   session_start();
   $param = $_POST;
   $param['session_id'] = session_id();
   
-  $model = new ModelLogin();
+  $model = new UserModelLogin();
   
   
   if(isset($_GET['action'])){

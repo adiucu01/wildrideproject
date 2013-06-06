@@ -1,11 +1,12 @@
 <?php
+/*
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
-    
-  class ModelDefault{
+*/    
+  class UserModelDefault{
       public static $db;
       public function __construct(){
-          self::$db = new DB(); 
+          self::$db = WDB::get_instance();
       }
       public function getAdressScooter($id){
           $sql = "SELECT p.adresa FROM trotinete t, puncte_de_lucru p WHERE t.id=".intval($id)." AND t.id_punct_de_lucru = p.id";
@@ -26,7 +27,9 @@
           return $arr;
       }
       public function is_logged(){
-        $sql = "SELECT id_sesiune FROM user WHERE id=".intval($_COOKIE['user_id']);
+				if (isset($_COOKIE['user_id']) && $_COOKIE['user_id'] != "")
+	        $sql = "SELECT id_sesiune FROM user WHERE id=".intval($_COOKIE['user_id']);
+				else return false;
         
         $result = self::$db->query($sql);
         $arr = mysqli_fetch_assoc($result);
@@ -68,7 +71,7 @@
                     $output .= '<li class="scooter-detailed'.$class.'">
                                     <a href="../views/scooter.php?id='.$arr['id'].'" title="">
                                         <div class="scooter-detailed-img">
-                                            <img src="../../../'.$arr['imagine'].'" alt="" width="150"/>
+                                            <img src="'.$arr['imagine'].'" alt="" width="150"/>
                                         </div>
                                         <div class="scooter-detailed-title">
                                             '.$arr['denumire'].'
@@ -105,7 +108,7 @@
                     $output .= '<li class="scooter-detailed'.$class.'">
                                     <a href="../views/scooter.php?id='.$arr['id'].'" title="">
                                         <div class="scooter-detailed-img">
-                                            <img src="../../../'.$arr['imagine'].'" alt="" width="150"/>
+                                            <img src="'.$arr['imagine'].'" alt="" width="150"/>
                                         </div>
                                         <div class="scooter-detailed-title">
                                             '.$arr['denumire'].'
@@ -315,7 +318,7 @@
                             $output .= '<li class="scooter-detailed'.$class.'">
                                             <a href="../views/scooter.php?id='.$arr['id'].'" title="">
                                                 <div class="scooter-detailed-img">
-                                                    <img src="../../../'.$arr['imagine'].'" alt="" width="150"/>
+                                                    <img src="'.$arr['imagine'].'" alt="" width="150"/>
                                                 </div>
                                                 <div class="scooter-detailed-title">
                                                     '.$arr['denumire'].'

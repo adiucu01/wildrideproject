@@ -1,6 +1,6 @@
 <?php
-    require("../models/workpoint.php");
-    $model = new ModelWorkpoint();
+    //require("../models/workpoint.php");
+    $model = new AdminModelWorkpoint();
     
     $param = $_POST;
     

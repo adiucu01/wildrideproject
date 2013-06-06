@@ -1,4 +1,6 @@
-<?php require_once("/../models/login.php"); $model = new ModelLogin(); if($model->is_logged()) header('Location: ../controllers/user.php?action=view&id='.$_COOKIE['user_id']);?>
+<?php 
+//require_once("/../models/login.php"); 
+$model = new UserModelLogin(); if($model->is_logged()) header('Location: ../controllers/user.php?action=view&id='.$_COOKIE['user_id']);?>
 <!DOCTYPE HTML>
 <html>
     <head>

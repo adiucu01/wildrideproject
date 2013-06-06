@@ -1,5 +1,5 @@
 <?php
-    require("../models/admin.php");
+    //require("../models/admin.php");
     $model = new ModelAdmin();
     
     $param = $_POST;

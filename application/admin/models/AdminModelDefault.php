@@ -1,8 +1,9 @@
 <?php
+/*
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
-    
-  class ModelDefault{
+*/
+  class AdminModelDefault{
       private static $db;
       public function __construct(){
           self::$db = new DB();

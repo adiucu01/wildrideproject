@@ -1,10 +1,11 @@
 <?php
+/*
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
   
   include("../models/default.php");
-    
-  class ModelRent extends ModelDefault{ 
+*/    
+  class UserModelRent extends UserModelDefault{ 
       public function getScooter($id){                     
           
           $sql = "SELECT a.*, b.judet, b.oras, b.adresa FROM trotinete a, puncte_de_lucru b WHERE a.id_punct_de_lucru=b.id and a.id=".intval($id);
