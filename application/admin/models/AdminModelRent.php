@@ -3,11 +3,8 @@
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
   */  
-  class AdminModelRent{
-      private static $db;
-      public function __construct(){
-          self::$db = new DB(); 
-      }
+  class AdminModelRent extends AdminModelDefault{
+      
      public function getRentList($startDate,$endDate){
           $output = null;
        //   $sql = "SELECT trotinete.*, puncte_de_lucru.nume as punct_de_lucru, tip_adaugare_trotinete.nume as mod_adaugare FROM trotinete LEFT JOIN puncte_de_lucru ON trotinete.id_punct_de_lucru = puncte_de_lucru.id LEFT JOIN tip_adaugare_trotinete on trotinete.tip_adaugare = tip_adaugare_trotinete.id ";

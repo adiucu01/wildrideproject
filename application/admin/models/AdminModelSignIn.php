@@ -3,12 +3,11 @@
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
   */  
-  class AdminModelSignIn{
-      private static $db;
-      public function __construct(){
-          self::$db = new DB(); 
-      }
+  class AdminModelSignIn extends AdminModelDefault{
+      
       public function SignIn($param){ 
+          if(!isset($param['password']) || !isset($param['email']))
+              return false;
           $password = $this->cryptp($param['password']);
           
           $sql = "SELECT * FROM admin WHERE email = '{$param['email']}'";

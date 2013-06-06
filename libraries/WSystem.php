@@ -8,8 +8,12 @@ class WSystem {
     public static $url = null;
 
     public static function redirect($controller = "index", $action = "index") {
-        if ($controller != "index")
-            header("Location: " . self::$url . $controller . "/" . $action);
+        if ($controller != "index") {
+            if ($action != "index")
+                header("Location: " . self::$url . $controller . "/" . $action);
+            else
+                header("Location: " . self::$url . $controller);
+        }
         else {
             header("Location: " . self::$url . $action);
         }
@@ -17,10 +21,10 @@ class WSystem {
 
     public static function execute() {
         /*
-        echo "<pre>";
-        print_r($_SERVER);
-        echo "</pre>";
-        die();
+          echo "<pre>";
+          print_r($_SERVER);
+          echo "</pre>";
+          die();
          * 
          */
         if (self::$url === null) {
