@@ -1,8 +1,10 @@
 <?php
-    //require_once("/../models/login.php"); 
-    $model = new UserModelLogin();
-    if ($model->is_logged())
-        header('Location: index.php?c=user&a=view&id=' . $_COOKIE['user_id']);
+//require_once("/../models/login.php"); 
+$model = new UserModelLogin();
+if ($model->is_logged()) {
+//header('Location: index.php?c=user&a=view&id=' . $_COOKIE['user_id']);
+    WSystem::redirect("user", "view");
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -56,7 +58,7 @@
                             </label>
                             <a href="index.php?c=index&a=login&f_password=true" title="" id="login-password-forget">Forgot Password</a>
                         </form>
-                        <?php } else { ?>
+                    <?php } else { ?>
                         <h2>Forgot Password</h2>
                         <form action="index.php?c=index&a=forgotPassword" method="post">
                             <label class="login-label">
@@ -74,7 +76,7 @@
                             <input type="submit" value="Reset" name="signin" style="margin: 0px;"/>
 
                         </form>    
-                        <?php } ?>
+                    <?php } ?>
                 </div>
                 <div id="container-signup">
                     <h2>New Client</h2>
@@ -109,9 +111,9 @@
                         <div class="search-select" id="search-judet">
                             <select name="judet" onchange="selectOras(this);" id="judet">
                                 <?php
-                                    foreach (json_decode(JUDET) as $item => $key) {
-                                        echo '<option value="' . $item . '">' . $item . '</option>';
-                                    }
+                                foreach (json_decode(JUDET) as $item => $key) {
+                                    echo '<option value="' . $item . '">' . $item . '</option>';
+                                }
                                 ?>
                             </select>
                         </div>
@@ -166,7 +168,7 @@
                             <div id="members-area-login">or</div>
                             <input type="button" value="Sign Up" onclick="Login();"/>';
                         }
-                    ?>
+                        ?>
                 </div>                        
             </div>
             <div id="weather">
@@ -177,12 +179,12 @@
             </div>
             <div id="currency"> 
                 <div id="currency-content">
-                    <?php $rates = $model->getExchangeRates();?>  
+                    <?php $rates = $model->getExchangeRates(); ?>  
                     <h3>Currency Rates</h3>
                     <ul>
-                        <li><img src="img/eur.png" alt="" width="25"/><?php echo '1 '.$rates[0]['from'].' - ' . number_format($rates[0]['to'], 2) . ' RON';?></li>
-                        <li><img src="img/usd.png" alt="" width="25"/><?php echo '1 '.$rates[1]['from'].' - ' . number_format($rates[1]['to'], 2) . ' RON';?></li>
-                        <li><img src="img/gbp.png" alt="" width="25"/><?php echo '1 '.$rates[2]['from'].' - ' . number_format($rates[2]['to'], 2) . ' RON';?></li>
+                        <li><img src="img/eur.png" alt="" width="25"/><?php echo '1 ' . $rates[0]['from'] . ' - ' . number_format($rates[0]['to'], 2) . ' RON'; ?></li>
+                        <li><img src="img/usd.png" alt="" width="25"/><?php echo '1 ' . $rates[1]['from'] . ' - ' . number_format($rates[1]['to'], 2) . ' RON'; ?></li>
+                        <li><img src="img/gbp.png" alt="" width="25"/><?php echo '1 ' . $rates[2]['from'] . ' - ' . number_format($rates[2]['to'], 2) . ' RON'; ?></li>
                     </ul>
                     <input type="button" value="More"/>
                 </div>                     
@@ -244,56 +246,56 @@
 
         <script type="text/javascript">
 
-            $(document).ready(function() {
-                    $('#weather-content').weatherfeed(['873915'],{
-                            woeid: true
-                    });
-                    $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
-                            vertical: false,
-                            width: 980,
-                            height: 270,
-                            arrows: false
-                    });
-                    $('#horizontal-scooters-history').hoverscroll();
+                        $(document).ready(function() {
+                            $('#weather-content').weatherfeed(['873915'], {
+                                woeid: true
+                            });
+                            $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
+                                vertical: false,
+                                width: 980,
+                                height: 270,
+                                arrows: false
+                            });
+                            $('#horizontal-scooters-history').hoverscroll();
 
-                    $("#members-area").mouseover(function() {
-                            $("#members-area-content").show();
-                            $("#weather-content").hide();
-                            $("#currency-content").hide();
-                    }).mouseout(function() {
-                            $("#members-area-content").mouseenter(function() {
+                            $("#members-area").mouseover(function() {
+                                $("#members-area-content").show();
+                                $("#weather-content").hide();
+                                $("#currency-content").hide();
+                            }).mouseout(function() {
+                                $("#members-area-content").mouseenter(function() {
                                     $("#members-area-content").show();
-                            }).mouseleave(function() {
+                                }).mouseleave(function() {
                                     $("#members-area-content").hide();
+                                });
                             });
-                    });
 
-                    $("#weather").mouseover(function() {
-                            $("#members-area-content").hide();
-                            $("#weather-content").show();
-                            $("#currency-content").hide();
-                    }).mouseout(function() {
-                            $("#weather-content").mouseenter(function() {
+                            $("#weather").mouseover(function() {
+                                $("#members-area-content").hide();
+                                $("#weather-content").show();
+                                $("#currency-content").hide();
+                            }).mouseout(function() {
+                                $("#weather-content").mouseenter(function() {
                                     $("#weather-content").show();
-                            }).mouseleave(function() {
+                                }).mouseleave(function() {
                                     $("#weather-content").hide();
+                                });
                             });
-                    });
 
-                    $("#currency").mouseover(function() {
-                            $("#members-area-content").hide();
-                            $("#currency-content").show();
-                            $("#weather-content").hide();
-                    }).mouseout(function() {
-                            $("#currency-content").mouseenter(function() {
+                            $("#currency").mouseover(function() {
+                                $("#members-area-content").hide();
+                                $("#currency-content").show();
+                                $("#weather-content").hide();
+                            }).mouseout(function() {
+                                $("#currency-content").mouseenter(function() {
                                     $("#currency-content").show();
-                            }).mouseleave(function() {
+                                }).mouseleave(function() {
                                     $("#currency-content").hide();
+                                });
                             });
-                    });
 
 
-            });
+                        });
 
 
         </script> 

@@ -39,10 +39,15 @@ class IndexController {
         $param = $_POST;
         $param['session_id'] = session_id();
         $model = new UserModelLogin();
+        if ($model->is_logged()) {
+            WSystem::redirect("user", "view");
+        } else
         if ($model->SignUp($param)) {
-            //header('Location: ../views/login.php');
-            require( $this->view . 'login.php' );
+            WSystem::redirect("user", "view");
         }
+        else
+        //header('Location: ../views/login.php');
+            require( $this->view . 'login.php' );
     }
 
     public function forgotPasswordAction() {
