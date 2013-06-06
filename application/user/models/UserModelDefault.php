@@ -42,7 +42,10 @@
         }          
       } 
       public function isValidUser(){
-          $sql = "SELECT * FROM user WHERE id=".intval($_COOKIE['user_id'])." and id_sesiune='{$_COOKIE['user_session_id']}'";
+					if (isset($_COOKIE['user_id']) && $_COOKIE['user_id'] != "" 
+							&& isset($_COOKIE['user_session_id']) && $_COOKIE['user_session_id'] != "" )
+	          $sql = "SELECT * FROM user WHERE id=".intval($_COOKIE['user_id'])." and id_sesiune='{$_COOKIE['user_session_id']}'";
+					else return false;
           
           $result = self::$db->query($sql);    
           $arr = mysqli_fetch_assoc($result);
