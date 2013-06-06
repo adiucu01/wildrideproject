@@ -9,11 +9,18 @@ class WSystem {
 		}
 
 		public static function execute() {
+
+				$model = new UserModelDefault();
+
         $controller_class = ucfirst(WSystem::$controller_name)."Controller";
         self::$controller = new $controller_class;
 
         $controller_function = WSystem::$action_name."Action";
-        self::$controller->$controller_function();
+				if (self::$controller->_issecure == true && $model->is_logged() && $model->isValidUser())
+        	self::$controller->$controller_function();
+				else
+					WSystem::redirect("index","login");
+
     }
 
 }
