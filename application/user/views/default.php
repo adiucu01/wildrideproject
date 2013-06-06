@@ -127,10 +127,13 @@
                     </div>                        
                 </div>
                 <div id="currency"> 
-                    <div id="currency-content">  
+                    <div id="currency-content">
+                        <?php $rates = $model->getExchangeRates();?>  
                         <h3>Currency Rates</h3>
-                        <ul id="currency-list">
-                            
+                        <ul>
+                            <li><img src="../../../img/eur.png" alt="" width="25"/><?php echo '1 '.$rates[0]['from'].' - ' . number_format($rates[0]['to'], 2) . ' RON';?></li>
+                            <li><img src="../../../img/usd.png" alt="" width="25"/><?php echo '1 '.$rates[1]['from'].' - ' . number_format($rates[1]['to'], 2) . ' RON';?></li>
+                            <li><img src="../../../img/gbp.png" alt="" width="25"/><?php echo '1 '.$rates[2]['from'].' - ' . number_format($rates[2]['to'], 2) . ' RON';?></li>
                         </ul>
                         <input type="button" value="More"/>
                     </div>                     
@@ -201,7 +204,7 @@
         <div id="footer-copyright">
             Copyright © 2013 WildRide
         </div>
-        
+
         <script src="assets/js/jquery-1.9.1.min.js" type="text/javascript" ></script> 
         <script src="assets/js/mootools-core.js" type="text/javascript"></script>
         <script src="assets/js/mootools-more.js" type="text/javascript"></script>
@@ -211,24 +214,17 @@
         <script src="assets/js/Picker.Date.js" type="text/javascript"></script>  
         <script src="assets/js/jquery.hoverscroll.js" type="text/javascript"></script> 
         <script src="assets/js/jquery.zweatherfeed.min.js" type="text/javascript"></script>
-
+        <script src="assets/js/prism.js" type="text/javascript"></script>
+        <script src="assets/js/curry.js" type="text/javascript"></script>
 
 
         <script type="text/javascript">
 
             $(document).ready(function(){
                     $('#weather-content').weatherfeed(['873915'],{
-                        woeid: true
+                            woeid: true
                     });
-                    var currency = ["EUR","USD","GBP"];
-                    var rates = Array();
-                    for(var key01=0; key01<currency.length; key01++){
-                        rates[key01] = getCurrencyRates(currency[key01]);
-                    }
-                    $('#currency-list').append('<li><img src="img/eur.png" alt="" width="25"/>'+ rates[0] +'</li>');
-                    $('#currency-list').append('<li><img src="img/usd.png" alt="" width="25"/>'+ rates[1] +'</li>');
-                    $('#currency-list').append('<li><img src="img/gbp.png" alt="" width="25"/>'+ rates[2] +'</li>');
-                    
+
                     $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
                             vertical : false,
                             width: 980,
@@ -296,18 +292,7 @@
                     });  
 
 
-            });
-            function getCurrencyRates(from){
-                jQuery.ajax({
-                    type: "GET",
-                    url: "http://www.google.com/ig/calculator",
-                    data: "hl=en&q=1" + from + "=?RON",
-                    success: function(msg) {
-                        var currency = $.parseJSON(msg);
-                        return currency ['rhs'];
-                   }
-                }); 
-            }
+            }); 
             function showReturnLocationInputs(input){
                 if(input.checked){
                     input.checked = true;
