@@ -179,45 +179,28 @@
                                             'to' => 'RON'));
              $i = 0;                                
             foreach($rates as $rate){
-                $url = 'http://finance.yahoo.com/d/quotes.csv?f=l1d1t1&s='.$rate['from'].$rate['to'].'=X';
-                $handle = fopen($url, 'r');
-             
-                if ($handle) {
-                    $result = fgetcsv($handle);
-                    fclose($handle);
-                }
+                $url = 'http://www.google.com/ig/calculator?hl=en&q=1'.$rate['from'].'=?'.$rate['to'];
+                $c = curl_init();
+
+                // stabilim URL-ul serviciului Web invocat
+                curl_setopt($c, CURLOPT_URL, $url);
+
+                // rezultatul cererii va fi disponibil ca sir de caractere
+                // intors de apelul curl_exec()
+                curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+
+                // preluam resursa oferita de server (aici, un document XML)
+                $res = curl_exec($c);
+
+                // inchidem conexiunea cURL
+                curl_close($c);
+                preg_match('/.*rhs: "([0-9]+.[0-9]*).*/', $res, $matches);
+                
                 $r[$i]['from'] = $rate['from'];
-                $r[$i]['to'] = $result[0]; 
+                $r[$i]['to'] = floatval($matches[1]); 
                 $i++; 
             }  
             return $r;
-      }
-      public function getWeather(&$temp_c, &$img_url, &$loc){
-            $location = $this->getGeoLocation('86.124.171.143');
-            $url = 'http://api.worldweatheronline.com/free/v1/weather.ashx?q='.$location['town'].'&format=json&num_of_days=5&key='.WHEATER_API;
-          
-            // initializam cURL
-            $c = curl_init();
-
-            // stabilim URL-ul serviciului Web invocat
-            curl_setopt($c, CURLOPT_URL, $url);
-
-            // rezultatul cererii va fi disponibil ca sir de caractere
-            // intors de apelul curl_exec()
-            curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-
-            // preluam resursa oferita de server (aici, un document XML)
-            $res = curl_exec($c);
-
-            // inchidem conexiunea cURL
-            curl_close($c);
-            
-            $weather = json_decode($res);
-            
-            $temp_c = $weather->data->current_condition[0]->temp_C;
-            $img_url = $weather->data->current_condition[0]->weatherIconUrl[0]->value;
-            $loc = $location['town']; 
-          
       }
       private function getGeoLocation($ip){
                //check, if the provided ip is valid
