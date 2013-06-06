@@ -214,6 +214,7 @@
         <script src="assets/js/Picker.Date.js" type="text/javascript"></script>  
         <script src="assets/js/jquery.hoverscroll.js" type="text/javascript"></script> 
         <script src="assets/js/jquery.zweatherfeed.min.js" type="text/javascript"></script> 
+        <script src="assets/js/functions.js" type="text/javascript"></script> 
 
 
         <script type="text/javascript">
@@ -306,17 +307,7 @@
                     document.getElementById("inputs-label-return").style.display = "block";
                 }
             }                    
-            function Logout(){
-                deleteCookie('user_id');
-                deleteCookie('user_session_id');
-                window.location.href = "login.php";
-            }
-            function deleteCookie(name) {
-                var date = new Date();
-                date.setTime(date.getTime()+(-1*24*60*60*1000));
-                var expires = " expires="+date.toGMTString();
-                document.cookie = name+"=;"+expires+"; path=/";
-            }
+             
             function go(controller, action){
                 window.location.href = "index.php?c="+controller+"&a=" + action;
             }

@@ -4,13 +4,13 @@
 <header>
     <div class="content">
         <div id="logo">
-            <a href="" alt=""><img src="../../../img/logo.png" alt=""/></a>
+            <a href="" alt=""><img src="img/logo.png" alt=""/></a>
         </div>
         <div id="contact"> 
             <p> Luni-Vineri: 8-20<br/>
                 Sambata-Duminica: 10-18</br>
                 Contact: 0756 318 976</br>
-                       : 0760 489 168</br>
+                <font style="float: right; margin-right: 45px;">: 0760 489 168</font></br>
                 E-mail: office@wildride.ro
             </p>
         </div>

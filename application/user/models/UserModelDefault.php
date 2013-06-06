@@ -255,14 +255,14 @@
 
         }
         public function SendMail($param){
-            require('../../../libraries/Smarty/Smarty.class.php');
+            require('libraries/Smarty/Smarty.class.php');
 
             $smarty = new Smarty;
 
-            $smarty->setTemplateDir('../../../templates');
-            $smarty->setCompileDir('../../../templates_c');
-            $smarty->setCacheDir('../../../cache');
-            $smarty->setConfigDir('../../../config');
+            $smarty->setTemplateDir('templates');
+            $smarty->setCompileDir('templates_c');
+            $smarty->setCacheDir('cache');
+            $smarty->setConfigDir('config');
 
             //$smarty->force_compile = true;
             //$smarty->debugging = true;
@@ -275,15 +275,14 @@
 
             $smarty->assign("customer", $param['customer']);
             $smarty->assign("sender", $sender);
-
-            $smarty->display('index.tpl');
-
+            
             ob_start();
+            
+            $smarty->display('index.tpl');   
 
             $message = ob_get_contents();
 
-            ob_end_flush();
-            //die();
+            ob_end_clean(); 
 
             $to = $param['email'];
             $subject = $param['subject'];
