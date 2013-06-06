@@ -36,12 +36,24 @@
                                         }else{
                                             $class = 'class="results-row"';
                                         }
+                                        $c_string = 'with ';
+                                        $c_arr = explode(';',$row['caracteristici']);
+                                        for($key00 = 0; $key00<count($c_arr)-1;$key00++){
+                                            $c_strings = explode('=',$c_arr[$key00]); 
+                                            $c_string .= $c_strings[1].' '.$c_strings[0];
+                                            if($key00==count($c_arr)-2){
+                                                $c_string .= '';
+                                            }else{
+                                                $c_string .= ' and ';
+                                            }                                             
+                                        }
                                         $HTML.='<li '.$class.'>
                                                 <div id="scooter-list-img">
-                                                    <img src="../../../'.$row['imagine'].'" width="180"/>
+                                                    <img src="'.$row['imagine'].'" width="180"/>
                                                 </div>
                                                 <div id="scooter-list-desc">
-                                                    <h4>'.$row['denumire'].' - '.str_replace(';', ',', $row['caracteristici']).'</h4>
+                                                    
+                                                    <h4>'.$row['denumire'].' - '.$c_string.'</h4>
                                                     <p>'.$row['descriere'].'</p>
                                                 </div>
                                                 <div id="scooter-list-option">
@@ -128,7 +140,7 @@
                                         }
                                         $HTML.='<li '.$class.'>
                                                 <div id="scooter-list-img">
-                                                    <img src="../../../'.$row['imagine'].'" width="180"/>
+                                                    <img src="'.$row['imagine'].'" width="180"/>
                                                 </div>
                                                 <div id="scooter-list-desc">
                                                     <h4>'.$row['denumire'].' - '.str_replace(';', ',', $row['caracteristici']).'</h4>
@@ -199,7 +211,7 @@
                                         }
                                         $HTML.='<li '.$class.'>
                                                 <div id="scooter-list-img">
-                                                    <img src="../../../'.$row['imagine'].'" width="180"/>
+                                                    <img src="'.$row['imagine'].'" width="180"/>
                                                 </div>
                                                 <div id="scooter-list-desc">
                                                     <h4>'.$row['denumire'].' - '.str_replace(';', ',', $row['caracteristici']).'</h4>
@@ -270,7 +282,7 @@
                                         }
                                         $HTML.='<li '.$class.'>
                                                 <div id="scooter-list-img">
-                                                    <img src="../../../'.$row['imagine'].'" width="180"/>
+                                                    <img src="'.$row['imagine'].'" width="180"/>
                                                 </div>
                                                 <div id="scooter-list-desc">
                                                     <h4>'.$row['denumire'].' - '.str_replace(';', ',', $row['caracteristici']).'</h4>
@@ -347,7 +359,7 @@
                                         }
                                         $HTML.='<li '.$class.'>
                                                 <div id="scooter-list-img">
-                                                    <img src="../../../'.$row['imagine'].'" width="180"/>
+                                                    <img src="'.$row['imagine'].'" width="180"/>
                                                 </div>
                                                 <div id="scooter-list-desc">
                                                     <h4>'.$row['denumire'].' - '.str_replace(';', ',', $row['caracteristici']).'</h4>
@@ -428,7 +440,7 @@
                                         }
                                         $HTML.='<li '.$class.'>
                                                 <div id="scooter-list-img">
-                                                    <img src="../../../'.$row['imagine'].'" width="180"/>
+                                                    <img src="'.$row['imagine'].'" width="180"/>
                                                 </div>
                                                 <div id="scooter-list-desc">
                                                     <h4>'.$row['denumire'].' - '.str_replace(';', ',', $row['caracteristici']).'</h4>
@@ -509,7 +521,7 @@
                                         }
                                         $HTML.='<li '.$class.'>
                                                 <div id="scooter-list-img">
-                                                    <img src="../../../'.$row['imagine'].'" width="180"/>
+                                                    <img src="'.$row['imagine'].'" width="180"/>
                                                 </div>
                                                 <div id="scooter-list-desc">
                                                     <h4>'.$row['denumire'].' - '.str_replace(';', ',', $row['caracteristici']).'</h4>
@@ -590,7 +602,7 @@
                                         }
                                         $HTML.='<li '.$class.'>
                                                 <div id="scooter-list-img">
-                                                    <img src="../../../'.$row['imagine'].'" width="180"/>
+                                                    <img src="'.$row['imagine'].'" width="180"/>
                                                 </div>
                                                 <div id="scooter-list-desc">
                                                     <h4>'.$row['denumire'].' - '.str_replace(';', ',', $row['caracteristici']).'</h4>

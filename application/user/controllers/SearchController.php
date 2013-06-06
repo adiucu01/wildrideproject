@@ -2,7 +2,7 @@
     class SearchController{
         private $request;
         private $view = 'application/user/views/';
-        public $_secure = true;
+        public $_secure = false;
 
         public function __construct() {
             $request = new Request();

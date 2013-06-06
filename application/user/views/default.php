@@ -131,9 +131,9 @@
                         <?php $rates = $model->getExchangeRates();?>  
                         <h3>Currency Rates</h3>
                         <ul>
-                            <li><img src="../../../img/eur.png" alt="" width="25"/><?php echo '1 '.$rates[0]['from'].' - ' . number_format($rates[0]['to'], 2) . ' RON';?></li>
-                            <li><img src="../../../img/usd.png" alt="" width="25"/><?php echo '1 '.$rates[1]['from'].' - ' . number_format($rates[1]['to'], 2) . ' RON';?></li>
-                            <li><img src="../../../img/gbp.png" alt="" width="25"/><?php echo '1 '.$rates[2]['from'].' - ' . number_format($rates[2]['to'], 2) . ' RON';?></li>
+                            <li><img src="img/eur.png" alt="" width="25"/><?php echo '1 '.$rates[0]['from'].' - ' . number_format($rates[0]['to'], 2) . ' RON';?></li>
+                            <li><img src="img/usd.png" alt="" width="25"/><?php echo '1 '.$rates[1]['from'].' - ' . number_format($rates[1]['to'], 2) . ' RON';?></li>
+                            <li><img src="img/gbp.png" alt="" width="25"/><?php echo '1 '.$rates[2]['from'].' - ' . number_format($rates[2]['to'], 2) . ' RON';?></li>
                         </ul>
                         <input type="button" value="More"/>
                     </div>                     
@@ -213,9 +213,7 @@
         <script src="assets/js/Picker.Attach.js" type="text/javascript"></script>
         <script src="assets/js/Picker.Date.js" type="text/javascript"></script>  
         <script src="assets/js/jquery.hoverscroll.js" type="text/javascript"></script> 
-        <script src="assets/js/jquery.zweatherfeed.min.js" type="text/javascript"></script>
-        <script src="assets/js/prism.js" type="text/javascript"></script>
-        <script src="assets/js/curry.js" type="text/javascript"></script>
+        <script src="assets/js/jquery.zweatherfeed.min.js" type="text/javascript"></script> 
 
 
         <script type="text/javascript">

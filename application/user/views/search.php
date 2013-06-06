@@ -1,7 +1,7 @@
 <?php
-//require_once("/../models/search.php"); 
-$model = new UserModelSearch();
-$paginationCount = $model->getPagination($_POST, $count);
+    //require_once("/../models/search.php"); 
+    $model = new UserModelSearch();
+    $paginationCount = $model->getPagination($_POST, $count);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -12,11 +12,11 @@ $paginationCount = $model->getPagination($_POST, $count);
 
     </head>
     <body onload="changePagination('0', 'first')"> 
-<?php $result = $model->getUser(); ?>         
+        <?php $result = $model->getUser(); ?>         
         <header>
             <div class="content">
                 <div id="logo">
-                    <a href="default.php" title="WildRide"><img src="img/logo.png" alt="WildRide"/></a>
+                    <a href="index.php" title="WildRide"><img src="img/logo.png" alt="WildRide"/></a>
                 </div>
                 <div id="navigator">
                     <nav>
@@ -37,51 +37,51 @@ $paginationCount = $model->getPagination($_POST, $count);
                         <a href="javascript:void(0);" onclick="MakeFilter('0', 'first', 'in_stock',<?php echo $count; ?>)">In stock (<?php echo $count; ?>)</a>
                         <?php $model->AllProducts($_POST, $count); ?>
                         <a href="javascript:void(0);" onclick="MakeFilter('0', 'first', 'all_products',<?php echo $count; ?>)">All products (<?php echo $count ?>)</a>
-<?php $model->NewProducts($_POST, $count); ?>
+                        <?php $model->NewProducts($_POST, $count); ?>
                         <a href="javascript:void(0);" onclick="MakeFilter('0', 'first', 'new_products',<?php echo $count; ?>)">New products (<?php echo $count ?>)</a>
                     </section>
                     <section id="price-filter">
                         <h4>Price (EUR)</h4>
                         <?php $model->PriceProducts($_POST, $min, $max, $range, $count); ?>
                         <input type="range" step="1" name="price-filter" id="price-filter-input" min="<?php echo $min; ?>" max="<?php echo $max; ?>" onchange="rangevalue.value = value;
-                price_products = this.value;
-                MakeFilter('0', 'first', 'price_products',<?php echo $count; ?>);"/>
+                            price_products = this.value;
+                            MakeFilter('0', 'first', 'price_products',<?php echo $count; ?>);"/>
                         <output id="rangevalue"><?php echo $range; ?></output>
                     </section>
                     <section id="handles-filter">
                         <h4>Handles</h4>
                         <?php $model->HandlesProducts($_POST, $rubber, $plastic); ?>
                         <input type="checkbox" id="handles-filter-rubber" onchange="CheckUncheck(this);
-                handles = 'rubber';
-                MakeFilter('0', 'first', 'handles_products',<?php echo $rubber; ?>);">
+                            handles = 'rubber';
+                            MakeFilter('0', 'first', 'handles_products',<?php echo $rubber; ?>);">
                         <label>Rubber (<?php echo $rubber; ?>)</label>
                         <input type="checkbox" id="handles-filter-plastic" onchange="CheckUncheck(this);
-                handles = 'plastic';
-                MakeFilter('0', 'first', 'handles_products',<?php echo $plastic; ?>);">
+                            handles = 'plastic';
+                            MakeFilter('0', 'first', 'handles_products',<?php echo $plastic; ?>);">
                         <label>Plastic (<?php echo $plastic; ?>)</label>
                     </section>
                     <section id="wheels-filter">
                         <h4>Wheels</h4>
                         <?php $model->WheelsProducts($_POST, $aluminum, $iron); ?>
                         <input type="checkbox" id="wheels-filter-aluminum" onchange="CheckUncheck(this);
-                wheels = 'aluminum';
-                MakeFilter('0', 'first', 'wheels_products',<?php echo $aluminum; ?>);">
+                            wheels = 'aluminum';
+                            MakeFilter('0', 'first', 'wheels_products',<?php echo $aluminum; ?>);">
                         <label>Aluminum (<?php echo $aluminum; ?>)</label>
                         <input type="checkbox" id="wheels-filter-iron" onchange="CheckUncheck(this);
-                wheels = 'iron';
-                MakeFilter('0', 'first', 'wheels_products',<?php echo $iron; ?>);">
+                            wheels = 'iron';
+                            MakeFilter('0', 'first', 'wheels_products',<?php echo $iron; ?>);">
                         <label>Iron (<?php echo $iron; ?>)</label>
                     </section>
                     <section id="horn-filter">
                         <h4>Horn</h4>
                         <?php $model->HornProducts($_POST, $yes, $no); ?>
                         <input type="checkbox" id="horn-filter-yes" onchange="CheckUncheck(this);
-                horn = 'yes';
-                MakeFilter('0', 'first', 'horn_products',<?php echo $yes; ?>);">
+                            horn = 'yes';
+                            MakeFilter('0', 'first', 'horn_products',<?php echo $yes; ?>);">
                         <label>Yes (<?php echo $yes; ?>)</label>
                         <input type="checkbox" id="horn-filter-no" onchange="CheckUncheck(this);
-                horn = 'no';
-                MakeFilter('0', 'first', 'horn_products',<?php echo $no; ?>);">
+                            horn = 'no';
+                            MakeFilter('0', 'first', 'horn_products',<?php echo $no; ?>);">
                         <label>No (<?php echo $no; ?>)</label>
                     </section>
                 </div>    
@@ -97,19 +97,19 @@ $paginationCount = $model->getPagination($_POST, $count);
                     <div id="scooter-container"></div>
                     <div class="wrapper" id="pagination-header">
                         <?php
-                        if ($count > 0) {
+                            if ($count > 0) {
                             ?>
                             <ul id="pagination-header-list">
                                 <li class='first link' id="first"><a href="javascript:void(0)" onclick="changePagination('0', 'first')">First</a></li>
-                                    <?php
+                                <?php
                                     for ($i = 0; $i < $paginationCount; $i++) {
-                                        ?><li id="pag_li_<?php echo $i; ?>" class='link'><a href="javascript:void(0)" onclick="changePagination('<?php echo $i; ?>', 'pag_li_<?php echo $i; ?>')"><?php echo $i + 1; ?></a></li><?php
-                            }
-                            ?>
+                                    ?><li id="pag_li_<?php echo $i; ?>" class='link'><a href="javascript:void(0)" onclick="changePagination('<?php echo $i; ?>', 'pag_li_<?php echo $i; ?>')"><?php echo $i + 1; ?></a></li><?php
+                                    }
+                                ?>
                                 <li class='last link'  id="last"><a href="javascript:void(0)" onclick="changePagination('<?php echo $paginationCount - 1; ?>', 'last')">Last</a></li>
                                 <li class="flash"></li>
                             </ul>
-<?php } ?>
+                            <?php } ?>
                     </div>  
                     <section id="scooter-list">
                         <ul id="scooter-list-result">  
@@ -118,19 +118,19 @@ $paginationCount = $model->getPagination($_POST, $count);
                     </section>
                     <div class="wrapper" id="pagination-footer">
                         <?php
-                        if ($count > 0) {
+                            if ($count > 0) {
                             ?>
                             <ul id="pagination-footer-list">
                                 <li class='first link footer-pag' id="first"><a href="javascript:void(0)" onclick="changePagination('0', 'first')">First</a></li>
-                                    <?php
+                                <?php
                                     for ($i = 0; $i < $paginationCount; $i++) {
-                                        ?><li id="pag_li_<?php echo $i; ?>" class='link footer-pag'><a href="javascript:void(0)" onclick="changePagination('<?php echo $i; ?>', 'pag_li_<?php echo $i; ?>')"><?php echo $i + 1; ?></a></li><?php
-                            }
-                            ?>
+                                    ?><li id="pag_li_<?php echo $i; ?>" class='link footer-pag'><a href="javascript:void(0)" onclick="changePagination('<?php echo $i; ?>', 'pag_li_<?php echo $i; ?>')"><?php echo $i + 1; ?></a></li><?php
+                                    }
+                                ?>
                                 <li class='last link footer-pag'  id="last"><a href="javascript:void(0)" onclick="changePagination('<?php echo $paginationCount - 1; ?>', 'last')">Last</a></li>
                                 <li class="flash"></li>
                             </ul>
-<?php } ?>
+                            <?php } ?>
                     </div>    
                 </div>
             </div>
@@ -146,35 +146,30 @@ $paginationCount = $model->getPagination($_POST, $count);
                             echo '<input type="button" value="Logout" onclick="Logout()" class="input-logout"/>';
                         } else {
                             echo 'Welcome guest!</br>Please</h4>
-                                            <input type="button" value="Sign In"/>
-                                            <div id="members-area-login">or</div>
-                                            <input type="button" value="Sign Up"/>';
+                            <input type="button" value="Sign In"/>
+                            <div id="members-area-login">or</div>
+                            <input type="button" value="Sign Up"/>';
                         }
-                        ?>
+                    ?>
                 </div>                        
             </div>
             <div id="weather">
                 <div id="weather-content">
                     <h3>Current Weather</h3>
-<?php $model->getWeather($temp_c, $img_url, $loc); ?>
-                    <div id="weather-content-img"><img src="<?php echo $img_url; ?>" alt="" /></div>
-                    <div id="weather-location"><?php echo $loc; ?></div>
-                    <div id="weather-temp"><?php echo $temp_c . '°C'; ?></div>
-                    <input type="button" value="More"/> 
+                    <div id="weather-content"></div>
                 </div>                        
             </div>
             <div id="currency"> 
-                <div id="currency-content">
-<?php $rates = $model->getExchangeRates(); ?>
-                    <h3>Currency Rates</h3>
-                    <ul>
-                        <li><img src="img/eur.png" alt="" width="25"/><?php echo '1 EUR - ' . number_format(1, 2, '.', ' ') . ' EUR'; ?></li>
-                        <li><img src="img/usd.png" alt="" width="25"/><?php echo '1 EUR - ' . number_format(floatval($rates['EURUSD']), 2) . ' USD'; ?></li>
-                        <li><img src="img/gbp.png" alt="" width="25"/><?php echo '1 EUR - ' . number_format(floatval('0' . $rates['EURGBP']), 2) . ' GBP'; ?></li>
-                    </ul>
-                    <input type="button" value="More"/>
-                </div>                     
-            </div>                                   
+            <div id="currency-content">
+                <?php $rates = $model->getExchangeRates();?>  
+                <h3>Currency Rates</h3>
+                <ul>
+                    <li><img src="img/eur.png" alt="" width="25"/><?php echo '1 '.$rates[0]['from'].' - ' . number_format($rates[0]['to'], 2) . ' RON';?></li>
+                    <li><img src="img/usd.png" alt="" width="25"/><?php echo '1 '.$rates[1]['from'].' - ' . number_format($rates[1]['to'], 2) . ' RON';?></li>
+                    <li><img src="img/gbp.png" alt="" width="25"/><?php echo '1 '.$rates[2]['from'].' - ' . number_format($rates[2]['to'], 2) . ' RON';?></li>
+                </ul>
+                <input type="button" value="More"/>
+            </div>                                     
         </section>
         <footer>
             <div class="content">
@@ -226,6 +221,7 @@ $paginationCount = $model->getPagination($_POST, $count);
         </div>
         <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>  
         <script type="text/javascript" src="assets/js/functions.js"></script>  
+        <script src="assets/js/jquery.zweatherfeed.min.js" type="text/javascript"></script> 
         <script type="text/javascript">
             var start_date = '<?php echo $_POST['start-date']; ?>';
             var start_adress = '<?php echo $_POST['adress_start']; ?>';
@@ -235,42 +231,45 @@ $paginationCount = $model->getPagination($_POST, $count);
             var horn = null;
 
             $(document).ready(function() {
-
-                $("#members-area").mouseover(function() {
-                    $("#members-area-content").show();
-                    $("#weather-content").hide();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#members-area-content").mouseenter(function() {
-                        $("#members-area-content").show();
-                    }).mouseleave(function() {
-                        $("#members-area-content").hide();
+                    $('#weather-content').weatherfeed(['873915'],{
+                            woeid: true
                     });
-                });
 
-                $("#weather").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#weather-content").show();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#weather-content").mouseenter(function() {
-                        $("#weather-content").show();
-                    }).mouseleave(function() {
-                        $("#weather-content").hide();
+                    $("#members-area").mouseover(function() {
+                            $("#members-area-content").show();
+                            $("#weather-content").hide();
+                            $("#currency-content").hide();
+                    }).mouseout(function() {
+                            $("#members-area-content").mouseenter(function() {
+                                    $("#members-area-content").show();
+                            }).mouseleave(function() {
+                                    $("#members-area-content").hide();
+                            });
                     });
-                });
 
-                $("#currency").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#currency-content").show();
-                    $("#weather-content").hide();
-                }).mouseout(function() {
-                    $("#currency-content").mouseenter(function() {
-                        $("#currency-content").show();
-                    }).mouseleave(function() {
-                        $("#currency-content").hide();
+                    $("#weather").mouseover(function() {
+                            $("#members-area-content").hide();
+                            $("#weather-content").show();
+                            $("#currency-content").hide();
+                    }).mouseout(function() {
+                            $("#weather-content").mouseenter(function() {
+                                    $("#weather-content").show();
+                            }).mouseleave(function() {
+                                    $("#weather-content").hide();
+                            });
                     });
-                });
+
+                    $("#currency").mouseover(function() {
+                            $("#members-area-content").hide();
+                            $("#currency-content").show();
+                            $("#weather-content").hide();
+                    }).mouseout(function() {
+                            $("#currency-content").mouseenter(function() {
+                                    $("#currency-content").show();
+                            }).mouseleave(function() {
+                                    $("#currency-content").hide();
+                            });
+                    });
 
 
             });
@@ -282,9 +281,9 @@ $paginationCount = $model->getPagination($_POST, $count);
                     var ascending = true;
                 }
                 var sorted = $('.results-row').sort(function(a, b) {
-                    return (ascending ===
+                        return (ascending ===
                             (convertToNumber($(a).find('.scooter-detailed-price').html()) <
-                                    convertToNumber($(b).find('.scooter-detailed-price').html()))) ? 1 : -1;
+                                convertToNumber($(b).find('.scooter-detailed-price').html()))) ? 1 : -1;
                 });
 
                 $('#scooter-list-result').html(sorted);
@@ -302,20 +301,20 @@ $paginationCount = $model->getPagination($_POST, $count);
                 $(".flash").fadeIn(400).html('Loading <img src="img/ajax-loading.gif" />');
                 var dataString = 'adress_start=' + start_adress + '&start-date=' + start_date + '&pageId=' + pageId;
                 $.ajax({
-                    type: "POST",
-                    url: "index.php?c=search&a=pagination",
-                    data: dataString,
-                    cache: false,
-                    success: function(result) {
-                        $(".flash").hide();
-                        $(".link a").each(function() {
-                            $(this).css({background: "#fff", color: "#9F9F9F"});
-                        });
-                        $("#" + liId + " a").each(function() {
-                            $(this).css({background: "#40AAEB", color: "#fff"});
-                        });
-                        $("#scooter-list-result").html(result);
-                    }
+                        type: "POST",
+                        url: "index.php?c=search&a=pagination",
+                        data: dataString,
+                        cache: false,
+                        success: function(result) {
+                            $(".flash").hide();
+                            $(".link a").each(function() {
+                                    $(this).css({background: "#fff", color: "#9F9F9F"});
+                            });
+                            $("#" + liId + " a").each(function() {
+                                    $(this).css({background: "#40AAEB", color: "#fff"});
+                            });
+                            $("#scooter-list-result").html(result);
+                        }
                 });
             }
             function MakeFilter(pageId, liId, categ, pag_no) {
@@ -335,38 +334,38 @@ $paginationCount = $model->getPagination($_POST, $count);
                 var dataString = 'adress_start=' + start_adress + '&start-date=' + start_date + '&pageId=' + pageId + '&pag_no=' + pag_no + add;
 
                 $.ajax({
-                    type: "POST",
-                    url: "index.php?c=search&a=filter&category=" + categ,
-                    data: dataString,
-                    cache: false,
-                    success: function(result) {
-                        $(".flash").hide();
-                        var arr_result = result.split('##');
-                        $("#pagination-header-list").html("");
-                        $("#pagination-header-list").html('<li class=\'first link\' id="first"><a href="javascript:void(0)" onclick="MakeFilter(\'0\',\'first\',\'' + categ + '\',\'' + pag_no + '\')">First</a></li>');
-                        for (var i = 0; i < arr_result[0]; i++) {
-                            $("#pagination-header-list").append('<li id="pag_li_' + i + '" class=\'link\'><a href="javascript:void(0)" onclick="MakeFilter(\'' + i + '\',\'pag_li_' + i + '\',\'' + categ + '\',\'' + pag_no + '\')">' + (i + 1) + '</a></li>');
+                        type: "POST",
+                        url: "index.php?c=search&a=filter&category=" + categ,
+                        data: dataString,
+                        cache: false,
+                        success: function(result) {
+                            $(".flash").hide();
+                            var arr_result = result.split('##');
+                            $("#pagination-header-list").html("");
+                            $("#pagination-header-list").html('<li class=\'first link\' id="first"><a href="javascript:void(0)" onclick="MakeFilter(\'0\',\'first\',\'' + categ + '\',\'' + pag_no + '\')">First</a></li>');
+                            for (var i = 0; i < arr_result[0]; i++) {
+                                $("#pagination-header-list").append('<li id="pag_li_' + i + '" class=\'link\'><a href="javascript:void(0)" onclick="MakeFilter(\'' + i + '\',\'pag_li_' + i + '\',\'' + categ + '\',\'' + pag_no + '\')">' + (i + 1) + '</a></li>');
 
+                            }
+                            $("#pagination-header-list").append('<li class=\'last link\'  id="last"><a href="javascript:void(0)" onclick="MakeFilter(\'' + (arr_result[0] - 1) + '\',\'last\',\'' + categ + '\',\'' + pag_no + '\')">Last</a></li><li class="flash"></li>');
+
+
+                            $("#pagination-footer-list").html("");
+                            $("#pagination-footer-list").html('<li class=\'first link footer-pag\' id="first"><a href="javascript:void(0)" onclick="MakeFilter(\'0\',\'first\',\'' + categ + '\',\'' + pag_no + '\')">First</a></li>');
+                            for (var i = 0; i < arr_result[0]; i++) {
+                                $("#pagination-footer-list").append('<li id="pag_li_' + i + '" class=\'link footer-pag\'><a href="javascript:void(0)" onclick="MakeFilter(\'' + i + '\',\'pag_li_' + i + '\',\'' + categ + '\',\'' + pag_no + '\')">' + (i + 1) + '</a></li>');
+
+                            }
+                            $("#pagination-footer-list").append('<li class=\'last link footer-pag\'  id="last"><a href="javascript:void(0)" onclick="MakeFilter(\'' + (arr_result[0] - 1) + '\',\'last\',\'' + categ + '\',\'' + pag_no + '\')">Last</a></li><li class="flash"></li>');
+
+                            $(".link a").each(function() {
+                                    $(this).css({background: "#fff", color: "#9F9F9F"});
+                            });
+                            $("#" + liId + " a").each(function() {
+                                    $(this).css({background: "#40AAEB", color: "#fff"});
+                            });
+                            $("#scooter-list-result").html(arr_result[1]);
                         }
-                        $("#pagination-header-list").append('<li class=\'last link\'  id="last"><a href="javascript:void(0)" onclick="MakeFilter(\'' + (arr_result[0] - 1) + '\',\'last\',\'' + categ + '\',\'' + pag_no + '\')">Last</a></li><li class="flash"></li>');
-
-
-                        $("#pagination-footer-list").html("");
-                        $("#pagination-footer-list").html('<li class=\'first link footer-pag\' id="first"><a href="javascript:void(0)" onclick="MakeFilter(\'0\',\'first\',\'' + categ + '\',\'' + pag_no + '\')">First</a></li>');
-                        for (var i = 0; i < arr_result[0]; i++) {
-                            $("#pagination-footer-list").append('<li id="pag_li_' + i + '" class=\'link footer-pag\'><a href="javascript:void(0)" onclick="MakeFilter(\'' + i + '\',\'pag_li_' + i + '\',\'' + categ + '\',\'' + pag_no + '\')">' + (i + 1) + '</a></li>');
-
-                        }
-                        $("#pagination-footer-list").append('<li class=\'last link footer-pag\'  id="last"><a href="javascript:void(0)" onclick="MakeFilter(\'' + (arr_result[0] - 1) + '\',\'last\',\'' + categ + '\',\'' + pag_no + '\')">Last</a></li><li class="flash"></li>');
-
-                        $(".link a").each(function() {
-                            $(this).css({background: "#fff", color: "#9F9F9F"});
-                        });
-                        $("#" + liId + " a").each(function() {
-                            $(this).css({background: "#40AAEB", color: "#fff"});
-                        });
-                        $("#scooter-list-result").html(arr_result[1]);
-                    }
                 });
             }
             function CheckUncheck(input) {

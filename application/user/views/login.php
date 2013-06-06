@@ -19,7 +19,7 @@ if ($model->is_logged())
         <header>
             <div class="content">
                 <div id="logo">
-                    <a href="default.php" title="WildRide"><img src="img/logo.png" alt="WildRide"/></a>
+                    <a href="index.php" title="WildRide"><img src="img/logo.png" alt="WildRide"/></a>
                 </div>
                 <div id="navigator">
                     <nav>
