@@ -13,238 +13,15 @@ $model->setHistoryViews($_GET['id']);
         <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
         <link rel="stylesheet" type="text/css" href="assets/css/main.css" />  
         <link rel="stylesheet" type="text/css" media="all" href="assets/css/jquery.hoverscroll.css" />        
-        <link rel="stylesheet" href="assets/css/datepicker_bootstrap.css" >
-
-        <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> 
-        <script src="assets/js/mootools-core.js" type="text/javascript"></script>
-        <script src="assets/js/mootools-more.js" type="text/javascript"></script>
-        <script src="assets/js/Locale.en-US.DatePicker.js" type="text/javascript"></script>
-        <script src="assets/js/Picker.js" type="text/javascript"></script>
-        <script src="assets/js/Picker.Attach.js" type="text/javascript"></script>
-        <script src="assets/js/Picker.Date.js" type="text/javascript"></script>
-        <script type="text/javascript" src="assets/js/jquery.hoverscroll.js"></script>
-        <script type="text/javascript" src='../../../assets/js/jquery.zoom-min.js'></script>            
+        <link rel="stylesheet" href="assets/css/datepicker_bootstrap.css" >          
 
         <?php
         $scooter = $model->getScooter($_GET['id']);
+        $region_end = $city_end = $adress_end = null;
         $model->getPositionEnd($region_end, $city_end, $adress_end);
         ?>
 
-        <script type="text/javascript">
-            var map;
-            var directionsDisplay;
-            var directionsService = new google.maps.DirectionsService();
-            var geocoder;
-            var init = 1;
-
-            $(document).ready(function() {
-
-                $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
-                    vertical: false,
-                    width: 980,
-                    height: 270,
-                    arrows: false
-                });
-                $('#horizontal-scooters-history').hoverscroll();
-
-                window.addEvent('domready', function() {
-                    new Picker.Date($$('#end-date'), {
-                        timePicker: true,
-                        positionOffset: {x: 5, y: 0},
-                        pickerClass: 'datepicker_bootstrap',
-                        useFadeInOut: !Browser.ie
-                    });
-                });
-
-                $("#members-area").mouseover(function() {
-                    $("#members-area-content").show();
-                    $("#weather-content").hide();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#members-area-content").mouseenter(function() {
-                        $("#members-area-content").show();
-                    }).mouseleave(function() {
-                        $("#members-area-content").hide();
-                    });
-                });
-
-                $("#weather").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#weather-content").show();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#weather-content").mouseenter(function() {
-                        $("#weather-content").show();
-                    }).mouseleave(function() {
-                        $("#weather-content").hide();
-                    });
-                });
-
-                $("#currency").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#currency-content").show();
-                    $("#weather-content").hide();
-                }).mouseout(function() {
-                    $("#currency-content").mouseenter(function() {
-                        $("#currency-content").show();
-                    }).mouseleave(function() {
-                        $("#currency-content").hide();
-                    });
-                });
-
-            });
-
-            function Logout() {
-                deleteCookie('user_id');
-                deleteCookie('user_session_id');
-                window.location.href = "login.php";
-            }
-            function deleteCookie(name) {
-                var date = new Date();
-                date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
-                var expires = " expires=" + date.toGMTString();
-                document.cookie = name + "=;" + expires + "; path=/";
-            }
-            function selectOras(judet) {
-                var judete = <?php echo JUDET; ?>;
-
-                var orasSelect = document.getElementById("oras");
-                var form = document.getElementById("form-signup");
-                var judetLabel = document.getElementById("judet");
-                var divSelect = document.getElementById('search-judet');
-
-                if (orasSelect != null) {
-                    form.removeChild(document.getElementById("login-label-oras"));
-                    form.removeChild(document.getElementById("search-oras"));
-                }
-
-                var select = document.createElement("select");
-                select.setAttribute("name", "oras");
-                select.id = "oras";
-
-                for (var oras in judete[judet.value]) {
-                    var option = document.createElement("option");
-                    option.setAttribute("value", oras);
-                    option.innerHTML = oras;
-                    select.appendChild(option);
-                }
-                var div = document.createElement("div");
-                div.className = "search-select";
-                div.id = "search-oras";
-
-                var label = document.createElement("label");
-                label.className = "login-label";
-                label.id = "login-label-oras";
-                label.innerHTML = "Oras";
-
-                div.appendChild(label);
-                div.appendChild(select);
-                divSelect.parentNode.insertBefore(label, divSelect.nextSibling);
-                label.parentNode.insertBefore(div, label.nextSibling);
-            }
-            function RentNavigatorDescription(div, a) {
-                switch (div) {
-                    case 1:
-                        $('#scooter-desc').show();
-                        $(a.parentNode.children).each(function(index) {
-                            this.removeClass('current-item');
-                        });
-                        a.className = "current-item";
-                        $('#view-map').hide();
-                        $('#rental-cond').hide();
-                        break;
-                    case 2:
-                        $('#view-map').show();
-                        $(a.parentNode.children).each(function(index) {
-                            this.removeClass('current-item');
-                        });
-
-                        if (init == 1) {
-                            initialize();
-                            var control = document.getElementById('control');
-                            control.style.display = 'block';
-                            map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
-
-                            $("#start").val('<?php echo $scooter['adresa']; ?>');
-                            codeAddress('<?php echo $scooter['adresa']; ?>');
-                            init++;
-                        }
-                        a.className = "current-item";
-                        $('#scooter-desc').hide();
-                        $('#rental-cond').hide();
-                        break;
-                    case 3:
-                        $('#rental-cond').show();
-                        $(a.parentNode.children).each(function(index) {
-                            this.removeClass('current-item');
-                        });
-                        a.className = "current-item";
-                        $('#scooter-desc').hide();
-                        $('#view-map').hide();
-                        break;
-                }
-            }
-            function initialize() {
-                geocoder = new google.maps.Geocoder();
-                directionsDisplay = new google.maps.DirectionsRenderer();
-                var mapOptions = {
-                    zoom: 12,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-                directionsDisplay.setMap(map);
-                directionsDisplay.setPanel(document.getElementById('directions-panel'));
-            }
-
-            function calcRoute() {
-                var start = document.getElementById('start').value;
-                var end = document.getElementById('end').value;
-
-                codeAddress(end);
-
-                var request = {
-                    origin: start,
-                    destination: end,
-                    travelMode: google.maps.TravelMode.DRIVING
-                };
-                directionsService.route(request, function(response, status) {
-                    if (status == google.maps.DirectionsStatus.OK) {
-                        directionsDisplay.setDirections(response);
-                    }
-                });
-            }
-            function codeAddress(address) {
-                geocoder.geocode({'address': address}, function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results[0].geometry.location);
-                        /*var marker = new google.maps.Marker({
-                         map: map,
-                         position: results[0].geometry.location
-                         });*/
-                        return results[0].geometry.location;
-                    } else {
-                        alert('Geocode was not successful for the following reason: ' + status);
-                    }
-                });
-            }
-            function SubmitRent() {
-                var agree = document.getElementById("agree-cond-input");
-                if (agree.checked) {
-                    document.forms["form-rent"].submit();
-                    return true;
-                } else {
-                    alert('Please read the Rental Conditions!');
-                    return false;
-                }
-            }
-            function showPieces(input) {
-                document.getElementById("pieces").value = input.value;
-            }
-
-            google.maps.event.addDomListener(window, 'load', initialize);
-            google.maps.event.trigger("#view-map", 'resize');
-        </script> 
+        
     </head>
     <body onload="initialize();"> 
         <?php $result = $model->getUser(); ?>         
@@ -442,6 +219,177 @@ $model->setHistoryViews($_GET['id']);
         </footer>
         <div id="footer-copyright">
             Copyright © 2013 WildRide
-        </div>             
+        </div>
+        <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> 
+        <script src="assets/js/mootools-core.js" type="text/javascript"></script>
+        <script src="assets/js/mootools-more.js" type="text/javascript"></script>
+        <script src="assets/js/Locale.en-US.DatePicker.js" type="text/javascript"></script>
+        <script src="assets/js/Picker.js" type="text/javascript"></script>
+        <script src="assets/js/Picker.Attach.js" type="text/javascript"></script>
+        <script src="assets/js/Picker.Date.js" type="text/javascript"></script>
+        <script type="text/javascript" src="assets/js/jquery.hoverscroll.js"></script>
+        <script type="text/javascript" src='assets/js/jquery.zoom-min.js'></script>
+        <script type="text/javascript" src='assets/js/functions.js'></script>
+        <script type="text/javascript">
+            var map;
+            var directionsDisplay;
+            var directionsService = new google.maps.DirectionsService();
+            var geocoder;
+            var init = 1;
+
+            $(document).ready(function() {
+
+                $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
+                    vertical: false,
+                    width: 980,
+                    height: 270,
+                    arrows: false
+                });
+                $('#horizontal-scooters-history').hoverscroll();
+
+                window.addEvent('domready', function() {
+                    new Picker.Date($$('#end-date'), {
+                        timePicker: true,
+                        positionOffset: {x: 5, y: 0},
+                        pickerClass: 'datepicker_bootstrap',
+                        useFadeInOut: !Browser.ie
+                    });
+                });
+
+                $("#members-area").mouseover(function() {
+                    $("#members-area-content").show();
+                    $("#weather-content").hide();
+                    $("#currency-content").hide();
+                }).mouseout(function() {
+                    $("#members-area-content").mouseenter(function() {
+                        $("#members-area-content").show();
+                    }).mouseleave(function() {
+                        $("#members-area-content").hide();
+                    });
+                });
+
+                $("#weather").mouseover(function() {
+                    $("#members-area-content").hide();
+                    $("#weather-content").show();
+                    $("#currency-content").hide();
+                }).mouseout(function() {
+                    $("#weather-content").mouseenter(function() {
+                        $("#weather-content").show();
+                    }).mouseleave(function() {
+                        $("#weather-content").hide();
+                    });
+                });
+
+                $("#currency").mouseover(function() {
+                    $("#members-area-content").hide();
+                    $("#currency-content").show();
+                    $("#weather-content").hide();
+                }).mouseout(function() {
+                    $("#currency-content").mouseenter(function() {
+                        $("#currency-content").show();
+                    }).mouseleave(function() {
+                        $("#currency-content").hide();
+                    });
+                });
+
+            });
+            function RentNavigatorDescription(div, a) {
+                switch (div) {
+                    case 1:
+                        $('#scooter-desc').show();
+                        $(a.parentNode.children).each(function(index) {
+                            this.removeClass('current-item');
+                        });
+                        a.className = "current-item";
+                        $('#view-map').hide();
+                        $('#rental-cond').hide();
+                        break;
+                    case 2:
+                        $('#view-map').show();
+                        $(a.parentNode.children).each(function(index) {
+                            this.removeClass('current-item');
+                        });
+                        if (init === 1) {
+                            initialize();
+                            var control = document.getElementById('control');
+                            control.style.display = 'block';
+                            map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+                            $("#start").val('<?php echo $scooter['adresa']; ?>');
+                            codeAddress('<?php echo $scooter['adresa']; ?>');
+                            init++;
+                        }
+                        a.className = "current-item";
+                        $('#scooter-desc').hide();
+                        $('#rental-cond').hide();
+                        break;
+                    case 3:
+                        $('#rental-cond').show();
+                        $(a.parentNode.children).each(function(index) {
+                            this.removeClass('current-item');
+                        });
+                        a.className = "current-item";
+                        $('#scooter-desc').hide();
+                        $('#view-map').hide();
+                        break;
+                }
+            }
+            function initialize() {
+                geocoder = new google.maps.Geocoder();
+                directionsDisplay = new google.maps.DirectionsRenderer();
+                var mapOptions = {
+                    zoom: 12,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                directionsDisplay.setMap(map);
+                directionsDisplay.setPanel(document.getElementById('directions-panel'));
+            }
+
+            function calcRoute() {
+                var start = document.getElementById('start').value;
+                var end = document.getElementById('end').value;
+                codeAddress(end);
+                var request = {
+                    origin: start,
+                    destination: end,
+                    travelMode: google.maps.TravelMode.DRIVING
+                };
+                directionsService.route(request, function(response, status) {
+                    if (status === google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
+                    }
+                });
+            }
+            function codeAddress(address) {
+                geocoder.geocode({'address': address}, function(results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        /*var marker = new google.maps.Marker({
+                         map: map,
+                         position: results[0].geometry.location
+                         });*/
+                        return results[0].geometry.location;
+                    } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+            }
+            function SubmitRent() {
+                var agree = document.getElementById("agree-cond-input");
+                if (agree.checked) {
+                    document.forms["form-rent"].submit();
+                    return true;
+                } else {
+                    alert('Please read the Rental Conditions!');
+                    return false;
+                }
+            }
+            function showPieces(input) {
+                document.getElementById("pieces").value = input.value;
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+            google.maps.event.trigger("#view-map", 'resize');
+        </script>
     </body>
 </html>

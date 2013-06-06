@@ -13,109 +13,6 @@ if (!$model->isValidUser())
         <link rel="stylesheet" type="text/css" href="assets/css/main.css" /> 
         <link rel="stylesheet" type="text/css" media="all" href="assets/css/jquery.hoverscroll.css" />
 
-        <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="assets/js/jquery.hoverscroll.js"></script>
-
-
-        <script type="text/javascript">
-
-            $(document).ready(function() {
-                $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
-                    vertical: false,
-                    width: 980,
-                    height: 270,
-                    arrows: false
-                });
-                $('#horizontal-scooters-history').hoverscroll();
-
-                $("#members-area").mouseover(function() {
-                    $("#members-area-content").show();
-                    $("#weather-content").hide();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#members-area-content").mouseenter(function() {
-                        $("#members-area-content").show();
-                    }).mouseleave(function() {
-                        $("#members-area-content").hide();
-                    });
-                });
-
-                $("#weather").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#weather-content").show();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#weather-content").mouseenter(function() {
-                        $("#weather-content").show();
-                    }).mouseleave(function() {
-                        $("#weather-content").hide();
-                    });
-                });
-
-                $("#currency").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#currency-content").show();
-                    $("#weather-content").hide();
-                }).mouseout(function() {
-                    $("#currency-content").mouseenter(function() {
-                        $("#currency-content").show();
-                    }).mouseleave(function() {
-                        $("#currency-content").hide();
-                    });
-                });
-
-
-            });
-
-            function Logout() {
-                deleteCookie('user_id');
-                deleteCookie('user_session_id');
-                window.location.href = "login.php";
-            }
-            function deleteCookie(name) {
-                var date = new Date();
-                date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
-                var expires = " expires=" + date.toGMTString();
-                document.cookie = name + "=;" + expires + "; path=/";
-            }
-            function selectOras(judet) {
-                var judete = <?php echo JUDET; ?>;
-
-                var orasSelect = document.getElementById("oras");
-                var form = document.getElementById("form-signup");
-                var judetLabel = document.getElementById("judet");
-                var divSelect = document.getElementById('search-judet');
-
-                if (orasSelect != null) {
-                    form.removeChild(document.getElementById("login-label-oras"));
-                    form.removeChild(document.getElementById("search-oras"));
-                }
-
-                var select = document.createElement("select");
-                select.setAttribute("name", "oras");
-                select.id = "oras";
-
-                for (var oras in judete[judet.value]) {
-                    var option = document.createElement("option");
-                    option.setAttribute("value", oras);
-                    option.innerHTML = oras;
-                    select.appendChild(option);
-                }
-                var div = document.createElement("div");
-                div.className = "search-select";
-                div.id = "search-oras";
-
-                var label = document.createElement("label");
-                label.className = "login-label";
-                label.id = "login-label-oras";
-                label.innerHTML = "Oras";
-
-                div.appendChild(label);
-                div.appendChild(select);
-                divSelect.parentNode.insertBefore(label, divSelect.nextSibling);
-                label.parentNode.insertBefore(div, label.nextSibling);
-            }
-        </script> 
     </head>
     <body> 
         <?php $result = $model->getUser(); ?>         
@@ -312,6 +209,60 @@ if (!$model->isValidUser())
         </footer>
         <div id="footer-copyright">
             Copyright © 2013 WildRide
-        </div>             
+        </div>
+        <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.hoverscroll.js"></script>
+        <script type="text/javascript" src="assets/js/functions.js"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
+                    vertical: false,
+                    width: 980,
+                    height: 270,
+                    arrows: false
+                });
+                $('#horizontal-scooters-history').hoverscroll();
+
+                $("#members-area").mouseover(function() {
+                    $("#members-area-content").show();
+                    $("#weather-content").hide();
+                    $("#currency-content").hide();
+                }).mouseout(function() {
+                    $("#members-area-content").mouseenter(function() {
+                        $("#members-area-content").show();
+                    }).mouseleave(function() {
+                        $("#members-area-content").hide();
+                    });
+                });
+
+                $("#weather").mouseover(function() {
+                    $("#members-area-content").hide();
+                    $("#weather-content").show();
+                    $("#currency-content").hide();
+                }).mouseout(function() {
+                    $("#weather-content").mouseenter(function() {
+                        $("#weather-content").show();
+                    }).mouseleave(function() {
+                        $("#weather-content").hide();
+                    });
+                });
+
+                $("#currency").mouseover(function() {
+                    $("#members-area-content").hide();
+                    $("#currency-content").show();
+                    $("#weather-content").hide();
+                }).mouseout(function() {
+                    $("#currency-content").mouseenter(function() {
+                        $("#currency-content").show();
+                    }).mouseleave(function() {
+                        $("#currency-content").hide();
+                    });
+                });
+
+
+            });
+        </script> 
     </body>
 </html>

@@ -11,78 +11,6 @@ $model->setHistoryViews($_GET['id']);
         <link rel="stylesheet" type="text/css" href="assets/css/main.css" /> 
         <link rel="stylesheet" type="text/css" media="all" href="assets/css/jquery.hoverscroll.css" />
 
-        <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="assets/js/jquery.hoverscroll.js"></script>
-        <script type="text/javascript" src='../../../assets/js/jquery.zoom-min.js'></script>
-
-
-        <script type="text/javascript">
-
-            $(document).ready(function() {
-
-                $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
-                    vertical: true,
-                    width: 90,
-                    height: 330,
-                    arrows: false
-                });
-                $('#small-picture-list').hoverscroll();
-                $('#large-picture-zoom').zoom({on: 'click'});
-
-                $("#members-area").mouseover(function() {
-                    $("#members-area-content").show();
-                    $("#weather-content").hide();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#members-area-content").mouseenter(function() {
-                        $("#members-area-content").show();
-                    }).mouseleave(function() {
-                        $("#members-area-content").hide();
-                    });
-                });
-
-                $("#weather").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#weather-content").show();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#weather-content").mouseenter(function() {
-                        $("#weather-content").show();
-                    }).mouseleave(function() {
-                        $("#weather-content").hide();
-                    });
-                });
-
-                $("#currency").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#currency-content").show();
-                    $("#weather-content").hide();
-                }).mouseout(function() {
-                    $("#currency-content").mouseenter(function() {
-                        $("#currency-content").show();
-                    }).mouseleave(function() {
-                        $("#currency-content").hide();
-                    });
-                });
-
-
-            });
-
-            function Logout() {
-                deleteCookie('user_id');
-                deleteCookie('user_session_id');
-                window.location.href = "login.php";
-            }
-            function deleteCookie(name) {
-                var date = new Date();
-                date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
-                var expires = " expires=" + date.toGMTString();
-                document.cookie = name + "=;" + expires + "; path=/";
-            }
-            function RentScooter(id) {
-                window.location = 'rent.php?id=' + id;
-            }
-        </script> 
     </head>
     <body> 
 <?php $result = $model->getUser(); ?>         
@@ -244,6 +172,64 @@ $model->setHistoryViews($_GET['id']);
         </footer>
         <div id="footer-copyright">
             Copyright © 2013 WildRide
-        </div>             
+        </div>
+        <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.hoverscroll.js"></script>
+        <script type="text/javascript" src='assets/js/jquery.zoom-min.js'></script>
+        <script type="text/javascript" src='assets/js/functions.js'></script>
+
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+
+                $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
+                    vertical: true,
+                    width: 90,
+                    height: 330,
+                    arrows: false
+                });
+                $('#small-picture-list').hoverscroll();
+                $('#large-picture-zoom').zoom({on: 'click'});
+
+                $("#members-area").mouseover(function() {
+                    $("#members-area-content").show();
+                    $("#weather-content").hide();
+                    $("#currency-content").hide();
+                }).mouseout(function() {
+                    $("#members-area-content").mouseenter(function() {
+                        $("#members-area-content").show();
+                    }).mouseleave(function() {
+                        $("#members-area-content").hide();
+                    });
+                });
+
+                $("#weather").mouseover(function() {
+                    $("#members-area-content").hide();
+                    $("#weather-content").show();
+                    $("#currency-content").hide();
+                }).mouseout(function() {
+                    $("#weather-content").mouseenter(function() {
+                        $("#weather-content").show();
+                    }).mouseleave(function() {
+                        $("#weather-content").hide();
+                    });
+                });
+
+                $("#currency").mouseover(function() {
+                    $("#members-area-content").hide();
+                    $("#currency-content").show();
+                    $("#weather-content").hide();
+                }).mouseout(function() {
+                    $("#currency-content").mouseenter(function() {
+                        $("#currency-content").show();
+                    }).mouseleave(function() {
+                        $("#currency-content").hide();
+                    });
+                });
+
+
+            });
+        </script>
     </body>
 </html>

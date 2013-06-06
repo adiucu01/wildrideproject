@@ -10,173 +10,6 @@ $paginationCount = $model->getPagination($_POST, $count);
         <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
         <link rel="stylesheet" type="text/css" href="assets/css/main.css" />  
 
-        <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>  
-
-
-        <script type="text/javascript">
-            var start_date = '<?php echo $_POST['start-date']; ?>';
-            var start_adress = '<?php echo $_POST['adress_start']; ?>';
-            var price_products = null;
-            var handles = null;
-            var wheels = null;
-            var horn = null;
-
-            $(document).ready(function() {
-
-                $("#members-area").mouseover(function() {
-                    $("#members-area-content").show();
-                    $("#weather-content").hide();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#members-area-content").mouseenter(function() {
-                        $("#members-area-content").show();
-                    }).mouseleave(function() {
-                        $("#members-area-content").hide();
-                    });
-                });
-
-                $("#weather").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#weather-content").show();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#weather-content").mouseenter(function() {
-                        $("#weather-content").show();
-                    }).mouseleave(function() {
-                        $("#weather-content").hide();
-                    });
-                });
-
-                $("#currency").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#currency-content").show();
-                    $("#weather-content").hide();
-                }).mouseout(function() {
-                    $("#currency-content").mouseenter(function() {
-                        $("#currency-content").show();
-                    }).mouseleave(function() {
-                        $("#currency-content").hide();
-                    });
-                });
-
-
-            });
-
-            function Logout() {
-                deleteCookie('user_id');
-                deleteCookie('user_session_id');
-                window.location.href = "login.php";
-            }
-            function deleteCookie(name) {
-                var date = new Date();
-                date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
-                var expires = " expires=" + date.toGMTString();
-                document.cookie = name + "=;" + expires + "; path=/";
-            }
-            function OrderBy(order) {
-                if (order.value == "true") {
-                    var ascending = false;
-                } else {
-                    var ascending = true;
-                }
-                var sorted = $('.results-row').sort(function(a, b) {
-                    return (ascending ==
-                            (convertToNumber($(a).find('.scooter-detailed-price').html()) <
-                                    convertToNumber($(b).find('.scooter-detailed-price').html()))) ? 1 : -1;
-                });
-
-                $('#scooter-list-result').html(sorted);
-            }
-            var convertToNumber = function(value) {
-                return parseFloat(value.replace(' EUR/day', ''));
-            }
-            function ShowPrice(input) {
-                var txt = document.getElementById('price-filter-text');
-                txt.style.display = "block";
-                txt.value = input.value;
-            }
-            function changePagination(pageId, liId) {
-                $(".flash").show();
-                $(".flash").fadeIn(400).html('Loading <img src="img/ajax-loading.gif" />');
-                var dataString = 'adress_start=' + start_adress + '&start-date=' + start_date + '&pageId=' + pageId;
-                $.ajax({
-                    type: "POST",
-                    url: "../controllers/search.php?action=pagination",
-                    data: dataString,
-                    cache: false,
-                    success: function(result) {
-                        $(".flash").hide();
-                        $(".link a").each(function() {
-                            $(this).css({background: "#fff", color: "#9F9F9F"});
-                        });
-                        $("#" + liId + " a").each(function() {
-                            $(this).css({background: "#40AAEB", color: "#fff"});
-                        });
-                        $("#scooter-list-result").html(result);
-                    }
-                });
-            }
-            function MakeFilter(pageId, liId, categ, pag_no) {
-                $(".flash").show();
-                $(".flash").fadeIn(400).html('Loading <img src="img/ajax-loading.gif" />');
-                if (categ == 'price_products') {
-                    var add = '&price_products=' + price_products;
-                } else if (categ == 'handles_products') {
-                    var add = '&handles=' + handles;
-                } else if (categ == 'wheels_products') {
-                    var add = '&wheels=' + wheels;
-                } else if (categ == 'horn_products') {
-                    var add = '&horn=' + horn;
-                } else {
-                    var add = "";
-                }
-                var dataString = 'adress_start=' + start_adress + '&start-date=' + start_date + '&pageId=' + pageId + '&pag_no=' + pag_no + add;
-
-                $.ajax({
-                    type: "POST",
-                    url: "../controllers/search.php?action=filter&category=" + categ,
-                    data: dataString,
-                    cache: false,
-                    success: function(result) {
-                        $(".flash").hide();
-                        var arr_result = result.split('##');
-                        $("#pagination-header-list").html("");
-                        $("#pagination-header-list").html('<li class=\'first link\' id="first"><a href="javascript:void(0)" onclick="MakeFilter(\'0\',\'first\',\'' + categ + '\',\'' + pag_no + '\')">First</a></li>');
-                        for (var i = 0; i < arr_result[0]; i++) {
-                            $("#pagination-header-list").append('<li id="pag_li_' + i + '" class=\'link\'><a href="javascript:void(0)" onclick="MakeFilter(\'' + i + '\',\'pag_li_' + i + '\',\'' + categ + '\',\'' + pag_no + '\')">' + (i + 1) + '</a></li>');
-
-                        }
-                        $("#pagination-header-list").append('<li class=\'last link\'  id="last"><a href="javascript:void(0)" onclick="MakeFilter(\'' + (arr_result[0] - 1) + '\',\'last\',\'' + categ + '\',\'' + pag_no + '\')">Last</a></li><li class="flash"></li>');
-
-
-                        $("#pagination-footer-list").html("");
-                        $("#pagination-footer-list").html('<li class=\'first link footer-pag\' id="first"><a href="javascript:void(0)" onclick="MakeFilter(\'0\',\'first\',\'' + categ + '\',\'' + pag_no + '\')">First</a></li>');
-                        for (var i = 0; i < arr_result[0]; i++) {
-                            $("#pagination-footer-list").append('<li id="pag_li_' + i + '" class=\'link footer-pag\'><a href="javascript:void(0)" onclick="MakeFilter(\'' + i + '\',\'pag_li_' + i + '\',\'' + categ + '\',\'' + pag_no + '\')">' + (i + 1) + '</a></li>');
-
-                        }
-                        $("#pagination-footer-list").append('<li class=\'last link footer-pag\'  id="last"><a href="javascript:void(0)" onclick="MakeFilter(\'' + (arr_result[0] - 1) + '\',\'last\',\'' + categ + '\',\'' + pag_no + '\')">Last</a></li><li class="flash"></li>');
-
-                        $(".link a").each(function() {
-                            $(this).css({background: "#fff", color: "#9F9F9F"});
-                        });
-                        $("#" + liId + " a").each(function() {
-                            $(this).css({background: "#40AAEB", color: "#fff"});
-                        });
-                        $("#scooter-list-result").html(arr_result[1]);
-                    }
-                });
-            }
-            function CheckUncheck(input) {
-                $('#handles-filter-rubber').attr('checked', false);
-                $('#handles-filter-plastic').attr('checked', false);
-                $('#wheels-filter-iron').attr('checked', false);
-                $('#wheels-filter-aluminum').attr('checked', false);
-                $('#horn-filter-no').attr('checked', false);
-                $('#horn-filter-yes').attr('checked', false);
-                input.checked = true;
-            }
-        </script> 
     </head>
     <body onload="changePagination('0', 'first')"> 
 <?php $result = $model->getUser(); ?>         
@@ -390,6 +223,161 @@ $paginationCount = $model->getPagination($_POST, $count);
         </footer>
         <div id="footer-copyright">
             Copyright © 2013 WildRide
-        </div>             
+        </div>
+        <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>  
+        <script type="text/javascript" src="assets/js/functions.js"></script>  
+        <script type="text/javascript">
+            var start_date = '<?php echo $_POST['start-date']; ?>';
+            var start_adress = '<?php echo $_POST['adress_start']; ?>';
+            var price_products = null;
+            var handles = null;
+            var wheels = null;
+            var horn = null;
+
+            $(document).ready(function() {
+
+                $("#members-area").mouseover(function() {
+                    $("#members-area-content").show();
+                    $("#weather-content").hide();
+                    $("#currency-content").hide();
+                }).mouseout(function() {
+                    $("#members-area-content").mouseenter(function() {
+                        $("#members-area-content").show();
+                    }).mouseleave(function() {
+                        $("#members-area-content").hide();
+                    });
+                });
+
+                $("#weather").mouseover(function() {
+                    $("#members-area-content").hide();
+                    $("#weather-content").show();
+                    $("#currency-content").hide();
+                }).mouseout(function() {
+                    $("#weather-content").mouseenter(function() {
+                        $("#weather-content").show();
+                    }).mouseleave(function() {
+                        $("#weather-content").hide();
+                    });
+                });
+
+                $("#currency").mouseover(function() {
+                    $("#members-area-content").hide();
+                    $("#currency-content").show();
+                    $("#weather-content").hide();
+                }).mouseout(function() {
+                    $("#currency-content").mouseenter(function() {
+                        $("#currency-content").show();
+                    }).mouseleave(function() {
+                        $("#currency-content").hide();
+                    });
+                });
+
+
+            });
+
+            function OrderBy(order) {
+                if (order.value === "true") {
+                    var ascending = false;
+                } else {
+                    var ascending = true;
+                }
+                var sorted = $('.results-row').sort(function(a, b) {
+                    return (ascending ===
+                            (convertToNumber($(a).find('.scooter-detailed-price').html()) <
+                                    convertToNumber($(b).find('.scooter-detailed-price').html()))) ? 1 : -1;
+                });
+
+                $('#scooter-list-result').html(sorted);
+            }
+            var convertToNumber = function(value) {
+                return parseFloat(value.replace(' EUR/day', ''));
+            }
+            function ShowPrice(input) {
+                var txt = document.getElementById('price-filter-text');
+                txt.style.display = "block";
+                txt.value = input.value;
+            }
+            function changePagination(pageId, liId) {
+                $(".flash").show();
+                $(".flash").fadeIn(400).html('Loading <img src="img/ajax-loading.gif" />');
+                var dataString = 'adress_start=' + start_adress + '&start-date=' + start_date + '&pageId=' + pageId;
+                $.ajax({
+                    type: "POST",
+                    url: "index.php?c=search&a=pagination",
+                    data: dataString,
+                    cache: false,
+                    success: function(result) {
+                        $(".flash").hide();
+                        $(".link a").each(function() {
+                            $(this).css({background: "#fff", color: "#9F9F9F"});
+                        });
+                        $("#" + liId + " a").each(function() {
+                            $(this).css({background: "#40AAEB", color: "#fff"});
+                        });
+                        $("#scooter-list-result").html(result);
+                    }
+                });
+            }
+            function MakeFilter(pageId, liId, categ, pag_no) {
+                $(".flash").show();
+                $(".flash").fadeIn(400).html('Loading <img src="img/ajax-loading.gif" />');
+                if (categ === 'price_products') {
+                    var add = '&price_products=' + price_products;
+                } else if (categ === 'handles_products') {
+                    var add = '&handles=' + handles;
+                } else if (categ === 'wheels_products') {
+                    var add = '&wheels=' + wheels;
+                } else if (categ === 'horn_products') {
+                    var add = '&horn=' + horn;
+                } else {
+                    var add = "";
+                }
+                var dataString = 'adress_start=' + start_adress + '&start-date=' + start_date + '&pageId=' + pageId + '&pag_no=' + pag_no + add;
+
+                $.ajax({
+                    type: "POST",
+                    url: "index.php?c=search&a=filter&category=" + categ,
+                    data: dataString,
+                    cache: false,
+                    success: function(result) {
+                        $(".flash").hide();
+                        var arr_result = result.split('##');
+                        $("#pagination-header-list").html("");
+                        $("#pagination-header-list").html('<li class=\'first link\' id="first"><a href="javascript:void(0)" onclick="MakeFilter(\'0\',\'first\',\'' + categ + '\',\'' + pag_no + '\')">First</a></li>');
+                        for (var i = 0; i < arr_result[0]; i++) {
+                            $("#pagination-header-list").append('<li id="pag_li_' + i + '" class=\'link\'><a href="javascript:void(0)" onclick="MakeFilter(\'' + i + '\',\'pag_li_' + i + '\',\'' + categ + '\',\'' + pag_no + '\')">' + (i + 1) + '</a></li>');
+
+                        }
+                        $("#pagination-header-list").append('<li class=\'last link\'  id="last"><a href="javascript:void(0)" onclick="MakeFilter(\'' + (arr_result[0] - 1) + '\',\'last\',\'' + categ + '\',\'' + pag_no + '\')">Last</a></li><li class="flash"></li>');
+
+
+                        $("#pagination-footer-list").html("");
+                        $("#pagination-footer-list").html('<li class=\'first link footer-pag\' id="first"><a href="javascript:void(0)" onclick="MakeFilter(\'0\',\'first\',\'' + categ + '\',\'' + pag_no + '\')">First</a></li>');
+                        for (var i = 0; i < arr_result[0]; i++) {
+                            $("#pagination-footer-list").append('<li id="pag_li_' + i + '" class=\'link footer-pag\'><a href="javascript:void(0)" onclick="MakeFilter(\'' + i + '\',\'pag_li_' + i + '\',\'' + categ + '\',\'' + pag_no + '\')">' + (i + 1) + '</a></li>');
+
+                        }
+                        $("#pagination-footer-list").append('<li class=\'last link footer-pag\'  id="last"><a href="javascript:void(0)" onclick="MakeFilter(\'' + (arr_result[0] - 1) + '\',\'last\',\'' + categ + '\',\'' + pag_no + '\')">Last</a></li><li class="flash"></li>');
+
+                        $(".link a").each(function() {
+                            $(this).css({background: "#fff", color: "#9F9F9F"});
+                        });
+                        $("#" + liId + " a").each(function() {
+                            $(this).css({background: "#40AAEB", color: "#fff"});
+                        });
+                        $("#scooter-list-result").html(arr_result[1]);
+                    }
+                });
+            }
+            function CheckUncheck(input) {
+                $('#handles-filter-rubber').attr('checked', false);
+                $('#handles-filter-plastic').attr('checked', false);
+                $('#wheels-filter-iron').attr('checked', false);
+                $('#wheels-filter-aluminum').attr('checked', false);
+                $('#horn-filter-no').attr('checked', false);
+                $('#horn-filter-yes').attr('checked', false);
+                input.checked = true;
+            }
+        </script>
     </body>
 </html>
