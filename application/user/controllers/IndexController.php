@@ -49,7 +49,7 @@ class IndexController {
         //header('Location: ../views/login.php');
             require( $this->view . 'login.php' );
     }
-
+    
     public function forgotPasswordAction() {
         $param = $_POST;
         $model = new UserModelLogin();
