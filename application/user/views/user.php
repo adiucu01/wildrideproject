@@ -42,7 +42,7 @@ if (!$model->isValidUser())
                     </ul>
                 </div>    
                 <div id="user-information">
-                    <form action="../controllers/user.php?action=edit&id=<?php echo $result['id']; ?>" method="POST" id="form-signup">               
+                    <form action="index.php?c=user&a=edit&id=<?php echo $result['id']; ?>" method="POST" id="form-signup">               
                         <label class="login-label">
                             First Name
                         </label>
@@ -128,7 +128,7 @@ if (!$model->isValidUser())
                     <h3>Members Area</h3>
                     <h4><?php
                         if (is_array($result)) {
-                            echo 'Bune ai venit, <a href="../controllers/user.php?action=view&id=' . $result['id'] . '"> ' . $result['nume'] . " " . $result['prenume'] . "</a>!</h4>";
+                            echo 'Bune ai venit, <a href="index.php?c=user&a=view&id=' . $result['id'] . '"> ' . $result['nume'] . " " . $result['prenume'] . "</a>!</h4>";
                             echo '<input type="button" value="Logout" onclick="Logout()" class="input-logout"/>';
                         } else {
                             echo 'Welcome guest!</br>Please</h4>

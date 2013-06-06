@@ -13,72 +13,6 @@ if (!$model->isValidUser())
         <link rel="stylesheet" type="text/css" href="assets/css/main.css" />  
         <link rel="stylesheet" type="text/css" media="all" href="assets/css/jquery.hoverscroll.css" />
 
-        <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script> 
-        <script type="text/javascript" src="assets/js/jquery.hoverscroll.js"></script>
-
-
-        <script type="text/javascript">
-
-            $(document).ready(function() {
-                $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
-                    vertical: false,
-                    width: 980,
-                    height: 270,
-                    arrows: false
-                });
-                $('#horizontal-scooters-history').hoverscroll();
-
-                $("#members-area").mouseover(function() {
-                    $("#members-area-content").show();
-                    $("#weather-content").hide();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#members-area-content").mouseenter(function() {
-                        $("#members-area-content").show();
-                    }).mouseleave(function() {
-                        $("#members-area-content").hide();
-                    });
-                });
-
-                $("#weather").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#weather-content").show();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#weather-content").mouseenter(function() {
-                        $("#weather-content").show();
-                    }).mouseleave(function() {
-                        $("#weather-content").hide();
-                    });
-                });
-
-                $("#currency").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#currency-content").show();
-                    $("#weather-content").hide();
-                }).mouseout(function() {
-                    $("#currency-content").mouseenter(function() {
-                        $("#currency-content").show();
-                    }).mouseleave(function() {
-                        $("#currency-content").hide();
-                    });
-                });
-
-
-            });
-
-            function Logout() {
-                deleteCookie('user_id');
-                deleteCookie('user_session_id');
-                window.location.href = "login.php";
-            }
-            function deleteCookie(name) {
-                var date = new Date();
-                date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
-                var expires = " expires=" + date.toGMTString();
-                document.cookie = name + "=;" + expires + "; path=/";
-            }
-        </script> 
     </head>
     <body> 
         <?php $result = $model->getUser(); ?>         
@@ -108,7 +42,7 @@ if (!$model->isValidUser())
                     </ul>
                 </div>    
                 <div id="user-information">
-                    <form action="../controllers/user.php?action=change-email&id=<?php echo $result['id']; ?>" method="POST" id="form-signup">               
+                    <form action="index.php?c=user&a=changeEmail&id=<?php echo $result['id']; ?>" method="POST" id="form-signup">               
                         <label class="login-label">
                             Email
                         </label>
@@ -140,7 +74,7 @@ if (!$model->isValidUser())
                     <h3>Members Area</h3>
                     <h4><?php
                         if (is_array($result)) {
-                            echo 'Bune ai venit, <a href="../controllers/user.php?action=view&id=' . $result['id'] . '"> ' . $result['nume'] . " " . $result['prenume'] . "</a>!</h4>";
+                            echo 'Bune ai venit, <a href="index.php?c=user&a=view&id=' . $result['id'] . '"> ' . $result['nume'] . " " . $result['prenume'] . "</a>!</h4>";
                             echo '<input type="button" value="Logout" onclick="Logout()" class="input-logout"/>';
                         } else {
                             echo 'Welcome guest!</br>Please</h4>
@@ -221,6 +155,61 @@ if (!$model->isValidUser())
         </footer>
         <div id="footer-copyright">
             Copyright © 2013 WildRide
-        </div>             
+        </div>
+        
+        <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script> 
+        <script type="text/javascript" src="assets/js/jquery.hoverscroll.js"></script>
+        <script type="text/javascript" src="assets/js/functions.js"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
+                    vertical: false,
+                    width: 980,
+                    height: 270,
+                    arrows: false
+                });
+                $('#horizontal-scooters-history').hoverscroll();
+
+                $("#members-area").mouseover(function() {
+                    $("#members-area-content").show();
+                    $("#weather-content").hide();
+                    $("#currency-content").hide();
+                }).mouseout(function() {
+                    $("#members-area-content").mouseenter(function() {
+                        $("#members-area-content").show();
+                    }).mouseleave(function() {
+                        $("#members-area-content").hide();
+                    });
+                });
+
+                $("#weather").mouseover(function() {
+                    $("#members-area-content").hide();
+                    $("#weather-content").show();
+                    $("#currency-content").hide();
+                }).mouseout(function() {
+                    $("#weather-content").mouseenter(function() {
+                        $("#weather-content").show();
+                    }).mouseleave(function() {
+                        $("#weather-content").hide();
+                    });
+                });
+
+                $("#currency").mouseover(function() {
+                    $("#members-area-content").hide();
+                    $("#currency-content").show();
+                    $("#weather-content").hide();
+                }).mouseout(function() {
+                    $("#currency-content").mouseenter(function() {
+                        $("#currency-content").show();
+                    }).mouseleave(function() {
+                        $("#currency-content").hide();
+                    });
+                });
+
+
+            });
+        </script>
     </body>
 </html>

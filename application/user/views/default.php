@@ -39,7 +39,7 @@
             <div class="content">
                 <div id="left-content">
                     <h2>Search for a scooter hire</h2>
-                    <form action="search.php" method="POST">
+                    <form action="index.php?c=search&a=view" method="POST">
                         <label class="search-label">Region</label>
                         <div class="search-select">
                             <select name="region_start">
