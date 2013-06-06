@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Womics | Adrian Mihaila & Saveluc Diana</title>
-        <link rel="stylesheet" type="text/css" href="../../../css/main.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
         <script type="text/javascript">
             function Redirect(){
                 window.location.href = "signup.php";
