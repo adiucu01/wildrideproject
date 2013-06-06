@@ -2,7 +2,7 @@
 /*
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
-*/    
+  */  
   class AdminModelWorkpoint{
       private static $db;
       public function __construct(){

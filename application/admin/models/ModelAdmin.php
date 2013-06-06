@@ -2,7 +2,7 @@
 /*
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
-*/    
+  */  
   class ModelAdmin{
       private static $db;
       public function __construct(){
@@ -37,7 +37,7 @@
       public function deleteUsers($param){
           foreach($param['select'] as $item){
               $sql = "DELETE FROM admin
-                    WHERE id = {$item}";   
+      b              WHERE id = {$item}";   
            
               $result = self::$db->query($sql); 
           }           

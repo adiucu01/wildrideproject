@@ -1,13 +1,19 @@
-<?php 
-//require_once("/../models/default.php"); 
-$model = new AdminModelDefault(); if(!$model->isValidUser()) die();?>
+<?php require_once("/../models/default.php"); $model = new AdminModelDefault(); if(!$model->isValidUser()) die();?>
 <!DOCTYPE HTML>
 <html>
     <head>
         <title>WildRide | Adrian Mihaila & Saveluc Diana & Unknown</title>
-        <link rel="stylesheet" type="text/css" href="../../../css/main.css" />     
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../../assets/css/main.css" /> 
+        <!--script src="http://code.jquery.com/jquery-1.9.1.js"></script-->
+      <link href="../../../assets/js/jtable/themes/redmond/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/js/jtable/Scripts/jtable/themes/lightcolor/blue/jtable.css" rel="stylesheet" type="text/css" />   
+    <script src="../../../assets/js/jtable/scripts/jquery-1.6.4.min.js" type="text/javascript"></script>
+    <script src="../../../assets/js/jtable/scripts/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+    <script src="../../../assets/js/jtable/Scripts/jtable/jquery.jtable.js" type="text/javascript"></script>
+    
+        <!--script src="http://code.jquery.com/jquery-1.9.1.js"></script-->
         <script type="text/javascript">
+        
             var ch = 0;              
             function Logout(){
                 deleteCookie('user_id');
@@ -47,96 +53,102 @@ $model = new AdminModelDefault(); if(!$model->isValidUser()) die();?>
             }
         </script> 
     </head>
-    <body> 
-        <div id="content">
-            <header>
-                <section id="header-left">
-                    <h1>Bine ai venit, <?php $result = $model->getUser(null); echo $result['nume']." ".$result['prenume'];?>!</h1>
-                </section>
+     
+  <body> 
+    
+    
+             <header>
+                <div class="content">
+                    <div id="logo">
+                        <a href="default.php" title="WildRide"><img src="../../../img/logo.png" alt="WildRide"/></a>
+                    </div>
+               
+                <div id="navigator">
+                 <p>Bine ai venit, <?php $result = $model->getUser(null); echo $result['nume']." ".$result['prenume'];?>!<input type="button" value="Logout" onclick="Logout()" class="input-logout"/></p>
+                 
                 <nav>
                     <?php echo $nav = $model->createMenu($result['tip_admin']); ?>
                 </nav>
-                <section id="header-right">
-                      <input type="button" value="Logout" onclick="Logout()" class="input-logout"/>
-                </section>
+                </div>
+                
+               </div>
             </header>
-            <section>
-                <nav>
-                    <a href="../controllers/admin.php?action=add" title="Add New Admin">Add New Admin</a>
-                    <a href="" title="Delete All" onclick="submitDeleteAll();">Delete All</a>
-                </nav>
-                <?php
-                    if(isset($_GET['pagenum'])) $pagenum = $_GET['pagenum']; else $pagenum = null;
-                     
-                    if (!(isset($pagenum))){ $pagenum = 1; }
-                     
-                    $rows = $model->getNumberOfAdmins();
-                    
-                    $page_rows = 4;
-                    $last = ceil($rows/$page_rows); 
-                    
-                    if ($pagenum < 1){ 
-                        $pagenum = 1;
-                    }elseif ($pagenum > $last){ 
-                        $pagenum = $last; 
-                    }      
-
-                    $max = 'limit ' .($pagenum - 1) * $page_rows .',' .$page_rows; 
             
-                ?>
-                <form id="delete_all" action="../controllers/admin.php?action=delete&type=all" method="POST">
-                <table border="1" >
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox" name="select_all" onchange="checkAll(true);"/></th>
-                            <th>ID</th>
-                            <th>Nume</th>
-                            <th>Prenume</th>
-                            <th>Email</th>
-                            <th>Punct de lucru</th>
-                            <th>Tip Admin</th>
-                            <th>Optiuni</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php echo $admins = $model->getAdminList($max);?>
-                    </tbody>
-                </table>
-                </form>
-            </section>
-            <section>
-             <?php  
-                 echo "<p>--Page $pagenum of $last-- Go to "; 
-                 echo '<input type="text" name="pagenum" id="pagenum" size="3"/> of '.$last.'<a href="javascript:goToPage();" > go </a></p>';
+             <div id="PeopleTableContainer"  style="width: 600px;margin-left:auto;margin-top:100px;margin-right:auto;"></div>
 
-                 if($pagenum == 1){ 
-                     
-                 }else{
-                    echo " <a href='{$_SERVER['PHP_SELF']}?pagenum=1'> <<-First </a> ";
+          
+   <div id="PeopleTableContainer" style="width: 1000px;"></div>
+   
+    <script type="text/javascript">
 
-                    $previous = $pagenum-1;
+        $(document).ready(function () {
 
-                    echo " <a href='{$_SERVER['PHP_SELF']}?pagenum=$previous'> <-Previous </a> ";
-                  } 
+            //Prepare jTable
+            $('#PeopleTableContainer').jtable({
+                title: 'Table of users',
+                paging: true,
+                pageSize: 5,
+                sorting: true,
+                defaultSorting: 'nume ASC',
+                actions: {
+                    listAction: 'adminList.php?action=list',
+                    createAction: 'adminList.php?action=create',
+                    updateAction: 'adminList.php?action=update',
+                    deleteAction: 'adminList.php?action=delete'
+                },
+                fields: {
+                    id: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                   nume: {
+                        title: 'Nume',
+                        width: '20%'
+                    },
+                    prenume: {
+                        title: 'Prenume',
+                        width: '20%'
+                    },
+                    email: {
+                        title: 'Email',
+                        width: '20%'
+                        
+                    }  ,
+                    punct_de_lucru: {
+                        title: 'Punct de lucru',
+                        width: '20%'
+                        
+                    } ,
+                    tip_utilizator: {
+                        title: 'Tip admin',
+                        width: '20%'
+                        
+                    }   ,
+                     parola: {
+                        title: 'Parola',
+                        width: '0%'
+                        
+                    } 
+                }
+            });
 
-                  echo " ---- ";
- 
-                  if ($pagenum == $last) {
-                  }else{
+            //Load person list from server
+            $('#PeopleTableContainer').jtable('load');
 
-                     $next = $pagenum+1;
+        });
+           
 
-                     echo " <a href='{$_SERVER['PHP_SELF']}?pagenum=$next'>Next -></a> ";
-
-                     echo " ";
-
-                     echo " <a href='{$_SERVER['PHP_SELF']}?pagenum=$last'>Last ->></a> ";
-
-                  } 
-
-               ?>    
-            </section>
-            <div id="container"><?php //$model->search(); ?></div>            
-        </div>           
+    </script>    
+        
+    
+       
+       
+       
+       
+       
+                
     </body>
+   
 </html>
