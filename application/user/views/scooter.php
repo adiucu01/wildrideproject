@@ -1,7 +1,7 @@
 <?php
-//require_once("/../models/scooter.php"); 
-$model = new UserModelScooter();
-$model->setHistoryViews($_GET['id']);
+    //require_once("/../models/scooter.php"); 
+    $model = new UserModelScooter();
+    $model->setHistoryViews($_GET['id']);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -13,11 +13,11 @@ $model->setHistoryViews($_GET['id']);
 
     </head>
     <body> 
-<?php $result = $model->getUser(); ?>         
+        <?php $result = $model->getUser(); ?>         
         <header>
             <div class="content">
                 <div id="logo">
-                    <a href="default.php" title="WildRide"><img src="img/logo.png" alt="WildRide"/></a>
+                    <a href="index.php" title="WildRide"><img src="img/logo.png" alt="WildRide"/></a>
                 </div>
                 <div id="navigator">
                     <nav>
@@ -32,8 +32,21 @@ $model->setHistoryViews($_GET['id']);
         </header>
         <section id="container">
             <div class="content">
-<?php $scooter = $model->getScooter($_GET['id']); ?>
-                <h2><?php echo $scooter['denumire'] . ' - ' . str_replace(';', ' ', $scooter['caracteristici']); ?></h2>
+                <?php $scooter = $model->getScooter($_GET['id']); ?>
+                <?php
+                    $c_string = 'with ';
+                    $c_arr = explode(';',$scooter['caracteristici']);
+                    for($key00 = 0; $key00<count($c_arr)-1;$key00++){
+                        $c_strings = explode('=',$c_arr[$key00]); 
+                        $c_string .= $c_strings[1].' '.$c_strings[0];
+                        if($key00==count($c_arr)-2){
+                            $c_string .= '';
+                        }else{
+                            $c_string .= ' and ';
+                        }                                             
+                    }
+                ?>
+                <h2><?php echo $scooter['denumire'] . ' - ' . $c_string; ?></h2>
                 <div id="container-left-side">
                     <div id="small-picture">
                         <ul id="small-picture-list">
@@ -47,7 +60,7 @@ $model->setHistoryViews($_GET['id']);
                     </div>
                     <div id="large-picture">
                         <span class='zoom' id='large-picture-zoom'>
-                            <img src='../../../<?php echo $scooter['imagine']; ?>' alt='<?php echo $scooter['denumire']; ?>'/>
+                            <img src='<?php echo $scooter['imagine']; ?>' alt='<?php echo $scooter['denumire']; ?>'/>
                             <p>Click to activate</p>
                         </span>
                     </div>
@@ -58,13 +71,13 @@ $model->setHistoryViews($_GET['id']);
                     </div>
                     <div class="scooter-detailed-reserved">
                         <?php
-                        if ($scooter['nr_bucati_inchiriate'] >= $scooter['nr_bucati']) {
-                            echo '<font style="color: #E60520;">Rented</font>';
-                            $disabled = 'disabled';
-                        } else {
-                            echo '<font style="color: #80BD55;">In Stock</font>';
-                            $disabled = '';
-                        }
+                            if ($scooter['nr_bucati_inchiriate'] >= $scooter['nr_bucati']) {
+                                echo '<font style="color: #E60520;">Rented</font>';
+                                $disabled = 'disabled';
+                            } else {
+                                echo '<font style="color: #80BD55;">In Stock</font>';
+                                $disabled = '';
+                            }
                         ?>
                     </div>
                     <div id="container-right-rent">
@@ -74,13 +87,23 @@ $model->setHistoryViews($_GET['id']);
                 <div id="container-description">
                     <h2>Description</h2>
                     <p>
-<?php echo $scooter['descriere']; ?>   
+                        <?php echo $scooter['descriere']; ?>   
                     </p>
                 </div>
                 <div id="container-specification">
                     <h2>Specification</h2>
                     <p id="container-description">
-<?php echo $scooter['caracteristici']; ?>   
+                        <?php 
+                            $c_arr = explode(';',$scooter['caracteristici']);
+                            for($key00 = 0; $key00<count($c_arr)-1;$key00++){
+                                $c_strings = explode('=',$c_arr[$key00]); 
+                                echo ucfirst($c_strings[0]).': '.ucfirst($c_strings[1])."</br></br>";
+                                if($key00==count($c_arr)-2){
+                                    $c_string .= '';
+                                }else{
+                                    $c_string .= ' and ';
+                                }                                             
+                        } ?>      
                     </p>
                 </div>
             </div>
@@ -95,35 +118,31 @@ $model->setHistoryViews($_GET['id']);
                             echo '<input type="button" value="Logout" onclick="Logout()" class="input-logout"/>';
                         } else {
                             echo 'Welcome guest!</br>Please</h4>
-                                            <input type="button" value="Sign In"/>
-                                            <div id="members-area-login">or</div>
-                                            <input type="button" value="Sign Up"/>';
+                            <input type="button" value="Sign In"/>
+                            <div id="members-area-login">or</div>
+                            <input type="button" value="Sign Up"/>';
                         }
-                        ?>
+                    ?>
                 </div>                        
             </div>
             <div id="weather">
                 <div id="weather-content">
                     <h3>Current Weather</h3>
-<?php $model->getWeather($temp_c, $img_url, $loc); ?>
-                    <div id="weather-content-img"><img src="<?php echo $img_url; ?>" alt="" /></div>
-                    <div id="weather-location"><?php echo $loc; ?></div>
-                    <div id="weather-temp"><?php echo $temp_c . '°C'; ?></div>
-                    <input type="button" value="More"/> 
+                    <div id="weather-content"></div>
                 </div>                        
             </div>
             <div id="currency"> 
                 <div id="currency-content">
-<?php $rates = $model->getExchangeRates(); ?>
+                    <?php $rates = $model->getExchangeRates();?>  
                     <h3>Currency Rates</h3>
                     <ul>
-                        <li><img src="img/eur.png" alt="" width="25"/><?php echo '1 EUR - ' . number_format(1, 2, '.', ' ') . ' EUR'; ?></li>
-                        <li><img src="img/usd.png" alt="" width="25"/><?php echo '1 EUR - ' . number_format(floatval($rates['EURUSD']), 2) . ' USD'; ?></li>
-                        <li><img src="img/gbp.png" alt="" width="25"/><?php echo '1 EUR - ' . number_format(floatval('0' . $rates['EURGBP']), 2) . ' GBP'; ?></li>
+                        <li><img src="img/eur.png" alt="" width="25"/><?php echo '1 '.$rates[0]['from'].' - ' . number_format($rates[0]['to'], 2) . ' RON';?></li>
+                        <li><img src="img/usd.png" alt="" width="25"/><?php echo '1 '.$rates[1]['from'].' - ' . number_format($rates[1]['to'], 2) . ' RON';?></li>
+                        <li><img src="img/gbp.png" alt="" width="25"/><?php echo '1 '.$rates[2]['from'].' - ' . number_format($rates[2]['to'], 2) . ' RON';?></li>
                     </ul>
                     <input type="button" value="More"/>
                 </div>                     
-            </div>                                   
+            </div>                                      
         </section>
         <footer>
             <div class="content">
@@ -175,58 +194,62 @@ $model->setHistoryViews($_GET['id']);
         </div>
         <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.hoverscroll.js"></script>
-        <script type="text/javascript" src='assets/js/jquery.zoom-min.js'></script>
-        <script type="text/javascript" src='assets/js/functions.js'></script>
+        <script type="text/javascript" src='assets/js/jquery.zoom-min.js'></script>        
+        <script src="assets/js/jquery.zweatherfeed.min.js" type="text/javascript"></script> 
+        <script src="assets/js/functions.js" type="text/javascript"></script> 
 
 
         <script type="text/javascript">
 
             $(document).ready(function() {
-
-                $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
-                    vertical: true,
-                    width: 90,
-                    height: 330,
-                    arrows: false
-                });
-                $('#small-picture-list').hoverscroll();
-                $('#large-picture-zoom').zoom({on: 'click'});
-
-                $("#members-area").mouseover(function() {
-                    $("#members-area-content").show();
-                    $("#weather-content").hide();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#members-area-content").mouseenter(function() {
-                        $("#members-area-content").show();
-                    }).mouseleave(function() {
-                        $("#members-area-content").hide();
+                    $('#weather-content').weatherfeed(['873915'],{
+                            woeid: true
                     });
-                });
 
-                $("#weather").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#weather-content").show();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#weather-content").mouseenter(function() {
-                        $("#weather-content").show();
-                    }).mouseleave(function() {
-                        $("#weather-content").hide();
+                    $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
+                            vertical: true,
+                            width: 90,
+                            height: 330,
+                            arrows: false
                     });
-                });
+                    $('#small-picture-list').hoverscroll();
+                    $('#large-picture-zoom').zoom({on: 'click'});
 
-                $("#currency").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#currency-content").show();
-                    $("#weather-content").hide();
-                }).mouseout(function() {
-                    $("#currency-content").mouseenter(function() {
-                        $("#currency-content").show();
-                    }).mouseleave(function() {
-                        $("#currency-content").hide();
+                    $("#members-area").mouseover(function() {
+                            $("#members-area-content").show();
+                            $("#weather-content").hide();
+                            $("#currency-content").hide();
+                    }).mouseout(function() {
+                            $("#members-area-content").mouseenter(function() {
+                                    $("#members-area-content").show();
+                            }).mouseleave(function() {
+                                    $("#members-area-content").hide();
+                            });
                     });
-                });
+
+                    $("#weather").mouseover(function() {
+                            $("#members-area-content").hide();
+                            $("#weather-content").show();
+                            $("#currency-content").hide();
+                    }).mouseout(function() {
+                            $("#weather-content").mouseenter(function() {
+                                    $("#weather-content").show();
+                            }).mouseleave(function() {
+                                    $("#weather-content").hide();
+                            });
+                    });
+
+                    $("#currency").mouseover(function() {
+                            $("#members-area-content").hide();
+                            $("#currency-content").show();
+                            $("#weather-content").hide();
+                    }).mouseout(function() {
+                            $("#currency-content").mouseenter(function() {
+                                    $("#currency-content").show();
+                            }).mouseleave(function() {
+                                    $("#currency-content").hide();
+                            });
+                    });
 
 
             });

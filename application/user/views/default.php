@@ -1,30 +1,26 @@
-<?php 
-    //require_once("/../models/default.php"); 
-    $model = new UserModelDefault();?>
+<?php $model = new UserModelDefault(); ?>
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Womics | Adrian Mihaila & Saveluc Diana</title>
+        <title>WildRide | Adrian-Nicolae Mihaila, Diana Alexandra Saveluc, Alin Paul Macovei</title>
         <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
         <link rel="stylesheet" type="text/css" href="assets/css/main.css" /> 
         <link rel="stylesheet" href="assets/css/datepicker_bootstrap.css" > 
-        <link rel="stylesheet" type="text/css" media="all" href="assets/css/jquery.hoverscroll.css" />
-
-
+        <link rel="stylesheet" type="text/css" media="all" href="assets/css/jquery.hoverscroll.css" /> 
     </head>
     <body>
         <?php $result = $model->getUser(); ?>         
         <header>
             <div class="content">
                 <div id="logo">
-                    <a href="" alt=""><img src="img/logo.png" alt=""/></a>
+                    <a href="index.php" alt=""><img src="img/logo.png" alt=""/></a>
                 </div>
                 <div id="navigator">
                     <nav>
-                        <a href="about-us.php" title="About Us">about us</a>
-                        <a href="special-offers.php" title="Special Offers">special offers</a>
-                        <a href="reservation.php" title="Rezervation">rezervation</a>
-                        <a href="contact.php" title="Contact">contact</a>
+                        <a href="index.php?c=index&a=about" title="About Us">about us</a>
+                        <a href="index.php?c=search&a=filter&category=view_special_offers" title="Special Offers">special offers</a>
+                        <a href="index.php?c=index&a=reservation" title="Rezervation">rezervation</a>
+                        <a href="index.php?c=index&a=contact" title="Contact">contact</a>
                     </nav>
                 </div>
             </div>
@@ -194,7 +190,7 @@
                 <section class="footer-content">
                     <h3>Newsletter</h3>
                     <p>Keep up with new offers!</p>
-                    <form action="../controllers/newsletter.php" method="post">                            
+                    <form action="index.php?c=index&a=submitNewsletter" method="post">                            
                         <input type="email" name="email-newsletter" id="email-newsletter" required="required">                             
                         <input type="submit" value="Subscribe"/>
                     </form>
@@ -307,7 +303,7 @@
                     document.getElementById("inputs-label-return").style.display = "block";
                 }
             }                    
-             
+
             function go(controller, action){
                 window.location.href = "index.php?c="+controller+"&a=" + action;
             }

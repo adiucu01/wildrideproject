@@ -25,12 +25,10 @@
             if ($model->SignIn($param)) {
                 if (isset($_SESSION['HTTP_REFERER'])) {
                     header('Location: ' . $_SESSION['HTTP_REFERER']);
-                } else {
-                    //header('Location: ../views/login.php');
+                } else { 
                     require( $this->view . 'login.php' );
                 }
-            } else {
-                //header('Location: ../views/login.php');
+            } else {  
                 require( $this->view . 'login.php' );
             }
         }
@@ -40,7 +38,6 @@
             $param['session_id'] = session_id();
             $model = new UserModelLogin();
             if ($model->SignUp($param)) {
-                //header('Location: ../views/login.php');
                 require( $this->view . 'login.php' );
             }
         }
@@ -48,10 +45,13 @@
         public function forgotPasswordAction() {
             $param = $_POST;
             $model = new UserModelLogin();
-            if ($model->ForgotPassword($param)) {
-                //header('Location: ../views/login.php');
+            if ($model->ForgotPassword($param)) {  
                 require($this->view . 'login.php');
             }
+        }
+        
+        public function aboutAction(){
+            require($this->view . 'about-us.php');
         }
 
 }

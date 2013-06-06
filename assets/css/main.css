@@ -16,7 +16,7 @@ header{
 }
 .content{
     margin: 0 auto;
-    width: 1000px;
+    width: 980px;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -118,11 +118,11 @@ nav a{ margin-left: 10px;}
     margin-bottom: 10px;
 }
 #right-content{
-    width: 624px;
+    width: 604px;
     float: left;
 }
 #right-content img{
-    margin-left: 72px;
+    margin-left: 70px;
     position: relative;
     top: -90px;
 }
@@ -397,7 +397,7 @@ footer{
     border-top: 1px solid #9f9f9f;
 }
 .footer-content{
-    width: 200px;
+    width: 195px;
     float: left;
 }
 .footer-content h3{
@@ -843,7 +843,7 @@ footer{
     width: 38px;
 }
 #search-filter{
-    width: 250px;
+    width: 230px;
     float: left;
     margin-right: 20px;
 }
@@ -1035,5 +1035,10 @@ footer{
 .flash{
     color: #80BD55;
     font-size: 12pt;
+}
+.content-about-us{
+    text-indent: 50px;
+    font-size: 12pt;
+    text-align: justify;
 }
 

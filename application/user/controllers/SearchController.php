@@ -5,11 +5,10 @@
         public $_secure = false;
 
         public function __construct() {
-            $request = new Request();
+            $this->request = new Request();
         }
         public function viewAction(){
-            require($this->view.'search.php');
-            //header('Location: ../views/search.php');
+            require($this->view.'search.php'); 
         }
         public function paginationAction(){
             $param = $_POST;
@@ -19,9 +18,9 @@
         }
         public function filterAction(){
             $param = $_POST;
-            $model = new UserModelSearch();
-            $request = new Request();
-            $param['category'] = $request->getParam('category');
+            $model = new UserModelSearch();     
+
+            $param['category'] = $this->request->getParam('category');
             switch($param['category']){
                 case "in_stock":
                     $param['f'] = true;
@@ -54,6 +53,13 @@
                 case "horn_products":
                     $param['f'] = true;
                     echo $model->HornProducts($param,$yes,$no);
+                    break;
+                case "view_special_offers":
+                    require($this->view.'search.php'); 
+                    break;
+                case "special_offers":
+                    $param['f'] = true;
+                    echo $model->ProductInSpecialOffers($param,$count);
                     break;
             }
         }

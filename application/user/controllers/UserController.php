@@ -7,7 +7,7 @@
         public $_secure = true;
 
         public function __construct() {
-            $request = new Request();
+            $this->request = new Request();
         }
 
         public function indexAction() {
@@ -18,12 +18,10 @@
         public function viewAction() {
             $param = $_POST;
             $model = new ModelUser();
-            if($model->isValidUser()){
-                //header( 'Location: ../views/user.php' ) ;
+            if($model->isValidUser()){   
                 require( $this->view.'user.php' ) ;
             }else
-            {
-                //header('Location: ../views/login.php');
+            {             
                 require( $this->view.'login.php' ) ;
             }
         }
@@ -31,14 +29,13 @@
         public function editAction() {
             $param = $_POST;
             $model = new ModelUser();
+
             $id = $this->request->getParam('id');
             $param['id'] = $id;
             if($model->updateUser($param)){
-                //header( 'Location: ../views/user.php' ) ;
                 require( $this->view.'user.php' ) ;
             }else
             {
-                //header('Location: ../views/login.php');
                 require( $this->view.'login.php' ) ;
             }
         }
@@ -46,84 +43,110 @@
         public function changeEmailAction()
         {
             $param = $_POST;
-            $model = new ModelUser();
+            $model = new ModelUser();  
             $param['id'] = $this->request->getParam('id');
-            if($model->ChangeEmail($param)){
-                //header( 'Location: ../views/user.php' ) ;
-                require( $this->view.'user.php' ) ;
-            }else
-            {
-                //header('Location: ../views/login.php');
-                require( $this->view.'login.php' ) ;
+            if($this->request->getParam('id')!=null){
+                $param['id'] = $request->getParam('id');
+                if($model->ChangeEmail($param)){                
+                    require( $this->view.'user.php' ) ;
+                }else
+                {                                               
+                    require( $this->view.'login.php' ) ;
+                }
+            }else{
+                require( $this->view.'change-email.php' ) ;
             }
         }
 
         public function changePasswordAction()
-        {
-            $param['id'] = $id;
-            if($model->ChangePassword($param)){
-                //header( 'Location: ../views/user.php' ) ;
-                require( $this->view.'user.php' ) ;
-            }else
-            {
-                //header('Location: ../views/login.php');
-                require( $this->view.'login.php' ) ;
+        {  
+            $param = $_POST;
+            $model = new ModelUser(); 
+            
+            $param['id'] = $this->request->getParam('id');
+            if($this->request->getParam('id')!=null){
+                if($model->ChangePassword($param)){             
+                    require( $this->view.'user.php' ) ;
+                }else
+                {                                              
+                    require( $this->view.'login.php' ) ;
+                }
+            }else{
+                require( $this->view.'change-password.php' ) ;
+            }
+        }
+
+        public function ordersAction()
+        {  
+            $param = $_POST;
+            $model = new ModelUser();
+            
+            $param['id'] = $this->request->getParam('id');
+            if($this->request->getParam('id')!=null){
+                if($model->GetOrders($param)){                  
+                    require( $this->view.'user.php' ) ;
+                }else
+                {                                               
+                    require( $this->view.'login.php' ) ;
+                }
+            }else{
+                require( $this->view.'orders.php' ) ;
             }
         }
 
         /*public function userAction() {
-            $param = $_POST;
-            $model = new ModelUser();
-            $action = $this->request->getParam('do');
-            $id = $this->request->getParam('id');
+        $param = $_POST;
+        $model = new ModelUser();
+        $action = $this->request->getParam('do');
+        $id = $this->request->getParam('id');
 
-            if($action!=null){
-                switch($action){
-                    case "view":
-                        if($model->isValidUser()){
-                            //header( 'Location: ../views/user.php' ) ;
-                            require( $this->view.'user.php' ) ;
-                        }else
-                        {
-                            //header('Location: ../views/login.php');
-                            require( $this->view.'login.php' ) ;
-                        }
-                        break;
-                    case "edit":
-                        $param['id'] = $id;
-                        if($model->updateUser($param)){
-                            //header( 'Location: ../views/user.php' ) ;
-                            require( $this->view.'user.php' ) ;
-                        }else
-                        {
-                            //header('Location: ../views/login.php');
-                            require( $this->view.'login.php' ) ;
-                        }
-                        break;
-                    case "change-email":
-                        $param['id'] = $id;
-                        if($model->ChangeEmail($param)){
-                            //header( 'Location: ../views/user.php' ) ;
-                            require( $this->view.'user.php' ) ;
-                        }else
-                        {
-                            //header('Location: ../views/login.php');
-                            require( $this->view.'login.php' ) ;
-                        }
-                        break;
-                    case "change-password":
-                        $param['id'] = $id;
-                        if($model->ChangePassword($param)){
-                            //header( 'Location: ../views/user.php' ) ;
-                            require( $this->view.'user.php' ) ;
-                        }else
-                        {
-                            //header('Location: ../views/login.php');
-                            require( $this->view.'login.php' ) ;
-                        }
-                        break;
-                }
-            }
+        if($action!=null){
+        switch($action){
+        case "view":
+        if($model->isValidUser()){
+        //header( 'Location: ../views/user.php' ) ;
+        require( $this->view.'user.php' ) ;
+        }else
+        {
+        //header('Location: ../views/login.php');
+        require( $this->view.'login.php' ) ;
+        }
+        break;
+        case "edit":
+        $param['id'] = $id;
+        if($model->updateUser($param)){
+        //header( 'Location: ../views/user.php' ) ;
+        require( $this->view.'user.php' ) ;
+        }else
+        {
+        //header('Location: ../views/login.php');
+        require( $this->view.'login.php' ) ;
+        }
+        break;
+        case "change-email":
+        $param['id'] = $id;
+        if($model->ChangeEmail($param)){
+        //header( 'Location: ../views/user.php' ) ;
+        require( $this->view.'user.php' ) ;
+        }else
+        {
+        //header('Location: ../views/login.php');
+        require( $this->view.'login.php' ) ;
+        }
+        break;
+        case "change-password":
+        $param['id'] = $id;
+        if($model->ChangePassword($param)){
+        //header( 'Location: ../views/user.php' ) ;
+        require( $this->view.'user.php' ) ;
+        }else
+        {
+        //header('Location: ../views/login.php');
+        require( $this->view.'login.php' ) ;
+        }
+        break;
+        }
+        }
         } */
 
 
