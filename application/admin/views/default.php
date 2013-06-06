@@ -2,7 +2,7 @@
 //require_once("/../models/default.php");
 $model = new AdminModelDefault();
 if (!$model->isValidUser())
-    die();
+    WSystem::redirect("admin","signin");
 ?>
 <!DOCTYPE HTML>
 <html>

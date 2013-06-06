@@ -6,7 +6,7 @@
   class AdminModelDefault{
       private static $db;
       public function __construct(){
-          self::$db = new DB();
+          self::$db = WDB::get_instance();
       }
       public function addAdmin($nume,$prenume,$email,$punct_lucru,$parola,$admin){ 
            $password = $this->cryptp($parola);
@@ -218,7 +218,10 @@
           return $output;
       }
       public function isValidUser(){
+          if (isset($_COOKIE['user_id']) && !$_COOKIE['user_id'] &&
+                  isset($_COOKIE['user_session_id']) && !$_COOKIE['user_session_id'])
           $sql = "SELECT * FROM admin WHERE id=".intval($_COOKIE['user_id'])." and id_sesiune='{$_COOKIE['user_session_id']}'";
+          else return false;
           
           $result = self::$db->query($sql);    
           $arr = mysqli_fetch_assoc($result);

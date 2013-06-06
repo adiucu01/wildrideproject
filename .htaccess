@@ -1,11 +1,13 @@
 Options +FollowSymLinks
  
 RewriteEngine On
+RewriteRule ^admin$ index.php?c=admin&a=index
 RewriteRule ^admin/$ index.php?c=admin&a=index
-RewriteRule ^admin/([a-zA-Z0-9]+)/$ index.php?c=admin&a=$1
-RewriteRule ^user/$ index.php?c=user
-RewriteRule ^user/([a-zA-Z0-9]+)/$ index.php?c=user&a=$1
-RewriteRule ^([a-zA-Z0-9]+)/$ index.php?c=index&a=$1
+RewriteRule ^admin/([a-zA-Z0-9]+)$ index.php?c=admin&a=$1
+RewriteRule ^user$ index.php?c=user&a=view
+RewriteRule ^user/$ index.php?c=user&a=view
+RewriteRule ^user/([a-zA-Z0-9]+)$ index.php?c=user&a=$1
+RewriteRule ^([a-zA-Z0-9]+)$ index.php?c=index&a=$1
 
 Options All -Indexes
 
