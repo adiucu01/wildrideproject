@@ -48,7 +48,7 @@ $model->setHistoryViews($_GET['id']);
                     <img src="<?php echo $scooter['imagine']; ?>" alt="<?php echo $scooter['denumire']; ?>" height="330"/>
                 </div>
                 <div id="rent-details">
-                    <form action="../controllers/rent.php?action=rent&id=<?php echo $_GET['id']; ?>" method="post" id="form-rent" name="form-rent">
+                    <form action="index.php?c=rent&a=rent&id=<?php echo $_GET['id']; ?>" method="post" id="form-rent" name="form-rent">
                         <h4>Pick-up</h4>
                         <label class="search-label">Location</label> 
                         <input type="text" name="location_start" readonly="readonly" value="<?php echo $scooter['adresa']; ?>" class="input-login"/>
@@ -138,7 +138,7 @@ $model->setHistoryViews($_GET['id']);
                     <h3>Members Area</h3>
                     <h4><?php
                         if (is_array($result)) {
-                            echo 'Bune ai venit, <a href="../controllers/user.php?action=view&id=' . $result['id'] . '"> ' . $result['nume'] . " " . $result['prenume'] . "</a>!</h4>";
+                            echo 'Bune ai venit, <a href="index.php?c=user&a=view&id=' . $result['id'] . '"> ' . $result['nume'] . " " . $result['prenume'] . "</a>!</h4>";
                             echo '<input type="button" value="Logout" onclick="Logout()" class="input-logout"/>';
                         } else {
                             echo 'Welcome guest!</br>Please</h4>

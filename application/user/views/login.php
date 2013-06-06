@@ -37,7 +37,7 @@ if ($model->is_logged())
                 <div id="container-signin">
                     <?php if (!$_GET['f_password']) { ?>
                         <h2>Already Client</h2>
-                        <form action="../controllers/login.php?action=signin" method="post">
+                        <form action="index.php?c=index&a=signin" method="post">
                             <label class="login-label">
                                 Email
                             </label>
@@ -58,7 +58,7 @@ if ($model->is_logged())
                         </form>
                     <?php } else { ?>
                         <h2>Forgot Password</h2>
-                        <form action="../controllers/login.php?action=f_password" method="post">
+                        <form action="index.php?c=index&a=forgotPassword" method="post">
                             <label class="login-label">
                                 Email
                             </label>
@@ -78,7 +78,7 @@ if ($model->is_logged())
                 </div>
                 <div id="container-signup">
                     <h2>New Client</h2>
-                    <form action="../controllers/login.php?action=signup" method="post"  onsubmit="return ConfirmPassword();" id="form-signup">
+                    <form action="index.php?c=index&a=signup" method="post"  onsubmit="return ConfirmPassword();" id="form-signup">
                         <label class="login-label">
                             First Name
                         </label>
@@ -158,7 +158,7 @@ if ($model->is_logged())
                     <h3>Members Area</h3>
                     <h4><?php
                         if (is_array($result)) {
-                            echo 'Bune ai venit, <a href="../controllers/user.php?action=view&id=' . $result['id'] . '"> ' . $result['nume'] . " " . $result['prenume'] . "</a>!</h4>";
+                            echo 'Bune ai venit, <a href="index.php?c=user&a=view&id=' . $result['id'] . '"> ' . $result['nume'] . " " . $result['prenume'] . "</a>!</h4>";
                             echo '<input type="button" value="Logout" onclick="Logout()" class="input-logout"/>';
                         } else {
                             echo 'Welcome guest!</br>Please</h4>
