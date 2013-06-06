@@ -321,8 +321,7 @@
                 window.location.href = "index.php?c="+controller+"&a=" + action;
             }
             function RentScooter(id){
-                window.location = 'index.php?c=rent&action=view&id=' + id; 
-                //window.location = '../controllers/rent.php?action=view&id=' + id; 
+                window.location = 'index.php?c=rent&a=view&id=' + id; 
             }
         </script>              
     </body>

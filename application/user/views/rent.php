@@ -1,10 +1,10 @@
 <?php
-//require_once("/../models/rent.php"); 
-$model = new UserModelRent();
-if (!$model->isValidUser())
-//header('Location: login.php'); 
-    WSystem::redirect("index", "login");
-$model->setHistoryViews($_GET['id']);
+    //require_once("/../models/rent.php"); 
+    $model = new UserModelRent();
+    if (!$model->isValidUser())
+        //header('Location: login.php'); 
+        WSystem::redirect("index", "login");
+    $model->setHistoryViews($param['id']);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -16,19 +16,19 @@ $model->setHistoryViews($_GET['id']);
         <link rel="stylesheet" href="assets/css/datepicker_bootstrap.css" >          
 
         <?php
-        $scooter = $model->getScooter($_GET['id']);
-        $region_end = $city_end = $adress_end = null;
-        $model->getPositionEnd($region_end, $city_end, $adress_end);
+            $scooter = $model->getScooter($param['id']);
+            $region_end = $city_end = $adress_end = null;
+            $model->getPositionEnd($region_end, $city_end, $adress_end);
         ?>
 
-        
+
     </head>
     <body onload="initialize();"> 
         <?php $result = $model->getUser(); ?>         
         <header>
             <div class="content">
                 <div id="logo">
-                    <a href="default.php" title="WildRide"><img src="img/logo.png" alt="WildRide"/></a>
+                    <a href="index.php" title="WildRide"><img src="img/logo.png" alt="WildRide"/></a>
                 </div>
                 <div id="navigator">
                     <nav>
@@ -48,12 +48,12 @@ $model->setHistoryViews($_GET['id']);
                     <img src="<?php echo $scooter['imagine']; ?>" alt="<?php echo $scooter['denumire']; ?>" height="330"/>
                 </div>
                 <div id="rent-details">
-                    <form action="index.php?c=rent&a=rent&id=<?php echo $_GET['id']; ?>" method="post" id="form-rent" name="form-rent">
+                    <form action="index.php?c=rent&a=rent&id=<?php echo $param['id']; ?>" method="post" id="form-rent" name="form-rent">
                         <h4>Pick-up</h4>
                         <label class="search-label">Location</label> 
                         <input type="text" name="location_start" readonly="readonly" value="<?php echo $scooter['adresa']; ?>" class="input-login"/>
                         <label class="search-label">Date</label>    
-                        <input type="text" name="start-date" class="input-login" readonly="readonly" value="<?php echo date("m/d/Y H:iA"); ?>"/>
+                        <input type="text" name="start-date" class="input-login" value="<?php echo date("m/d/Y H:iA"); ?>"/>
 
                         <h4>Return</h4> 
                         <label class="search-label">Region</label>
@@ -97,7 +97,17 @@ $model->setHistoryViews($_GET['id']);
                         </p> 
                         <h2>Specification</h2>
                         <p id="container-description">
-                            <?php echo $scooter['caracteristici']; ?>   
+                            <?php 
+                                $c_arr = explode(';',$scooter['caracteristici']);
+                                for($key00 = 0; $key00<count($c_arr)-1;$key00++){
+                                    $c_strings = explode('=',$c_arr[$key00]); 
+                                    echo ucfirst($c_strings[0]).': '.ucfirst($c_strings[1])."</br></br>";
+                                    if($key00==count($c_arr)-2){
+                                        $c_string .= '';
+                                    }else{
+                                        $c_string .= ' and ';
+                                    }                                             
+                            } ?>   
                         </p> 
                     </div>
                     <div id="view-map">
@@ -142,35 +152,31 @@ $model->setHistoryViews($_GET['id']);
                             echo '<input type="button" value="Logout" onclick="Logout()" class="input-logout"/>';
                         } else {
                             echo 'Welcome guest!</br>Please</h4>
-                                            <input type="button" value="Sign In"/>
-                                            <div id="members-area-login">or</div>
-                                            <input type="button" value="Sign Up"/>';
+                            <input type="button" value="Sign In"/>
+                            <div id="members-area-login">or</div>
+                            <input type="button" value="Sign Up"/>';
                         }
-                        ?>
+                    ?>
                 </div>                        
             </div>
             <div id="weather">
                 <div id="weather-content">
                     <h3>Current Weather</h3>
-                    <?php $model->getWeather($temp_c, $img_url, $loc); ?>
-                    <div id="weather-content-img"><img src="<?php echo $img_url; ?>" alt="" /></div>
-                    <div id="weather-location"><?php echo $loc; ?></div>
-                    <div id="weather-temp"><?php echo $temp_c . '°C'; ?></div>
-                    <input type="button" value="More"/> 
+                    <div id="weather-content"></div>
                 </div>                        
             </div>
             <div id="currency"> 
                 <div id="currency-content">
-                    <?php $rates = $model->getExchangeRates(); ?>
+                    <?php $rates = $model->getExchangeRates();?>  
                     <h3>Currency Rates</h3>
                     <ul>
-                        <li><img src="img/eur.png" alt="" width="25"/><?php echo '1 EUR - ' . number_format(1, 2, '.', ' ') . ' EUR'; ?></li>
-                        <li><img src="img/usd.png" alt="" width="25"/><?php echo '1 EUR - ' . number_format(floatval($rates['EURUSD']), 2) . ' USD'; ?></li>
-                        <li><img src="img/gbp.png" alt="" width="25"/><?php echo '1 EUR - ' . number_format(floatval('0' . $rates['EURGBP']), 2) . ' GBP'; ?></li>
+                        <li><img src="img/eur.png" alt="" width="25"/><?php echo '1 '.$rates[0]['from'].' - ' . number_format($rates[0]['to'], 2) . ' RON';?></li>
+                        <li><img src="img/usd.png" alt="" width="25"/><?php echo '1 '.$rates[1]['from'].' - ' . number_format($rates[1]['to'], 2) . ' RON';?></li>
+                        <li><img src="img/gbp.png" alt="" width="25"/><?php echo '1 '.$rates[2]['from'].' - ' . number_format($rates[2]['to'], 2) . ' RON';?></li>
                     </ul>
                     <input type="button" value="More"/>
                 </div>                     
-            </div>                                   
+            </div>                                    
         </section>
         <footer>
             <div class="content">
@@ -231,6 +237,7 @@ $model->setHistoryViews($_GET['id']);
         <script type="text/javascript" src="assets/js/jquery.hoverscroll.js"></script>
         <script type="text/javascript" src='assets/js/jquery.zoom-min.js'></script>
         <script type="text/javascript" src='assets/js/functions.js'></script>
+        <script src="assets/js/jquery.zweatherfeed.min.js" type="text/javascript"></script> 
         <script type="text/javascript">
             var map;
             var directionsDisplay;
@@ -239,59 +246,70 @@ $model->setHistoryViews($_GET['id']);
             var init = 1;
 
             $(document).ready(function() {
-
-                $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
-                    vertical: false,
-                    width: 980,
-                    height: 270,
-                    arrows: false
-                });
-                $('#horizontal-scooters-history').hoverscroll();
-
-                window.addEvent('domready', function() {
-                    new Picker.Date($$('#end-date'), {
-                        timePicker: true,
-                        positionOffset: {x: 5, y: 0},
-                        pickerClass: 'datepicker_bootstrap',
-                        useFadeInOut: !Browser.ie
+                    $('#weather-content').weatherfeed(['873915'],{
+                            woeid: true
                     });
-                });
-
-                $("#members-area").mouseover(function() {
-                    $("#members-area-content").show();
-                    $("#weather-content").hide();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#members-area-content").mouseenter(function() {
-                        $("#members-area-content").show();
-                    }).mouseleave(function() {
-                        $("#members-area-content").hide();
+                    $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
+                            vertical: false,
+                            width: 980,
+                            height: 270,
+                            arrows: false
                     });
-                });
-
-                $("#weather").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#weather-content").show();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#weather-content").mouseenter(function() {
-                        $("#weather-content").show();
-                    }).mouseleave(function() {
-                        $("#weather-content").hide();
+                    $('#horizontal-scooters-history').hoverscroll();
+                    
+                    window.addEvent('domready', function() {
+                            new Picker.Date($$('#start-date'), {
+                                    timePicker: true,
+                                    positionOffset: {x: 5, y: 0},
+                                    pickerClass: 'datepicker_bootstrap',
+                                    useFadeInOut: !Browser.ie
+                            });
                     });
-                });
 
-                $("#currency").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#currency-content").show();
-                    $("#weather-content").hide();
-                }).mouseout(function() {
-                    $("#currency-content").mouseenter(function() {
-                        $("#currency-content").show();
-                    }).mouseleave(function() {
-                        $("#currency-content").hide();
+                    window.addEvent('domready', function() {
+                            new Picker.Date($$('#end-date'), {
+                                    timePicker: true,
+                                    positionOffset: {x: 5, y: 0},
+                                    pickerClass: 'datepicker_bootstrap',
+                                    useFadeInOut: !Browser.ie
+                            });
                     });
-                });
+
+                    $("#members-area").mouseover(function() {
+                            $("#members-area-content").show();
+                            $("#weather-content").hide();
+                            $("#currency-content").hide();
+                    }).mouseout(function() {
+                            $("#members-area-content").mouseenter(function() {
+                                    $("#members-area-content").show();
+                            }).mouseleave(function() {
+                                    $("#members-area-content").hide();
+                            });
+                    });
+
+                    $("#weather").mouseover(function() {
+                            $("#members-area-content").hide();
+                            $("#weather-content").show();
+                            $("#currency-content").hide();
+                    }).mouseout(function() {
+                            $("#weather-content").mouseenter(function() {
+                                    $("#weather-content").show();
+                            }).mouseleave(function() {
+                                    $("#weather-content").hide();
+                            });
+                    });
+
+                    $("#currency").mouseover(function() {
+                            $("#members-area-content").hide();
+                            $("#currency-content").show();
+                            $("#weather-content").hide();
+                    }).mouseout(function() {
+                            $("#currency-content").mouseenter(function() {
+                                    $("#currency-content").show();
+                            }).mouseleave(function() {
+                                    $("#currency-content").hide();
+                            });
+                    });
 
             });
             function RentNavigatorDescription(div, a) {
@@ -299,34 +317,34 @@ $model->setHistoryViews($_GET['id']);
                     case 1:
                         $('#scooter-desc').show();
                         $(a.parentNode.children).each(function(index) {
-                            this.removeClass('current-item');
+                                this.removeClass('current-item');
                         });
                         a.className = "current-item";
                         $('#view-map').hide();
                         $('#rental-cond').hide();
                         break;
                     case 2:
-                        $('#view-map').show();
-                        $(a.parentNode.children).each(function(index) {
+                    $('#view-map').show();
+                    $(a.parentNode.children).each(function(index) {
                             this.removeClass('current-item');
-                        });
-                        if (init === 1) {
-                            initialize();
-                            var control = document.getElementById('control');
-                            control.style.display = 'block';
-                            map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
-                            $("#start").val('<?php echo $scooter['adresa']; ?>');
-                            codeAddress('<?php echo $scooter['adresa']; ?>');
-                            init++;
-                        }
-                        a.className = "current-item";
-                        $('#scooter-desc').hide();
-                        $('#rental-cond').hide();
-                        break;
+                    });
+                    if (init === 1) {
+                        initialize();
+                        var control = document.getElementById('control');
+                        control.style.display = 'block';
+                        map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+                        $("#start").val('<?php echo $scooter['adresa']; ?>');
+                        codeAddress('<?php echo $scooter['adresa']; ?>');
+                        init++;
+                    }
+                    a.className = "current-item";
+                    $('#scooter-desc').hide();
+                    $('#rental-cond').hide();
+                    break;
                     case 3:
                         $('#rental-cond').show();
                         $(a.parentNode.children).each(function(index) {
-                            this.removeClass('current-item');
+                                this.removeClass('current-item');
                         });
                         a.className = "current-item";
                         $('#scooter-desc').hide();
@@ -356,23 +374,23 @@ $model->setHistoryViews($_GET['id']);
                     travelMode: google.maps.TravelMode.DRIVING
                 };
                 directionsService.route(request, function(response, status) {
-                    if (status === google.maps.DirectionsStatus.OK) {
-                        directionsDisplay.setDirections(response);
-                    }
+                        if (status === google.maps.DirectionsStatus.OK) {
+                            directionsDisplay.setDirections(response);
+                        }
                 });
             }
             function codeAddress(address) {
                 geocoder.geocode({'address': address}, function(results, status) {
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results[0].geometry.location);
-                        /*var marker = new google.maps.Marker({
-                         map: map,
-                         position: results[0].geometry.location
-                         });*/
-                        return results[0].geometry.location;
-                    } else {
-                        alert('Geocode was not successful for the following reason: ' + status);
-                    }
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            map.setCenter(results[0].geometry.location);
+                            /*var marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location
+                            });*/
+                            return results[0].geometry.location;
+                        } else {
+                            alert('Geocode was not successful for the following reason: ' + status);
+                        }
                 });
             }
             function SubmitRent() {

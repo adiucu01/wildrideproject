@@ -296,6 +296,12 @@
                 txt.style.display = "block";
                 txt.value = input.value;
             }
+            function go(controller, action){
+                window.location.href = "index.php?c="+controller+"&a=" + action;
+            }
+            function RentScooter(id){
+                window.location = 'index.php?c=rent&a=view&id=' + id; 
+            }
             function changePagination(pageId, liId) {
                 $(".flash").show();
                 $(".flash").fadeIn(400).html('Loading <img src="img/ajax-loading.gif" />');

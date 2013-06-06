@@ -28,6 +28,6 @@
         require_once $class_name . '.php';
     }
 
-
+    $_SESSION['HTTP_REFERER'] = $_SERVER['HTTP_REFERER'];
     WSystem::execute();
     //require('application/user/controllers/default.php');

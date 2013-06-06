@@ -1,8 +1,8 @@
 <?php
-//require_once("/../models/login.php"); 
-$model = new UserModelLogin();
-if ($model->is_logged())
-    header('Location: index.php?c=user&a=view&id=' . $_COOKIE['user_id']);
+    //require_once("/../models/login.php"); 
+    $model = new UserModelLogin();
+    if ($model->is_logged())
+        header('Location: index.php?c=user&a=view&id=' . $_COOKIE['user_id']);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -12,7 +12,7 @@ if ($model->is_logged())
         <link rel="stylesheet" type="text/css" href="assets/css/main.css" /> 
         <link rel="stylesheet" type="text/css" media="all" href="assets/css/jquery.hoverscroll.css" />
 
-        
+
     </head>
     <body> 
         <?php $result = $model->getUser(); ?>         
@@ -56,7 +56,7 @@ if ($model->is_logged())
                             </label>
                             <a href="index.php?c=index&a=login&f_password=true" title="" id="login-password-forget">Forgot Password</a>
                         </form>
-                    <?php } else { ?>
+                        <?php } else { ?>
                         <h2>Forgot Password</h2>
                         <form action="index.php?c=index&a=forgotPassword" method="post">
                             <label class="login-label">
@@ -74,7 +74,7 @@ if ($model->is_logged())
                             <input type="submit" value="Reset" name="signin" style="margin: 0px;"/>
 
                         </form>    
-                    <?php } ?>
+                        <?php } ?>
                 </div>
                 <div id="container-signup">
                     <h2>New Client</h2>
@@ -109,9 +109,9 @@ if ($model->is_logged())
                         <div class="search-select" id="search-judet">
                             <select name="judet" onchange="selectOras(this);" id="judet">
                                 <?php
-                                foreach (json_decode(JUDET) as $item => $key) {
-                                    echo '<option value="' . $item . '">' . $item . '</option>';
-                                }
+                                    foreach (json_decode(JUDET) as $item => $key) {
+                                        echo '<option value="' . $item . '">' . $item . '</option>';
+                                    }
                                 ?>
                             </select>
                         </div>
@@ -162,35 +162,31 @@ if ($model->is_logged())
                             echo '<input type="button" value="Logout" onclick="Logout()" class="input-logout"/>';
                         } else {
                             echo 'Welcome guest!</br>Please</h4>
-                                            <input type="button" value="Sign In" onclick="Login();"/>
-                                            <div id="members-area-login">or</div>
-                                            <input type="button" value="Sign Up" onclick="Login();"/>';
+                            <input type="button" value="Sign In" onclick="Login();"/>
+                            <div id="members-area-login">or</div>
+                            <input type="button" value="Sign Up" onclick="Login();"/>';
                         }
-                        ?>
+                    ?>
                 </div>                        
             </div>
             <div id="weather">
                 <div id="weather-content">
                     <h3>Current Weather</h3>
-                    <?php $model->getWeather($temp_c, $img_url, $loc); ?>
-                    <div id="weather-content-img"><img src="<?php echo $img_url; ?>" alt="" /></div>
-                    <div id="weather-location"><?php echo $loc; ?></div>
-                    <div id="weather-temp"><?php echo $temp_c . '°C'; ?></div>
-                    <input type="button" value="More"/> 
+                    <div id="weather-content"></div>
                 </div>                        
             </div>
             <div id="currency"> 
                 <div id="currency-content">
-                    <?php $rates = $model->getExchangeRates(); ?>
+                    <?php $rates = $model->getExchangeRates();?>  
                     <h3>Currency Rates</h3>
                     <ul>
-                        <li><img src="img/eur.png" alt="" width="25"/><?php echo '1 EUR - ' . number_format(1, 2, '.', ' ') . ' EUR'; ?></li>
-                        <li><img src="img/usd.png" alt="" width="25"/><?php echo '1 EUR - ' . number_format(floatval($rates['EURUSD']), 2) . ' USD'; ?></li>
-                        <li><img src="img/gbp.png" alt="" width="25"/><?php echo '1 EUR - ' . number_format(floatval('0' . $rates['EURGBP']), 2) . ' GBP'; ?></li>
+                        <li><img src="img/eur.png" alt="" width="25"/><?php echo '1 '.$rates[0]['from'].' - ' . number_format($rates[0]['to'], 2) . ' RON';?></li>
+                        <li><img src="img/usd.png" alt="" width="25"/><?php echo '1 '.$rates[1]['from'].' - ' . number_format($rates[1]['to'], 2) . ' RON';?></li>
+                        <li><img src="img/gbp.png" alt="" width="25"/><?php echo '1 '.$rates[2]['from'].' - ' . number_format($rates[2]['to'], 2) . ' RON';?></li>
                     </ul>
                     <input type="button" value="More"/>
                 </div>                     
-            </div>                                   
+            </div>                                      
         </section>
         <footer>
             <div class="content">
@@ -243,59 +239,63 @@ if ($model->is_logged())
         <script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>  
         <script type="text/javascript" src="assets/js/jquery.hoverscroll.js"></script> 
         <script type="text/javascript" src="assets/js/functions.js"></script> 
+        <script src="assets/js/jquery.zweatherfeed.min.js" type="text/javascript"></script> 
 
 
         <script type="text/javascript">
 
             $(document).ready(function() {
-                $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
-                    vertical: false,
-                    width: 980,
-                    height: 270,
-                    arrows: false
-                });
-                $('#horizontal-scooters-history').hoverscroll();
-
-                $("#members-area").mouseover(function() {
-                    $("#members-area-content").show();
-                    $("#weather-content").hide();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#members-area-content").mouseenter(function() {
-                        $("#members-area-content").show();
-                    }).mouseleave(function() {
-                        $("#members-area-content").hide();
+                    $('#weather-content').weatherfeed(['873915'],{
+                            woeid: true
                     });
-                });
-
-                $("#weather").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#weather-content").show();
-                    $("#currency-content").hide();
-                }).mouseout(function() {
-                    $("#weather-content").mouseenter(function() {
-                        $("#weather-content").show();
-                    }).mouseleave(function() {
-                        $("#weather-content").hide();
+                    $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
+                            vertical: false,
+                            width: 980,
+                            height: 270,
+                            arrows: false
                     });
-                });
+                    $('#horizontal-scooters-history').hoverscroll();
 
-                $("#currency").mouseover(function() {
-                    $("#members-area-content").hide();
-                    $("#currency-content").show();
-                    $("#weather-content").hide();
-                }).mouseout(function() {
-                    $("#currency-content").mouseenter(function() {
-                        $("#currency-content").show();
-                    }).mouseleave(function() {
-                        $("#currency-content").hide();
+                    $("#members-area").mouseover(function() {
+                            $("#members-area-content").show();
+                            $("#weather-content").hide();
+                            $("#currency-content").hide();
+                    }).mouseout(function() {
+                            $("#members-area-content").mouseenter(function() {
+                                    $("#members-area-content").show();
+                            }).mouseleave(function() {
+                                    $("#members-area-content").hide();
+                            });
                     });
-                });
+
+                    $("#weather").mouseover(function() {
+                            $("#members-area-content").hide();
+                            $("#weather-content").show();
+                            $("#currency-content").hide();
+                    }).mouseout(function() {
+                            $("#weather-content").mouseenter(function() {
+                                    $("#weather-content").show();
+                            }).mouseleave(function() {
+                                    $("#weather-content").hide();
+                            });
+                    });
+
+                    $("#currency").mouseover(function() {
+                            $("#members-area-content").hide();
+                            $("#currency-content").show();
+                            $("#weather-content").hide();
+                    }).mouseout(function() {
+                            $("#currency-content").mouseenter(function() {
+                                    $("#currency-content").show();
+                            }).mouseleave(function() {
+                                    $("#currency-content").hide();
+                            });
+                    });
 
 
             });
 
-            
+
         </script> 
     </body>
 </html>

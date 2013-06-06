@@ -19,8 +19,9 @@
         }
         public function filterAction(){
             $param = $_POST;
-            $model = new UserModelRent();
-            $param['category'] = $this->request->getParam('category');
+            $model = new UserModelSearch();
+            $request = new Request();
+            $param['category'] = $request->getParam('category');
             switch($param['category']){
                 case "in_stock":
                     $param['f'] = true;
