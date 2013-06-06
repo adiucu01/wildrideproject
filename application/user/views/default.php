@@ -113,9 +113,9 @@ $model = new UserModelDefault();?>
                                     echo '<input type="button" value="Logout" onclick="Logout()" class="input-logout"/>';
                                 }else{
                                     echo 'Welcome guest!</br>Please</h4>
-                                            <input type="button" value="Sign In" onclick="go(\'login\');"/>
+                                            <input type="button" value="Sign In" onclick="go(\'index\',\'login\');"/>
                                             <div id="members-area-login">or</div>
-                                            <input type="button" value="Sign Up" onclick="go(\'login\');"/>'; 
+                                            <input type="button" value="Sign Up" onclick="go(\'index\',\'login\');"/>'; 
                                 }                            
                             ?> 
                         </div>                        
@@ -317,8 +317,8 @@ $model = new UserModelDefault();?>
                 var expires = " expires="+date.toGMTString();
                 document.cookie = name+"=;"+expires+"; path=/";
             }
-            function go(action){
-                window.location.href = "index.php?c=user&a=" + action;
+            function go(controller, action){
+                window.location.href = "index.php?c="+controller+"&a=" + action;
             }
             function RentScooter(id){
                 window.location = '../controllers/rent.php?action=view&id=' + id; 

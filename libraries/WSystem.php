@@ -1,10 +1,10 @@
 <?php
 class WSystem {
-		public static $controller_name = "user";
-    public static $action_name = "index";
-    public static $controller;
+		public static $controller_name = "index";
+        public static $action_name = "index";
+        public static $controller;
 
-		public static function redirect($controller = "user", $action = "index") {
+		public static function redirect($controller = "index", $action = "index") {
 			header("Location: index.php?c=".$controller."&a=".$action);
 		}
 
@@ -16,11 +16,15 @@ class WSystem {
         self::$controller = new $controller_class;
 
         $controller_function = WSystem::$action_name."Action";
-				if (self::$controller->_issecure == true && $model->is_logged() && $model->isValidUser())
-        	self::$controller->$controller_function();
-				else
-					WSystem::redirect("index","login");
-
+            if (isset(self::$controller->_secure ) && self::$controller->_secure && !($model->is_logged() && $model->isValidUser())) {
+                self::$controller_name = "index";
+                self::$action_name = "index";
+                self::execute();
+            }
+            else {
+	        	self::$controller->$controller_function();
+			}	
+					
     }
 
 }
