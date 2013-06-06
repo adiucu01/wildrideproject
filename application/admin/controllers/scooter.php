@@ -1,8 +1,10 @@
 <?php
+/*
     require("../models/scooter.php");
     require('/../../../libraries/PHPOffice/Classes/PHPExcel.php'); 
     require('/../../../libraries/PHPOffice/Classes/PHPExcel/IOFactory.php');
-    $model = new ModelScooter();
+*/
+    $model = new AdminModelScooter();
     
     $param = $_POST;
     

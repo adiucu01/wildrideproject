@@ -1,4 +1,6 @@
-<?php require_once("/../models/scooter.php"); $model = new ModelScooter(); $model->setHistoryViews($_GET['id']); ?>
+<?php 
+//require_once("/../models/scooter.php"); 
+$model = new UserModelScooter(); $model->setHistoryViews($_GET['id']); ?>
 <!DOCTYPE HTML>
 <html>
     <head>

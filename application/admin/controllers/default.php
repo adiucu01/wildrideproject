@@ -1,6 +1,6 @@
 <?php
-    require("/models/default.php");
-    $model = new ModelDefault();
+    //require("/models/default.php");
+    $model = new AdminModelDefault();
     
     if($model->is_logged()){
         header( 'Location: views/default.php' ) ; 

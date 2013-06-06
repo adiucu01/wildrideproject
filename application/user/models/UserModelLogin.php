@@ -1,10 +1,11 @@
 <?php
+/*
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
   
   include("../models/default.php");
-    
-  class ModelLogin extends ModelDefault{ 
+*/    
+  class UserModelLogin extends UserModelDefault{ 
       public function SignIn($param){
           $password = $this->cryptp($param['password']);
           

@@ -1,9 +1,9 @@
 <?php
-  require_once("../models/rent.php");
+  //require_once("../models/rent.php");
 
   $param = $_POST;
   
-  $model = new ModelRent();
+  $model = new UserModelRent();
   
   
   if(isset($_GET['action'])){

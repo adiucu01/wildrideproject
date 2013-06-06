@@ -1,10 +1,11 @@
 <?php
+/*
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
   
   include("../models/default.php");
-    
-  class ModelUser extends ModelDefault{ 
+*/    
+  class ModelUser extends UserModelDefault{ 
       public function updateUser($param){  
           
           $sql = "UPDATE user SET nume='{$param['first_name']}', prenume='{$param['last_name']}', cnp='{$param['cnp']}', judet='{$param['judet']}', oras='{$param['oras']}', serie='{$param['serie']}', numar='{$param['numar']}' WHERE id = '{$param['id']}'";

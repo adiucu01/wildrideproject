@@ -1,4 +1,6 @@
-<?php require_once("/../models/user.php"); $model = new ModelUser(); if(!$model->isValidUser()) header('Location: login.php');?>
+<?php 
+//require_once("/../models/user.php"); 
+$model = new ModelUser(); if(!$model->isValidUser()) header('Location: login.php');?>
 <!DOCTYPE HTML>
 <html>
     <head>

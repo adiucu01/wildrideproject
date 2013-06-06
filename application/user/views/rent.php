@@ -1,4 +1,6 @@
-<?php require_once("/../models/rent.php"); $model = new ModelRent(); if(!$model->isValidUser()) header('Location: login.php'); $model->setHistoryViews($_GET['id']);?>
+<?php 
+//require_once("/../models/rent.php"); 
+$model = new UserModelRent(); if(!$model->isValidUser()) header('Location: login.php'); $model->setHistoryViews($_GET['id']);?>
 <!DOCTYPE HTML>
 <html>
     <head>

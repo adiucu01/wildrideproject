@@ -1,10 +1,11 @@
 <?php
+/*
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
   
   include("../models/default.php"); 
-    
-  class ModelSearch extends ModelDefault{
+*/    
+  class UserModelSearch extends UserModelDefault{
       private $_PAGE_PER_NO = 4;
       public function SearchScooter($param){
           if(isset($param['pageId']) && !empty($param['pageId'])){

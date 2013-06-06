@@ -1,7 +1,8 @@
 <?php
+/*
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
-    
+*/    
   class ModelAdmin{
       private static $db;
       public function __construct(){

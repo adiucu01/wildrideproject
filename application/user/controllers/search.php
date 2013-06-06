@@ -1,9 +1,9 @@
 <?php
-  require_once("../models/search.php");
+  //require_once("../models/search.php");
 
   $param = $_POST;
   
-  $model = new ModelSearch();
+  $model = new UserModelSearch();
   
   
   if(isset($_GET['action'])){

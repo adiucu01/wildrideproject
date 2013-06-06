@@ -1,4 +1,6 @@
-<?php require_once("/../models/default.php"); $model = new ModelDefault(); if(!$model->isValidUser()) die();?>
+<?php 
+//require_once("/../models/default.php"); 
+$model = new AdminModelDefault(); if(!$model->isValidUser()) die();?>
 <!DOCTYPE HTML>
 <html>
     <head>
