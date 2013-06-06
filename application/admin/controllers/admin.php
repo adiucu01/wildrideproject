@@ -1,9 +1,9 @@
 <?php
-    //require("../models/admin.php");
+    require("../models/admin.php");
     $model = new ModelAdmin();
-    
+  
     $param = $_POST;
-    
+   
     switch($_GET['action']){
         case "edit":
             if(isset($_GET['type'])){

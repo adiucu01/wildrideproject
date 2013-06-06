@@ -2,7 +2,7 @@
 /*
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
-*/    
+  */  
   class AdminModelSignIn{
       private static $db;
       public function __construct(){
