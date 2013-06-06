@@ -4,7 +4,7 @@ class UserController {
 
 	private $request;
 	private $view = 'application/user/views/';
-	public $_secture = true;
+	public $_secure = true;
 
 	public function __construct() {
 		$request = new Request();
@@ -164,44 +164,6 @@ $param['id'] = $id;
     }
 	}
 
-	public function loginAction() {
-		$param = $_POST;
-		$param['session_id'] = session_id();
-		$model = new UserModelLogin();
-		require( $this->view.'login.php' ) ;
-/*		
-		if(isset($_GET['do'])){
-	    switch($_GET['do']){
-        case "signin":
-          if($model->SignIn($param)){
-            if(isset($_SESSION['HTTP_REFERER'])){
-              header( 'Location: '. $_SESSION['HTTP_REFERER'] ) ;
-            }else{
-              //header('Location: ../views/login.php');
-							require('../views/login.php');
-            }
-          }
-          else
-            {
-              //header('Location: ../views/login.php');
-							require('../views/login.php');
-            }
-	        break;
-        case "signup":
-          if($model->SignUp($param)){
-              //header('Location: ../views/login.php');
-							require('../views/login.php');
-          }
-      	  break;
-        case "f_password":
-          if($model->ForgotPassword($param)){
-              //header('Location: ../views/login.php');
-							require('../views/login.php');
-          }
-	        break;
-	    }
-		}
-*/
-	}
+	
 
 }
