@@ -35,7 +35,7 @@ if ($model->is_logged())
         <section id="container">
             <div class="content">
                 <div id="container-signin">
-                    <?php if (!$_GET['f_password']) { ?>
+                    <?php if (!isset($_GET['f_password']) || !$_GET['f_password']) { ?>
                         <h2>Already Client</h2>
                         <form action="index.php?c=index&a=signin" method="post">
                             <label class="login-label">
@@ -54,7 +54,7 @@ if ($model->is_logged())
 
                             <label class="login-label">
                             </label>
-                            <a href="login.php?f_password=true" title="" id="login-password-forget">Forgot Password</a>
+                            <a href="index.php?c=index&a=login&f_password=true" title="" id="login-password-forget">Forgot Password</a>
                         </form>
                     <?php } else { ?>
                         <h2>Forgot Password</h2>
