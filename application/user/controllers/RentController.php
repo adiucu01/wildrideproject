@@ -5,20 +5,19 @@
         public $_secure = false;
 
         public function __construct() {
-            $request = new Request();
+            $this->request = new Request();
         }
-        public function viewAction() {
-            $request = new Request();
-            $param['id'] = $request->getParam('id');
-            
+        public function viewAction() {    
+            $param['id'] = $this->request->getParam('id');
+
             require($this->view.'rent.php');  
         }         
         public function rentAction()
         {
             $param = $_POST;
             $model = new UserModelRent();
-            $request = new Request(); 
-            $param['id'] = $request->getParam('id');
+
+            $param['id'] = $this->request->getParam('id');
             if($model->makeRent($param)){
                 require($this->view.'default.php');        
             }

@@ -1,4 +1,5 @@
 <?php
+                
 
 class IndexController {
 
@@ -33,30 +34,27 @@ class IndexController {
             //header('Location: ../views/login.php');
             require( $this->view . 'login.php' );
         }
-    }
+    }  
 
-    public function signupAction() {
-        $param = $_POST;
-        $param['session_id'] = session_id();
-        $model = new UserModelLogin();
-        if ($model->is_logged()) {
-            WSystem::redirect("user", "view");
-        } else
-        if ($model->SignUp($param)) {
-            WSystem::redirect("user", "view");
+        public function signupAction() {
+            $param = $_POST;
+            $param['session_id'] = session_id();
+            $model = new UserModelLogin();
+            if ($model->SignUp($param)) {
+                require( $this->view . 'login.php' );
+            }
         }
-        else
-        //header('Location: ../views/login.php');
-            require( $this->view . 'login.php' );
-    }
-    
-    public function forgotPasswordAction() {
-        $param = $_POST;
-        $model = new UserModelLogin();
-        if ($model->ForgotPassword($param)) {
-            //header('Location: ../views/login.php');
-            require($this->view . 'login.php');
+
+        public function forgotPasswordAction() {
+            $param = $_POST;
+            $model = new UserModelLogin();
+            if ($model->ForgotPassword($param)) {  
+                require($this->view . 'login.php');
+            }
         }
-    }
+        
+        public function aboutAction(){
+            require($this->view . 'about-us.php');
+        }
 
 }

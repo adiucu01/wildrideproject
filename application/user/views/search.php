@@ -1,8 +1,4 @@
-<?php
-    //require_once("/../models/search.php"); 
-    $model = new UserModelSearch();
-    $paginationCount = $model->getPagination($_POST, $count);
-?>
+<?php $model = new UserModelSearch();    $paginationCount = $model->getPagination($_POST, $count);  ?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -11,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="assets/css/main.css" />  
 
     </head>
-    <body onload="changePagination('0', 'first')"> 
+    <body onload="<?php if($param['category']=='view_special_offers') echo 'SpecialOffers(\'0\', \'first\')'; else echo 'changePagination(\'0\', \'first\')';?>"> 
         <?php $result = $model->getUser(); ?>         
         <header>
             <div class="content">
@@ -320,6 +316,46 @@
                                     $(this).css({background: "#40AAEB", color: "#fff"});
                             });
                             $("#scooter-list-result").html(result);
+                        }
+                });
+            }
+            function SpecialOffers(pageId, liId) {
+                $(".flash").show();
+                $(".flash").fadeIn(400).html('Loading <img src="img/ajax-loading.gif" />');
+                var dataString = 'adress_start=' + start_adress + '&start-date=' + start_date + '&pageId=' + pageId;
+                $.ajax({
+                        type: "POST",
+                        url: "index.php?c=search&a=filter&category=special_offers",
+                        data: dataString,
+                        cache: false,
+                        success: function(result) {
+                            $(".flash").hide();
+                            var arr_result = result.split('##');
+                            var pag_no = arr_result[0];
+                            $("#pagination-header-list").html("");
+                            $("#pagination-header-list").html('<li class=\'first link\' id="first"><a href="javascript:void(0)" onclick="MakeFilter(\'0\',\'first\',\'special_offers\',\'' + pag_no + '\')">First</a></li>');
+                            for (var i = 0; i < arr_result[0]; i++) {
+                                $("#pagination-header-list").append('<li id="pag_li_' + i + '" class=\'link\'><a href="javascript:void(0)" onclick="MakeFilter(\'' + i + '\',\'pag_li_' + i + '\',\'special_offers\',\'' + pag_no + '\')">' + (i + 1) + '</a></li>');
+
+                            }
+                            $("#pagination-header-list").append('<li class=\'last link\'  id="last"><a href="javascript:void(0)" onclick="MakeFilter(\'' + (arr_result[0] - 1) + '\',\'last\',\'special_offers\',\'' + pag_no + '\')">Last</a></li><li class="flash"></li>');
+
+
+                            $("#pagination-footer-list").html("");
+                            $("#pagination-footer-list").html('<li class=\'first link footer-pag\' id="first"><a href="javascript:void(0)" onclick="MakeFilter(\'0\',\'first\',\'special_offers\',\'' + pag_no + '\')">First</a></li>');
+                            for (var i = 0; i < arr_result[0]; i++) {
+                                $("#pagination-footer-list").append('<li id="pag_li_' + i + '" class=\'link footer-pag\'><a href="javascript:void(0)" onclick="MakeFilter(\'' + i + '\',\'pag_li_' + i + '\',\'special_offers\',\'' + pag_no + '\')">' + (i + 1) + '</a></li>');
+
+                            }
+                            $("#pagination-footer-list").append('<li class=\'last link footer-pag\'  id="last"><a href="javascript:void(0)" onclick="MakeFilter(\'' + (arr_result[0] - 1) + '\',\'last\',\'special_offers\',\'' + pag_no + '\')">Last</a></li><li class="flash"></li>');
+
+                            $(".link a").each(function() {
+                                    $(this).css({background: "#fff", color: "#9F9F9F"});
+                            });
+                            $("#" + liId + " a").each(function() {
+                                    $(this).css({background: "#40AAEB", color: "#fff"});
+                            });
+                            $("#scooter-list-result").html(arr_result[1]);
                         }
                 });
             }

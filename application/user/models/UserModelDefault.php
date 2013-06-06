@@ -83,7 +83,7 @@
                     }                                             
                 }
                 $output .= '<li class="scooter-detailed'.$class.'">
-                <a href="../views/scooter.php?id='.$arr['id'].'" title="">
+                <a href="index.php?c=scooter&a=view&id='.$arr['id'].'" title="">
                 <div class="scooter-detailed-img">
                 <img src="'.$arr['imagine'].'" alt="" width="150"/>
                 </div>
@@ -129,7 +129,7 @@
                     }                                             
                 }
                 $output .= '<li class="scooter-detailed'.$class.'">
-                <a href="../views/scooter.php?id='.$arr['id'].'" title="">
+                <a href="index.php?c=scooter&a=view&id='.$arr['id'].'" title="">
                 <div class="scooter-detailed-img">
                 <img src="'.$arr['imagine'].'" alt="" width="150"/>
                 </div>
@@ -319,7 +319,7 @@
                         $class = null;
                     }
                     $output .= '<li class="scooter-detailed'.$class.'">
-                    <a href="../views/scooter.php?id='.$arr['id'].'" title="">
+                    <a href="index.php?c=scooter&a=view&id='.$arr['id'].'" title="">
                     <div class="scooter-detailed-img">
                     <img src="'.$arr['imagine'].'" alt="" width="150"/>
                     </div>

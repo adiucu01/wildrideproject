@@ -36,9 +36,9 @@
             <div class="content">
                 <div id="user-navigator">
                     <ul>
-                        <li><a href="orders.php" title="View Orders History">Orders History</a></li>
-                        <li><a href="change-email.php" title="Change Email Login">Change Email Login</a></li>
-                        <li><a href="change-password.php" title="Change Password Login">Change Password Login</a></li>
+                        <li><a href="index.php?c=user&a=orders" title="View Orders History">Orders History</a></li>
+                        <li><a href="index.php?c=user&a=changeEmail" title="Change Email Login">Change Email Login</a></li>
+                        <li><a href="index.php?c=user&a=changePassword" title="Change Password Login">Change Password Login</a></li>
                     </ul>
                 </div>    
                 <div id="user-information">

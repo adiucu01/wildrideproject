@@ -53,7 +53,7 @@
                         <label class="search-label">Location</label> 
                         <input type="text" name="location_start" readonly="readonly" value="<?php echo $scooter['adresa']; ?>" class="input-login"/>
                         <label class="search-label">Date</label>    
-                        <input type="text" name="start-date" class="input-login" value="<?php echo date("m/d/Y H:iA"); ?>"/>
+                        <input type="text" name="start-date" id="start-date" class="input-login" value="<?php echo date("m/d/Y H:iA"); ?>"/>
 
                         <h4>Return</h4> 
                         <label class="search-label">Region</label>
