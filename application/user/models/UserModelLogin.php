@@ -37,7 +37,7 @@
 
             setcookie('user_id',$arr['id'],time()+3600*24,"/");
             setcookie('user_session_id', $param['session_id'] ,time()+3600*24,"/"); 
-
+            
             return $result;  
         }
         public function ForgotPassword($param){
