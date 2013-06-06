@@ -219,8 +219,14 @@ nav a{ margin-left: 10px;}
     text-align: center;
 }
 .weatherLink {
-    text-align: center;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: medium none;
+    color: #000000;
+    cursor: pointer;
     font-size: 12pt;
+    padding: 3px;
+    width: 168px;
+    text-align: center;
 }
 .weatherLink a{
     color: #000;
