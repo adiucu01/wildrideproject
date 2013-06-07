@@ -105,7 +105,7 @@
             return $paginationCount;
         }  
         public function ProductInStock($param, &$count){
-            if($param['f']){
+            if(isset($param['f']) && $param['f']){
                 if(isset($param['pageId']) && !empty($param['pageId'])){
                     $id=$param['pageId'];
                 }else{
@@ -190,7 +190,7 @@
             return $HTML;   
         } 
         public function AllProducts($param, &$count){ 
-            if($param['f']){
+            if(isset($param['f']) && $param['f']){
                 if(isset($param['pageId']) && !empty($param['pageId'])){
                     $id=$param['pageId'];
                 }else{
@@ -272,7 +272,7 @@
             return $HTML;   
         }
         public function NewProducts($param, &$count){
-            if($param['f']){
+            if(isset($param['f']) && $param['f']){
                 if(isset($param['pageId']) && !empty($param['pageId'])){
                     $id=$param['pageId'];
                 }else{
@@ -354,7 +354,7 @@
             return $HTML;    
         }  
         public function PriceProducts($param, &$min, &$max, &$range, &$count){       
-            if($param['f']){
+            if(isset($param['f']) && $param['f']){
                 if(isset($param['pageId']) && !empty($param['pageId'])){
                     $id=$param['pageId'];
                 }else{
@@ -378,7 +378,7 @@
 
                 $min = $row['min'];
                 $max = $row['max'] ;
-                $range = ($min + max)/2;
+                $range = ($min + $max)/2;
             }  
             $paginationCount= floor($count / $this->_PAGE_PER_NO);
 
@@ -442,7 +442,7 @@
             return $HTML;    
         }
         public function HandlesProducts($param, &$rubber, &$plastic){
-            if($param['f']){
+            if(isset($param['f']) && $param['f']){
                 if(isset($param['pageId']) && !empty($param['pageId'])){
                     $id=$param['pageId'];
                 }else{
@@ -534,7 +534,7 @@
             return $HTML;    
         }
         public function WheelsProducts($param, &$aluminum, &$iron){
-            if($param['f']){
+            if(isset($param['f']) && $param['f']){
                 if(isset($param['pageId']) && !empty($param['pageId'])){
                     $id=$param['pageId'];
                 }else{
@@ -626,7 +626,7 @@
             return $HTML;    
         }
         public function HornProducts($param, &$yes, &$no){
-            if($param['f']){
+            if(isset($param['f']) && $param['f']){
                 if(isset($param['pageId']) && !empty($param['pageId'])){
                     $id=$param['pageId'];
                 }else{
