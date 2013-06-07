@@ -1,4 +1,7 @@
-<?php $model = new UserModelRent(); if (!$model->isValidUser()) WSystem::redirect("index", "login"); $model->setHistoryViews($param['id']);?>
+<?php $model = new UserModelRent(); 
+if (isset($_SERVER['HTTP_REFERER']) && !$_SERVER['HTTP_REFERER'])
+        $_SESSION['HTTP_REFERER'] = $_SERVER['HTTP_REFERER']; 
+if (!$model->isValidUser()) WSystem::redirect("index", "login"); $model->setHistoryViews($param['id']);?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -12,8 +15,7 @@
             $scooter = $model->getScooter($param['id']);
             $region_end = $city_end = $adress_end = null;
             $model->getPositionEnd($region_end, $city_end, $adress_end);
-        ?>
-
+        ?> 
 
     </head>
     <body onload="initialize();"> 

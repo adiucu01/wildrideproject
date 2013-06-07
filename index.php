@@ -29,6 +29,4 @@
         require_once $class_name . '.php';
     }
 
-    if (isset($_SERVER['HTTP_REFERER']) && !$_SERVER['HTTP_REFERER'])
-        $_SESSION['HTTP_REFERER'] = $_SERVER['HTTP_REFERER'];
     WSystem::execute();   
