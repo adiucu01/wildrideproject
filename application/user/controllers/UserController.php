@@ -74,24 +74,6 @@
             }
         }
 
-        public function ordersAction()
-        {  
-            $param = $_POST;
-            $model = new ModelUser();
-
-            $param['id'] = $this->request->getParam('id');
-            if($this->request->getParam('id')!=null){
-                if($model->GetOrders($param)){                  
-                    require( $this->view.'user.php' ) ;
-                }else
-                {                                               
-                    require( $this->view.'login.php' ) ;
-                }
-            }else{
-                require( $this->view.'orders.php' ) ;
-            }
-        }
-
         /*public function userAction() {
         $param = $_POST;
         $model = new ModelUser();

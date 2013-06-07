@@ -36,7 +36,12 @@
             $arr = mysqli_fetch_assoc($result01);
 
             setcookie('user_id',$arr['id'],time()+3600*24,"/");
-            setcookie('user_session_id', $param['session_id'] ,time()+3600*24,"/"); 
+            setcookie('user_session_id', $param['session_id'] ,time()+3600*24,"/");
+            
+            $sql02 = "UPDATE user SET id_sesiune='{$param['session_id']}' WHERE email = '{$param['email']}'";
+
+            $result02 = self::$db->query($sql02);
+            
             
             return $result;  
         }

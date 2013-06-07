@@ -41,7 +41,7 @@ class IndexController {
             $param['session_id'] = session_id();
             $model = new UserModelLogin();
             if ($model->SignUp($param)) {
-                require( $this->view . 'login.php' );
+                require( $this->view . 'user.php' );
             }
         }
 
@@ -64,6 +64,8 @@ class IndexController {
                  $param['customer']['message'] = $_POST['message'];
                  $param['subject'] ='WildRide Contact Section';
                  $model->SendMail($param);
+                 
+                 require($this->view . 'contact.php');
             }else{
                 require($this->view . 'contact.php');
             }
