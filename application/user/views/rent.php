@@ -116,8 +116,22 @@
                         <div id="map-canvas" style="height: 500px;"></div>
                     </div>
                     <div id="rental-cond">
+                        <h2>Scooter Rental Terms & Conditions</h2>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
+                            <b>WildRide rents scooters to its clients on the following terms:</b>
+                            <ul>
+                                <li>Rental rates are based on an hourly pricing</li> 
+                                <li>The payment is to be done ONLY in our stores (we do not accept online payments), after signing the rental conditions papers.</li>
+                                <li>If your age is somewhere between 2 and 98 then then our scooter rental services are a superb option for you to get all the fun you could hope for! However all scooter rentals require a valid ID in order for the signing of papers to be done, so the client be 18 years old or accompanied by a parent or guardian in order to sign the rental papers.</li>
+                                <li>Travel Insurance: It is the responsibility of clients to hold their own travel insurance policy to cover personnel medical care in case of accident, loss due to cancellation, and any third party liability that may arise from the use of the Rental Scooters by clients. No coverage is available from WildRide to insure Clients from loss in case of damage, theft or other liability incurred in the use of the Rental Scooters.</li>
+                                <li>Status of Rental Bicycle: WildRide confirms that an experienced scooter mechanic, prior to renting, reviews each scooter. Each scooter is prepped for rental and supplied to clients in properly operating status, and is ready to ride.</li> 
+                                <li>Theft of and Damage to Rental Scooters: Subject to this clause the client is responsible for any and all damage once scooters are received by clients. This includes but is not limited to any form of theft and damage to the Rental Scooter.</li>
+                            </ul>
+                        </p>
+                        <br/>
+                        <p> 
+                            <b>Other Details</b><br/><br/>
+                            We have several varieties of scooters in stock, ranging from kid scooters to scooters designed for stunts and competitions. We always provide outstanding customer services, meticulously planned and organized rides and tours (or you can just choose your own riding locations), top-of-the-line rental equipment, and we want our customers to have fun!  All of our scooters are eco-friendly and human powered.  They're all lightweight, compact, and easy to carry.  All rental scooters come with a shoulder strap for carrying, and a rear brake or even a front brake too on some models.  Our most durable scooters can support up to 300lbs. 
                         </p>
                         <div id="agree-cond">
                             Agree <input type="checkbox" id="agree-cond-input" />
@@ -180,7 +194,7 @@
                         <li><a href="<?=WSystem::$url?>about" title="">About Us</a></li>
                         <li><a href="<?=WSystem::$url?>search/filter/view_special_offers" title="">Special Offers</a></li>
                         <li><a href="<?=WSystem::$url?>partners" title="">Partners</a></li>
-                        <li><a href="<?=WSystem::$url?>rental_conditions" title="">Rental Conditions</a></li>  
+                        <li><a href="<?=WSystem::$url?>rentalConditions" title="">Rental Conditions</a></li>  
                         <li><a href="<?=WSystem::$url?>contact" title="">Contact</a></li>
                     </ul>
                 </section>
@@ -209,7 +223,7 @@
                     <h3>Newsletter</h3>
                     <p>Keep up with new offers!</p>
                     <form action="<?=WSystem::$url?>newsletter" method="post">                            
-                        <input type="email" name="email-newsletter" id="email-newsletter" required="required">                             
+                        <input type="email" name="email" id="email-newsletter" required="required">                             
                         <input type="submit" value="Subscribe"/>
                     </form>
                 </section>
@@ -252,7 +266,7 @@
                             arrows: false
                     });
                     $('#horizontal-scooters-history').hoverscroll();
-                    
+
                     window.addEvent('domready', function() {
                             new Picker.Date($$('#start-date'), {
                                     timePicker: true,

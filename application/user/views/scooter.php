@@ -149,7 +149,7 @@
                         <li><a href="<?=WSystem::$url?>about" title="">About Us</a></li>
                         <li><a href="<?=WSystem::$url?>search/filter/view_special_offers" title="">Special Offers</a></li>
                         <li><a href="<?=WSystem::$url?>partners" title="">Partners</a></li>
-                        <li><a href="<?=WSystem::$url?>rental_conditions" title="">Rental Conditions</a></li>  
+                        <li><a href="<?=WSystem::$url?>rentalConditions" title="">Rental Conditions</a></li>  
                         <li><a href="<?=WSystem::$url?>contact" title="">Contact</a></li>
                     </ul>
                 </section>
@@ -178,7 +178,7 @@
                     <h3>Newsletter</h3>
                     <p>Keep up with new offers!</p>
                     <form action="<?=WSystem::$url?>newsletter" method="post">                            
-                        <input type="email" name="email-newsletter" id="email-newsletter" required="required">                             
+                        <input type="email" name="email" id="email-newsletter" required="required">                             
                         <input type="submit" value="Subscribe"/>
                     </form>
                 </section>

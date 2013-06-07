@@ -1077,3 +1077,24 @@ footer{
     color: #fff;
     text-decoration: none; 
 }
+.partners-content {
+    font-size: 12pt;
+    color: #9f9f9f;
+    margin-bottom: 30px;
+}
+.partners-content a{
+    float: left;
+    margin-right: 20px;
+}
+#rental-conditions p{
+    font-size: 12pt;
+    color: #9f9f9f;
+}
+#rental-conditions ul, #rental-cond ul{
+    font-size: 12pt;
+    color: #9F9F9F;
+    list-style: square;
+}
+#rental-conditions ul li, #rental-cond ul li{
+    margin-bottom: 10px;
+}
