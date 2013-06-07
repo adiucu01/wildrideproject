@@ -41,7 +41,7 @@
                     <img src="<?php echo WSystem::$url.$scooter['imagine']; ?>" alt="<?php echo $scooter['denumire']; ?>" height="330"/>
                 </div>
                 <div id="rent-details">
-                    <form action="<?php=WSystem::$url?>rent/rent/<?php echo $param['id']; ?>" method="post" id="form-rent" name="form-rent">
+                    <form action="<?=WSystem::$url?>rent/rent/<?php echo $param['id']; ?>" method="post" id="form-rent" name="form-rent">
                         <h4>Pick-up</h4>
                         <label class="search-label">Location</label> 
                         <input type="text" name="location_start" readonly="readonly" value="<?php echo $scooter['adresa']; ?>" class="input-login"/>
