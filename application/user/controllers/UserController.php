@@ -29,9 +29,8 @@
         public function editAction() {
             $param = $_POST;
             $model = new ModelUser();
-
-            $id = $this->request->getParam('id');
-            $param['id'] = $id;
+                                           
+            $param['id'] = $_COOKIE['user_id'];
             if($model->updateUser($param)){
                 require( $this->view.'user.php' ) ;
             }else
@@ -44,9 +43,8 @@
         {
             $param = $_POST;
             $model = new ModelUser();  
-            $param['id'] = $this->request->getParam('id');
-            if($this->request->getParam('id')!=null){
-                $param['id'] = $request->getParam('id');
+            $param['id'] = $_COOKIE['user_id'];
+            if(!empty($_POST)){  
                 if($model->ChangeEmail($param)){                
                     require( $this->view.'user.php' ) ;
                 }else
@@ -62,9 +60,9 @@
         {  
             $param = $_POST;
             $model = new ModelUser(); 
-            
-            $param['id'] = $this->request->getParam('id');
-            if($this->request->getParam('id')!=null){
+
+            $param['id'] = $_COOKIE['user_id'];
+            if(!empty($_POST)){
                 if($model->ChangePassword($param)){             
                     require( $this->view.'user.php' ) ;
                 }else
@@ -80,7 +78,7 @@
         {  
             $param = $_POST;
             $model = new ModelUser();
-            
+
             $param['id'] = $this->request->getParam('id');
             if($this->request->getParam('id')!=null){
                 if($model->GetOrders($param)){                  

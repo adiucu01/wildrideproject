@@ -49,7 +49,7 @@
                     }
                     $HTML.='<li '.$class.'>
                     <div id="scooter-list-img">
-                    <img src="'.$row['imagine'].'" width="180"/>
+                    <img src="'.WSystem::$url.$row['imagine'].'" width="180"/>
                     </div>
                     <div id="scooter-list-desc">
 
@@ -151,7 +151,7 @@
                     }
                     $HTML.='<li '.$class.'>
                     <div id="scooter-list-img">
-                    <img src="'.$row['imagine'].'" width="180"/>
+                    <img src="'.WSystem::$url.$row['imagine'].'" width="180"/>
                     </div>
                     <div id="scooter-list-desc">
                     <h4>'.$row['denumire'].' - '.$c_string.'</h4>
@@ -233,7 +233,7 @@
                     }
                     $HTML.='<li '.$class.'>
                     <div id="scooter-list-img">
-                    <img src="'.$row['imagine'].'" width="180"/>
+                    <img src="'.WSystem::$url.$row['imagine'].'" width="180"/>
                     </div>
                     <div id="scooter-list-desc">
                     <h4>'.$row['denumire'].' - '.$c_string.'</h4>
@@ -315,7 +315,7 @@
                     }
                     $HTML.='<li '.$class.'>
                     <div id="scooter-list-img">
-                    <img src="'.$row['imagine'].'" width="180"/>
+                    <img src="'.WSystem::$url.$row['imagine'].'" width="180"/>
                     </div>
                     <div id="scooter-list-desc">
                     <h4>'.$row['denumire'].' - '.$c_string.'</h4>
@@ -403,7 +403,7 @@
                     }
                     $HTML.='<li '.$class.'>
                     <div id="scooter-list-img">
-                    <img src="'.$row['imagine'].'" width="180"/>
+                    <img src="'.WSystem::$url.$row['imagine'].'" width="180"/>
                     </div>
                     <div id="scooter-list-desc">
                     <h4>'.$row['denumire'].' - '.$c_string.'</h4>
@@ -495,7 +495,7 @@
                     }
                     $HTML.='<li '.$class.'>
                     <div id="scooter-list-img">
-                    <img src="'.$row['imagine'].'" width="180"/>
+                    <img src="'.WSystem::$url.$row['imagine'].'" width="180"/>
                     </div>
                     <div id="scooter-list-desc">
                     <h4>'.$row['denumire'].' - '.$c_string.'</h4>
@@ -587,7 +587,7 @@
                     }
                     $HTML.='<li '.$class.'>
                     <div id="scooter-list-img">
-                    <img src="'.$row['imagine'].'" width="180"/>
+                    <img src="'.WSystem::$url.$row['imagine'].'" width="180"/>
                     </div>
                     <div id="scooter-list-desc">
                     <h4>'.$row['denumire'].' - '.$c_string.'</h4>
@@ -679,7 +679,7 @@
                     }
                     $HTML.='<li '.$class.'>
                     <div id="scooter-list-img">
-                    <img src="'.$row['imagine'].'" width="180"/>
+                    <img src="'.WSystem::$url.$row['imagine'].'" width="180"/>
                     </div>
                     <div id="scooter-list-desc">
                     <h4>'.$row['denumire'].' - '.$c_string.'</h4>
@@ -756,7 +756,7 @@
                     }  
                     $HTML.='<li '.$class.'>
                     <div id="scooter-list-img">
-                    <img src="'.$row['imagine'].'" width="180"/>
+                    <img src="'.WSystem::$url.$row['imagine'].'" width="180"/>
                     </div>
                     <div id="scooter-list-desc">
                     <h4>'.$row['denumire'].' - '.$c_string.'</h4>

@@ -16,17 +16,11 @@ class WSystem {
     }
 
     public static function execute() {
-        /*
-        echo "<pre>";
-        print_r($_SERVER);
-        echo "</pre>";
-        die();
-         * 
-         */
         if (self::$url === null) {
-            self::$url = $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'];
+            self::$url = "http://" . $_SERVER['HTTP_HOST'];
             self::$url .= str_replace("index.php", "", $_SERVER['SCRIPT_NAME']);
         }
+        
         $model = new UserModelDefault();
 
         $controller_class = ucfirst(WSystem::$controller_name) . "Controller";

@@ -30,10 +30,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'nocache_hash' => '1754651b0bd759591b4-10756939',
   'cache_lifetime' => 120,
   'version' => 'Smarty-3.1.13',
-  'unifunc' => 'content_51b0ce20e711e0_65694610',
+  'unifunc' => 'content_51b116a5956227_56882537',
   'has_nocache_code' => false,
 ),true); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_51b0ce20e711e0_65694610')) {function content_51b0ce20e711e0_65694610($_smarty_tpl) {?><!DOCTYPE HTML>
+<?php if ($_valid && !is_callable('content_51b116a5956227_56882537')) {function content_51b116a5956227_56882537($_smarty_tpl) {?><!DOCTYPE HTML>
 <HEAD>
 <TITLE>foo</TITLE>
 <link rel="stylesheet" type="text/css" href="assets/css/template.css" /> 
@@ -58,27 +58,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 </header>
 <section id="container">
     <div class="content">
-        <h1>Hi, Cristi Chiric</h1>
-        <p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Nr. crt.</th>
-                                    <th>Denumire Produs</th>
-                                    <th>U.M.</TH>
-                                    <th>Pret unitar fara TVA</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Trotineta Logan - handles=rubber;horn=no;</td>
-                                    <td>1</td>
-                                    <td>1.34</td>
-                                </tr>
-                            </tbody>
-                        </table>
-          </p>
+        <h1>Hi, Mihaila Adrian</h1>
+        Your password was renew. The current password is: <b>adiucu</b>
         <p class="signature">King Regards,</br>
            Adrian Mihaila - IT Programmer
         </p>
