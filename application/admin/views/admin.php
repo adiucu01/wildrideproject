@@ -1,8 +1,4 @@
-<?php
-$model = new AdminModelDefault();
-if (!$model->isValidUser())
-    die();
-?>
+<?php $model = new AdminModelDefault(); ?> 
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -62,92 +58,88 @@ if (!$model->isValidUser())
     <body> 
 
 
-        <header>
-            <div class="content">
-                <div id="logo">
-                    <a href="default.php" title="WildRide"><img src="<?= WSystem::$url ?>img/logo.png" alt="WildRide"/></a>
-                </div>
+        <div class="content">
+            <header>
+                <section id="admin-header-left">
+                    <h1>Bine ai venit, <?php
+                            $result = $model->getUser(null);
+                            echo $result['nume'] . " " . $result['prenume'];
+                        ?>!</h1>
+                    <input type="button" value="Logout" onclick="Logout()" class="input-logout"/>
+                </section>
+                <nav id="admin-header-navigation">
+                    <?php echo $nav = $model->createMenu($result['tip_admin']); ?>
+                </nav>
 
-                <div id="navigator">
-                    <p>Bine ai venit, <?php $result = $model->getUser(null);
-echo $result['nume'] . " " . $result['prenume'];
-?>!<input type="button" value="Logout" onclick="Logout()" class="input-logout"/></p>
+            </header>
 
-                    <nav>
-<?php echo $nav = $model->createMenu($result['tip_admin']); ?>
-                    </nav>
-                </div>
-
-            </div>
-        </header>
-
-        <div id="PeopleTableContainer"  style="width: 600px;margin-left:auto;margin-top:100px;margin-right:auto;"></div>
+            <div id="PeopleTableContainer"  style="width: 980px;margin: 0 auto;"></div>
 
 
-        <div id="PeopleTableContainer" style="width: 1000px;"></div>
-
+            <div id="PeopleTableContainer" style="width: 980px;"></div>
+        </div>
         <script type="text/javascript">
 
             $(document).ready(function() {
 
-                //Prepare jTable
-                $('#PeopleTableContainer').jtable({
-                    title: 'Table of users',
-                    paging: true,
-                    pageSize: 5,
-                    sorting: true,
-                    defaultSorting: 'nume ASC',
-                    actions: {
-                        listAction: '<?=WSystem::$url?>admin/adminTableCRUD/list',
-                        createAction: '<?=WSystem::$url?>admin/adminTableCRUD/create',
-                        updateAction: '<?=WSystem::$url?>admin/adminTableCRUD/update',
-                        deleteAction: '<?=WSystem::$url?>admin/adminTableCRUD/delete'
-                    },
-                    fields: {
-                        id: {
-                            key: true,
-                            create: false,
-                            edit: false,
-                            list: false
-                        },
-                        nume: {
-                            title: 'Nume',
-                            width: '20%'
-                        },
-                        prenume: {
-                            title: 'Prenume',
-                            width: '20%'
-                        },
-                        email: {
-                            title: 'Email',
-                            width: '20%'
+                    //Prepare jTable
+                    $('#PeopleTableContainer').jtable({
+                            title: 'Table of users',
+                            paging: true,
+                            pageSize: 5,
+                            sorting: true,
+                            defaultSorting: 'nume ASC',
+                            actions: {
+                                listAction: '<?=WSystem::$url?>admin/adminTableCRUD/list',
+                                createAction: '<?=WSystem::$url?>admin/adminTableCRUD/create',
+                                updateAction: '<?=WSystem::$url?>admin/adminTableCRUD/update',
+                                deleteAction: '<?=WSystem::$url?>admin/adminTableCRUD/delete'
+                            },
+                            fields: {
+                                id: {
+                                    key: true,
+                                    create: false,
+                                    edit: false,
+                                    list: false
+                                },
+                                nume: {
+                                    title: 'Nume',
+                                    width: '20%'
+                                },
+                                prenume: {
+                                    title: 'Prenume',
+                                    width: '20%'
+                                },
+                                email: {
+                                    title: 'Email',
+                                    width: '20%'
 
-                        },
-                        punct_de_lucru: {
-                            title: 'Punct de lucru',
-                            width: '20%',
-                            options: <?=$model->getWorkpointsJSON()?>
+                                },
+                                punct_de_lucru: {
+                                    title: 'Punct de lucru',
+                                    width: '20%',
+                                    options: <?=$model->getWorkpointsJSON()?>
 
-                        },
-                        tip_utilizator: {
-                            title: 'Tip admin',
-                            width: '20%',
-                            options: <?=$model->getTipUtilizatorJSON()?>
+                                },
+                                tip_utilizator: {
+                                    title: 'Tip admin',
+                                    width: '20%',
+                                    options: <?=$model->getTipUtilizatorJSON()?>
 
-                        },
-                        parola: {
-                            title: 'Parola',
-                            width: '20%',
-                            type: 'password',
-                            create: true,
-                            edit: false,
-                            list: false
-                        }
-                    }
-                });
+                                },
+                                parola: {
+                                    title: 'Parola',
+                                    width: '20%',
+                                    type: 'password',
+                                    create: true,
+                                    edit: false,
+                                    list: false
+                                }
+                            }
+                    });
 
-                //Load person list from server
-                $('#PeopleTableContainer').jtable('load');
+                    //Load person list from server
+                    $('#PeopleTableContainer').jtable('load');
 
             });
 

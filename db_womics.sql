@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50508
 File Encoding         : 65001
 
-Date: 2013-06-07 03:33:11
+Date: 2013-06-07 07:05:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,18 +28,18 @@ CREATE TABLE `admin` (
   `id_sesiune` varchar(100) NOT NULL,
   `tip_admin` int(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO admin VALUES ('4', 'Mihaila', 'Adrian', 'adi@timelife.ro', 'NTVhNzRlMTY3NGQ1ZDUwYmRjNTY1NjJlZTgwZjBlNzk=', '0', 'pd0btl3hvc63sphtvoggfis8f1', '1');
-INSERT INTO admin VALUES ('8', 'Saveluc', 'Diana', 'didut@timelife.ro', 'YmFiZmU0Y2I4NjdiZDJjZDNlYjljNWQ4YjcwZGViMTk=', '2', '', '2');
-INSERT INTO admin VALUES ('9', 'asdasda', 'dasdasd', 'asdasd@asda.ro', 'OWZiZjJhZTc3ZDFlMjYyOGFkMjhhNmNjODk5NmZjODc=', '1', '', '2');
-INSERT INTO admin VALUES ('10', 'asdasdasd', 'asdasdasd', 'adi@timelife.ro', 'OWZiZjJhZTc3ZDFlMjYyOGFkMjhhNmNjODk5NmZjODc=', '1', 'pd0btl3hvc63sphtvoggfis8f1', '2');
-INSERT INTO admin VALUES ('11', 'asdasfd', 'dfgdfgdf', 'sss@ff.com', 'OWZiZjJhZTc3ZDFlMjYyOGFkMjhhNmNjODk5NmZjODc=', '1', '', '2');
-INSERT INTO admin VALUES ('12', '123asdasd', 'asd32e23', 'adas@ff.com', 'OWZiZjJhZTc3ZDFlMjYyOGFkMjhhNmNjODk5NmZjODc=', '1', '', '2');
-INSERT INTO admin VALUES ('13', 'cristi', 'gigi', 'aa@gg', 'OWZiZjJhZTc3ZDFlMjYyOGFkMjhhNmNjODk5NmZjODc=', '1', '', '2');
+INSERT INTO admin VALUES ('4', 'Mihaila', 'Adrian', 'adi@timelife.ro', 'NTVhNzRlMTY3NGQ1ZDUwYmRjNTY1NjJlZTgwZjBlNzk=', '0', '4egtv46j83cj78630kim5akj36', '1');
+INSERT INTO admin VALUES ('8', 'Saveluc', 'Diana', 'didut@timelife.ro', 'NTVhNzRlMTY3NGQ1ZDUwYmRjNTY1NjJlZTgwZjBlNzk=', '2', 'mtos54qmr3gpt1plr3lpfbq9p3', '2');
+INSERT INTO admin VALUES ('10', 'asdasdasd', 'asdasdasd', 'adi@timelife.ro', 'OWZiZjJhZTc3ZDFlMjYyOGFkMjhhNmNjODk5NmZjODc=', '2', '4egtv46j83cj78630kim5akj36', '2');
+INSERT INTO admin VALUES ('11', 'asdasfd', 'dfgdfgdf', 'sss@ff.com', 'OWZiZjJhZTc3ZDFlMjYyOGFkMjhhNmNjODk5NmZjODc=', '3', '', '2');
+INSERT INTO admin VALUES ('12', '123asdasd', 'asd32e23', 'adas@ff.com', 'OWZiZjJhZTc3ZDFlMjYyOGFkMjhhNmNjODk5NmZjODc=', '2', '', '2');
+INSERT INTO admin VALUES ('13', 'cristi', 'gigi', 'aa@gg', 'OWZiZjJhZTc3ZDFlMjYyOGFkMjhhNmNjODk5NmZjODc=', '2', '', '2');
+INSERT INTO admin VALUES ('14', 'Alin', 'Macovei', 'aaa@ggg.com', 'Y2YzOGQ5MWQ1ZWNmNTBmNmUwODg2MmM2MTNjOTg2NjI=', '4', '', '2');
 
 -- ----------------------------
 -- Table structure for `contracte`
@@ -52,7 +52,7 @@ CREATE TABLE `contracte` (
   `pret_inchiriere` text NOT NULL,
   `data_incheiere` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of contracte
@@ -61,6 +61,10 @@ INSERT INTO contracte VALUES ('13', '1', '10', '1.34', '2013-06-05 03:16:11');
 INSERT INTO contracte VALUES ('14', '1', '2', '4.02', '2013-06-05 03:38:50');
 INSERT INTO contracte VALUES ('15', '4', '1', '1.34', '2013-06-06 20:32:07');
 INSERT INTO contracte VALUES ('16', '4', '1', '1.34', '2013-06-06 21:00:00');
+INSERT INTO contracte VALUES ('17', '8', '1', '2.45', '2013-06-07 04:10:18');
+INSERT INTO contracte VALUES ('18', '8', '1', '2.45', '2013-06-07 04:21:34');
+INSERT INTO contracte VALUES ('19', '7', '2', '2.45', '2013-06-07 04:27:08');
+INSERT INTO contracte VALUES ('20', '7', '1', '2.45', '2013-06-07 05:14:38');
 
 -- ----------------------------
 -- Table structure for `import_trotinete`
@@ -93,13 +97,33 @@ CREATE TABLE `inchirieri` (
   `data_inchiriere` varchar(100) NOT NULL,
   `data_restituire` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of inchirieri
 -- ----------------------------
 INSERT INTO inchirieri VALUES ('16', '4', '1', '15', 'canta, iasi, ro', 'canta, iasi, ro', '06/06/2013 20:31PM', '06/06/2013 20:31PM');
 INSERT INTO inchirieri VALUES ('17', '4', '1', '16', 'canta, iasi, ro', 'canta, iasi, ro', '06/07/2013 08:59PM', '07/12/2013 08:59PM');
+INSERT INTO inchirieri VALUES ('18', '8', '3', '17', 'canta, iasi, ro', 'canta, iasi, ro', '06/07/2013 04:10AM', '06/07/2013 04:10AM');
+INSERT INTO inchirieri VALUES ('19', '8', '3', '18', 'canta, iasi, ro', 'canta, iasi, ro', '06/07/2013 04:10AM', '06/07/2013 04:10AM');
+INSERT INTO inchirieri VALUES ('20', '7', '3', '19', 'canta, iasi, ro', 'Iasi, Bularga, str, Ion Creanga', '06/07/2013 04:26AM', '06/08/2013 04:26AM');
+INSERT INTO inchirieri VALUES ('21', '7', '3', '20', 'canta, iasi, ro', 'canta, iasi, ro', '07/17/2013 05:13AM', '06/19/2013 05:13AM');
+
+-- ----------------------------
+-- Table structure for `newsletter`
+-- ----------------------------
+DROP TABLE IF EXISTS `newsletter`;
+CREATE TABLE `newsletter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of newsletter
+-- ----------------------------
+INSERT INTO newsletter VALUES ('1', 'adi@timelife.ro');
+INSERT INTO newsletter VALUES ('2', 'diana_saveluc@yahoo.com');
 
 -- ----------------------------
 -- Table structure for `puncte_de_lucru`
@@ -112,7 +136,7 @@ CREATE TABLE `puncte_de_lucru` (
   `oras` varchar(100) NOT NULL,
   `adresa` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of puncte_de_lucru
@@ -121,6 +145,7 @@ INSERT INTO puncte_de_lucru VALUES ('2', 'Pacurari', 'Iasi', 'Iasi', 'canta, ias
 INSERT INTO puncte_de_lucru VALUES ('3', 'Tatarasi', 'Iasi', 'Iasi', 'pacurari, iasi, ro');
 INSERT INTO puncte_de_lucru VALUES ('4', 'Copou ', 'Iasi', 'Iasi', 'copou, iasi, ro');
 INSERT INTO puncte_de_lucru VALUES ('5', 'Iasi', 'Iasi', 'Iasi', 'Iasi, Bularga, str, Ion Creanga');
+INSERT INTO puncte_de_lucru VALUES ('6', 'Rediu', 'Iasi', 'Iasi', 'Str Vasile cel Mare');
 
 -- ----------------------------
 -- Table structure for `tip_adaugare_trotinete`
@@ -179,7 +204,7 @@ CREATE TABLE `trotinete` (
 -- Records of trotinete
 -- ----------------------------
 INSERT INTO trotinete VALUES ('1', 'Trotineta Logan', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. ', 'handles=rubber;horn=no;', 'img/trotinete/trotineta-cu-surprize.png', '1.34', '2', '2013-05-22 01:19:28', '2', '10', '10', '0');
-INSERT INTO trotinete VALUES ('3', 'Trotineta Kinder', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. ', 'handles=plastic;wheels=iron;', 'img/trotinete/trotineta-cu-surprize.png', '2.45', '2', '2013-05-22 11:08:46', '2', '4', '0', '0');
+INSERT INTO trotinete VALUES ('3', 'Trotineta Kinder', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. ', 'handles=plastic;wheels=iron;', 'img/trotinete/trotineta-cu-surprize.png', '2.45', '2', '2013-05-22 11:08:46', '2', '4', '4', '0');
 INSERT INTO trotinete VALUES ('12', 'a', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. ', 'wheels=aluminum;', 'img/trotinete/trotineta-cu-surprize.png', '4.02', '1', '2013-05-22 15:35:41', '2', '3', '2', '0');
 INSERT INTO trotinete VALUES ('13', 'b', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. ', 'horn=yes;wheels=iron;', 'img/trotinete/trotineta-cu-surprize.png', '2.00', '1', '2013-05-22 15:35:41', '2', '1', '0', '0');
 INSERT INTO trotinete VALUES ('14', 'c', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. ', 'c', 'img/trotinete/trotineta-cu-surprize.png', '1.25', '1', '2013-05-22 15:35:41', '2', '10', '0', '10');
@@ -204,11 +229,15 @@ CREATE TABLE `user` (
   `data_inregistrare` datetime DEFAULT NULL,
   `id_sesiune` longtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO user VALUES ('1', 'Mihaila', 'Adrian', 'adi@timelife.ro', '123456789', 'Neamt', 'Piatra Neamt', 'NT', '488238', 'NTVhNzRlMTY3NGQ1ZDUwYmRjNTY1NjJlZTgwZjBlNzk=', '1', '2013-05-20 22:50:33', 'dg4ivj7thfj9cjbn14bp8o4d54');
+INSERT INTO user VALUES ('1', 'Mihaila', 'Adrian', 'adi@timelife.ro', '123456789', 'Neamt', 'Piatra Neamt', 'NT', '488238', 'NTVhNzRlMTY3NGQ1ZDUwYmRjNTY1NjJlZTgwZjBlNzk=', '1', '2013-05-20 22:50:33', 'c9pnts144cmkkdt85csqmbtpt7');
 INSERT INTO user VALUES ('3', 'Vlad', 'Coroeanu', 'mihaila_adryan@yahoo.com', '1910901270062', 'Bucuresti', 'Chitila', 'NT', '488238', 'MGI4NGNhZTI0YjdhMjlhMGIzNzFhYWVkMjIwY2ZlNDk=', '3', '2013-06-01 19:36:58', '8jf0g77bg9gkd07b80pg6tgpg6');
 INSERT INTO user VALUES ('4', 'Cristi', 'Chiric', '', '1910901270062', 'Galati', 'Galati', 'GL', '123456', 'MGQ0MWJlNWM0ZWY3MjRmNjI5ZDBjNWVmMjRmMzU4MWY=', '3', '2013-06-01 19:40:09', '4egtv46j83cj78630kim5akj36');
+INSERT INTO user VALUES ('5', 'Alin', 'Macovei', 'alin@timelife.ro', '1910901270062', 'Suceava', 'Radauti', 'SV', '12345', 'NTVhNzRlMTY3NGQ1ZDUwYmRjNTY1NjJlZTgwZjBlNzk=', '3', '2013-06-07 03:45:57', '4egtv46j83cj78630kim5akj36');
+INSERT INTO user VALUES ('6', 'gg', 'gg', 'ggg@sfdf.com', '2131231', 'Galati', 'Galati', 'gt', '12334', 'NWEwMzkxNjJmNmY0ZDQwMWI5ZGQ3ZjUwNjM5MmRiNTU=', '3', '2013-06-07 03:49:29', '4egtv46j83cj78630kim5akj36');
+INSERT INTO user VALUES ('7', 'hhh', 'hhh', 'hhh@hhh.com', '123', 'Giurgiu', 'Bolintin-Vale', '123', '123', 'NWEwMzkxNjJmNmY0ZDQwMWI5ZGQ3ZjUwNjM5MmRiNTU=', '3', '2013-06-07 03:50:59', '4egtv46j83cj78630kim5akj36');
+INSERT INTO user VALUES ('8', 'didut', 'didut', 'didut@ff.ro', '12345678', 'Dambovita', 'Gaesti', '1242343', '12312313', 'NTVhNzRlMTY3NGQ1ZDUwYmRjNTY1NjJlZTgwZjBlNzk=', '3', '2013-06-07 03:52:26', '9eeunfp7mskfuhg9pvgalq56g0');
