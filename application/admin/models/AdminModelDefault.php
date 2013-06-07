@@ -1,8 +1,8 @@
 <?php
 
 /*
-  require_once("/../../../classes/BD.php");
-  require_once("/../../../config/config.php");
+  require_once("../../../classes/WDB.php");
+  require_once("../../../config/config.php");
  */
 
 class AdminModelDefault {
@@ -14,9 +14,15 @@ class AdminModelDefault {
     }
 
     public function addAdmin($nume, $prenume, $email, $punct_lucru, $parola, $admin) {
+        $sqlid = "SELECT id FROM puncte_de_lucru WHERE nume = '{$punct_lucru}' ";
+        $res = self::$db->query($sqlid);
+        $idpunct = mysqli_fetch_assoc($res);
+        $sqlidtip = "SELECT id FROM tip_utilizator WHERE nume = '{$admin}'";
+        $res1 = self::$db->query($sqlidtip);
+        $idtip = mysqli_fetch_assoc($res1);
         $password = $this->cryptp($parola);
         $sql = "INSERT INTO admin(nume, prenume, email, parola, id_punct_de_lucru, tip_admin)
-                    VALUES('{$nume}','{$prenume}','{$email}','{$password}',3,2)";
+                    VALUES('{$nume}','{$prenume}','{$email}','{$password}','{$idpunct['id']}','{$idtip['id']}')";
 
         $result = self::$db->query($sql);
 
@@ -24,9 +30,19 @@ class AdminModelDefault {
     }
 
     public function addWorkpoint($nume, $adresa, $oras, $judet) {
-
+                        
         $sql = "INSERT INTO puncte_de_lucru(nume, adresa,oras,judet)
                     VALUES('{$nume}','{$adresa}','{$oras}','{$judet}')";
+
+        $result = self::$db->query($sql);
+
+        return $result;
+    }
+
+    public function addScooter($id, $denumire, $caracteristici, $pretinchiriere, $punctlucru, $nrbucati, $nrbucatiInchiriate) {
+
+        $sql = "INSERT INTO trotinete(denumire, caracteristici,pret_inchiriere,tip_adaugare,id_punct_de_lucru,nr_bucati,nr_bucati_inchiriate)
+                    VALUES('{$denumire}','{$caracteristici}','{$pretinchiriere}','1','{$punctlucru}','{$nrbucati}','{$nrbucatiInchiriate}')";
 
         $result = self::$db->query($sql);
 
@@ -66,6 +82,41 @@ class AdminModelDefault {
     public function getAdminList1($sorting, $startIndex, $pageSize) {
         $output = null;
         $sql = "SELECT admin.id, admin.nume , admin.prenume, admin.email, puncte_de_lucru.nume as punct_de_lucru, tip_utilizator.nume as tip_utilizator FROM admin LEFT JOIN puncte_de_lucru ON admin.id_punct_de_lucru = puncte_de_lucru.id LEFT JOIN tip_utilizator on admin.tip_admin = tip_utilizator.id ORDER BY " . $sorting . " LIMIT " . $startIndex . "," . $pageSize . ";";
+        //$sql = "SELECT admin.id, admin.nume , admin.prenume, admin.email, puncte_de_lucru.nume as punct_de_lucru, tip_utilizator.nume as tip_utilizator FROM admin LEFT JOIN puncte_de_lucru ON admin.id_punct_de_lucru = puncte_de_lucru.id LEFT JOIN tip_utilizator on admin.tip_admin = tip_utilizator.id ORDER BY " . $sorting . " LIMIT " . $startIndex . "," . $pageSize . ";";
+
+        $result = self::$db->query($sql);
+
+        $rows = array();
+        while ($row = mysqli_fetch_array($result)) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    public function getLastAdmin() {
+        $output = null;
+        $sql = "SELECT * FROM admin WHERE admin.id = LAST_INSERT_ID();";
+
+        $result = self::$db->query($sql);
+        $row = mysqli_fetch_array($result);
+
+        return $row;
+    }
+    
+    public function getLastWorkpoint() {
+        $output = null;
+        $sql = "SELECT * FROM puncte_de_lucru p WHERE p.id = LAST_INSERT_ID();";
+
+        $result = self::$db->query($sql);
+        $row = mysqli_fetch_array($result);
+
+        return $row;
+    }
+
+    public function getScootersList1($sorting, $startIndex, $pageSize) {
+        $output = null;
+        $sql = "SELECT id, denumire , caracteristici, pret_inchiriere, tip_adaugare,data_adaugare,nr_bucati,nr_bucati_inchiriate,id_punct_de_lucru  from trotinete ORDER BY " . $sorting . " LIMIT " . $startIndex . "," . $pageSize . ";";
 
         $result = self::$db->query($sql);
 
@@ -111,6 +162,27 @@ class AdminModelDefault {
         return $output;
     }
 
+    public function getWorkpointsJSON() {
+        $sql = "SELECT nume FROM puncte_de_lucru ";
+        $result = self::$db->query($sql);
+        $rows = array();
+        while ($arr = mysqli_fetch_assoc($result)) {
+            $rows[] = $arr['nume'];
+        }
+
+        return json_encode($rows);
+    }
+    public function getTipUtilizatorJSON() {
+        $sql = "SELECT nume FROM tip_utilizator ";
+        $result = self::$db->query($sql);
+        $rows = array();
+        while ($arr = mysqli_fetch_assoc($result)) {
+            $rows[] = $arr['nume'];
+        }
+
+        return json_encode($rows);
+    }
+    
     public function updateUser($nume, $prenume, $email, $punctlucru, $tiputilizator, $id) {
         $sqlid = "SELECT id FROM puncte_de_lucru WHERE nume = '{$punctlucru}' ";
         $res = self::$db->query($sqlid);
@@ -119,7 +191,7 @@ class AdminModelDefault {
         $res1 = self::$db->query($sqlidtip);
         $idtip = mysqli_fetch_assoc($res1);
         $sql = "UPDATE admin
-                    SET nume='{$nume}', prenume='{$prenume}', email='{$email}', id_punct_de_lucru= '{$idpunct}', tip_admin= '{$idtip}'
+                    SET nume='{$nume}', prenume='{$prenume}', email='{$email}', id_punct_de_lucru= '{$idpunct['id']}', tip_admin= '{$idtip['id']}'
                     WHERE id={$id};";
 
         $result = self::$db->query($sql);
@@ -138,8 +210,28 @@ class AdminModelDefault {
         return $result;
     }
 
+    public function updateScooter($id, $denumire, $caracteristici, $pretinchiriere, $punctlucru, $nrbucati, $nrbucatiInchiriate) {
+
+        $sql = "UPDATE trotinete
+                    SET denumire='{$denumire}', caracteristici='{$caracteristici}', pret_inchiriere='{$pretinchiriere}', tip_adaugare='1', id_punct_de_lucru= '{$punctlucru}', nr_bucati='{$nrbucati}', nr_bucati_inchiriate= '{$nrbucatiInchiriate}'
+                    WHERE id={$id};";
+
+        $result = self::$db->query($sql);
+
+        return $result;
+    }
+
     public function deleteUser($id) {
         $sql = "DELETE FROM admin
+                    WHERE id = {$id}";
+
+        $result = self::$db->query($sql);
+
+        return $result;
+    }
+
+    public function deleteScooter($id) {
+        $sql = "DELETE FROM trotinete
                     WHERE id = {$id}";
 
         $result = self::$db->query($sql);
@@ -237,11 +329,7 @@ class AdminModelDefault {
     }
 
     public function isValidUser() {
-        if (isset($_COOKIE['user_id']) && $_COOKIE['user_id'] != "" &&
-                isset($_COOKIE['user_session_id']) && $_COOKIE['user_session_id'] != "")
-            $sql = "SELECT * FROM admin WHERE id=" . intval($_COOKIE['user_id']) . " and id_sesiune='{$_COOKIE['user_session_id']}'";
-        else
-            return false;
+        $sql = "SELECT * FROM admin WHERE id=" . intval($_COOKIE['user_id']) . " and id_sesiune='{$_COOKIE['user_session_id']}'";
 
         $result = self::$db->query($sql);
         $arr = mysqli_fetch_assoc($result);
@@ -260,10 +348,11 @@ class AdminModelDefault {
 
             // superadmin
             case "1":
-                $output = '<a href="../views/admin.php" title="Admins">Admins</a> 
-                              <a href="../views/workpoint.php" title="Workpoints">Workpoints</a> 
-                              <a href="../views/scooter.php" title="Scooters">Scooters</a>
-                               <a href="../views/reports.php" title="Scooters">Reports</a>';
+                $output = '<a href="' . WSystem::$url . 'admin/adminTable" title="Admins">Admins</a> 
+                              <a href="' . WSystem::$url . 'admin/workpoint" title="Workpoints">Workpoints</a> 
+                              <a href="' . WSystem::$url . 'admin/scooter" title="Scooters">Scooters</a>
+                               <a href="' . WSystem::$url . 'admin/reports" title="Scooters">Reports</a>
+                                <a href="' . WSystem::$url . 'admin/scooters.php" title="MyScooters">MyScooters</a>';
                 break;
 
             // admin

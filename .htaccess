@@ -3,6 +3,8 @@ Options +FollowSymLinks
 RewriteEngine On
 RewriteRule ^admin$ index.php?c=admin&a=index
 RewriteRule ^admin/$ index.php?c=admin&a=index
+RewriteRule ^admin/adminTableCRUD/([a-zA-Z0-9]+)?$ index.php?c=admin&a=adminTableCRUD&do=$1 [QSA,L]
+RewriteRule ^admin/workpointCRUD/([a-zA-Z0-9]+)?$ index.php?c=admin&a=workpointCRUD&do=$1 [QSA,L]
 RewriteRule ^admin/([a-zA-Z0-9]+)$ index.php?c=admin&a=$1
 RewriteRule ^user$ index.php?c=user&a=view
 RewriteRule ^user/$ index.php?c=user&a=view
