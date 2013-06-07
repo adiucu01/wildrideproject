@@ -110,7 +110,7 @@
                     <h3>Members Area</h3>
                     <h4><?php
                         if (is_array($result)) {
-                            echo 'Bune ai venit, <a href="'.WSystem::$url.'/view"> ' . $result['nume'] . " " . $result['prenume'] . "</a>!</h4>";
+                            echo 'Bune ai venit, <a href="'.WSystem::$url.'user/view"> ' . $result['nume'] . " " . $result['prenume'] . "</a>!</h4>";
                             echo '<input type="button" value="Logout" onclick="Logout()" class="input-logout"/>';
                         } else {
                             echo 'Welcome guest!</br>Please</h4>

@@ -198,10 +198,10 @@
         <div id="footer-copyright">
             Copyright © 2013 WildRide
         </div>
-        <script type="text/javascript" src="<?WSystem::$url?>assets/js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="<?WSystem::$url?>assets/js/jquery.hoverscroll.js"></script>
-        <script type="text/javascript" src="<?WSystem::$url?>assets/js/functions.js"></script>
-        <script src="<?WSystem::$url?>assets/js/jquery.zweatherfeed.min.js" type="text/javascript"></script> 
+        <script type="text/javascript" src="<?=WSystem::$url?>assets/js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="<?=WSystem::$url?>assets/js/jquery.hoverscroll.js"></script>
+        <script type="text/javascript" src="<?=WSystem::$url?>assets/js/functions.js"></script>
+        <script src="<?=WSystem::$url?>assets/js/jquery.zweatherfeed.min.js" type="text/javascript"></script> 
         <script type="text/javascript">
             var urlLogin = '<?=WSystem::$url?>login'; 
             var urlRentView = '<?=WSystem::$url?>rent/view/';
