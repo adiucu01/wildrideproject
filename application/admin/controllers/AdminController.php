@@ -170,7 +170,7 @@ class AdminController {
                         $oras = $request->getParam('oras');
                         $judet = $request->getParam('judet');
                         $model->addWorkpoint($nume, $adresa, $oras, $judet);
-                        
+
                         $row = $model->getLastWorkpoint();
 
                         //Return result to jTable
@@ -218,9 +218,78 @@ class AdminController {
     public function scooterAction() {
         $model = new AdminModelDefault();
         if ($model->isValidUser() && $model->is_logged())
-            require($this->view . 'scooter.php');
+            require($this->view . 'scooters.php');
         else
             require($this->view . 'login.php');
+    }
+
+    public function scooterCRUDAction() {
+        $model = new AdminModelDefault();
+        $request = new Request();
+        $action = $request->getParam("do");
+
+        if (!$model->isValidUser() || !$model->is_logged())
+            require($this->view . 'login.php');
+        else {
+            try {
+                switch ($action) {
+                    case 'list' :
+                        $recordCount = $model->getNumberOfScooters();
+                        $sort = $request->getParam("jtSorting");
+                        $startIndex = $request->getParam("jtStartIndex");
+                        $pageSize = $request->getParam("jtPageSize");
+
+                        if ($sort == null)
+                            $sort = "nume ASC";
+                        if ($startIndex == null)
+                            $startIndex = 0;
+                        if ($pageSize == null)
+                            $pageSize = 10;
+
+                        $rows = $model->getScootersList1($sort, $startIndex, $pageSize);
+                        $jTableResult = array();
+                        $jTableResult['Result'] = "OK";
+                        $jTableResult['TotalRecordCount'] = $recordCount;
+                        $jTableResult['Records'] = $rows;
+                        print json_encode($jTableResult);
+                        break;
+                    case 'create' :
+                        $result = $model->addScooter($_POST["denumire"], $_POST["caracteristici"], $_POST["pret_inchiriere"], $_POST["id_punct_de_lucru"], $_POST["nr_bucati"], $_POST["nr_bucati_inchiriate"]);
+                        //Get last inserted record (to return to jTable)
+
+                        $row = $model->getLastScooter();
+
+                        //Return result to jTable
+                        $jTableResult = array();
+                        $jTableResult['Result'] = "OK";
+                        $jTableResult['Records'] = $row;
+                        print json_encode($jTableResult);
+                        break;
+                    case 'update' :
+
+                        $result = $model->updateScooter($_POST["id"], $_POST["denumire"], $_POST["caracteristici"], $_POST["pret_inchiriere"], $_POST["id_punct_de_lucru"], $_POST["nr_bucati"], $_POST["nr_bucati_inchiriate"]);
+                        //Return result to jTable
+                        $jTableResult = array();
+                        $jTableResult['Result'] = "OK";
+                        print json_encode($jTableResult);
+                        break;
+                    case 'delete' :
+                        $id = $request->getParam('id');
+                        $result = $model->deleteScooter($id);
+                        //Return result to jTable
+                        $jTableResult = array();
+                        $jTableResult['Result'] = "OK";
+                        print json_encode($jTableResult);
+                        break;
+                }
+            } catch (Exception $ex) {
+                //Return error message
+                $jTableResult = array();
+                $jTableResult['Result'] = "ERROR";
+                $jTableResult['Message'] = $ex->getMessage();
+                print json_encode($jTableResult);
+            }
+        }
     }
 
     public function reportsAction() {
@@ -229,6 +298,99 @@ class AdminController {
             require($this->view . 'reports.php');
         else
             require($this->view . 'login.php');
+    }
+
+    public function raportTrotineteAction() {
+        // Handle special IE contype request
+        if (isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] == 'contype') {
+            header('Content-Type: application/pdf');
+        }
+        $model = new AdminModelScooter();
+        $trotineteList = $model->getScooterList();
+
+        //echo "<h1>User Comments</h1>";
+        $denumiri = array();
+        $descrieri = array();
+        
+
+        $count = count($trotineteList);
+        for ($i = 0; $i < $count; $i++) {
+            $denumiri[$i] = $trotineteList[$i]['denumire'];
+            $descrieri[$i] = $trotineteList[$i]['caracteristici'];
+        }
+
+        $pdf = new PDF_result();
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->SetY(100);
+        $pdf->Cell(100, 13, "Stocul de trotinete");
+        $pdf->SetFont('Arial', '');
+        //$pdf->Cell(250, 13, $_POST['nume']);
+        $pdf->SetFont('Arial', 'B');
+        $pdf->Cell(50, 13, "Date:");
+        $pdf->SetFont('Arial', '');
+        $pdf->Cell(100, 13, date('F j, Y'), 0, 1);
+        $pdf->SetFont('Arial', 'I');
+        $pdf->SetX(140);
+        $pdf->Cell(200, 15, "Data:acum", 0, 2);
+        $pdf->Cell(200, 15, "Oras:Toate", 0, 2);
+        $pdf->Cell(200, 15, "Trotinete:inchiriate sau nu", 0, 2);
+        $pdf->Ln(100);
+        $pdf->Generate_Table($denumiri, $descrieri);
+        $pdf->Ln(50);
+        $message = "Stocul de trotinete ";
+        $pdf->MultiCell(0, 15, $message);
+        $pdf->SetFont('Arial', 'U', 12);
+        $pdf->SetTextColor(1, 162, 232);
+        $pdf->Write(13, "admin@youhack.me", "mailto:example@example.com");
+        $pdf->Output();
+    }
+
+    public function raportInchirieriZileAction() {
+        if (isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] == 'contype') {
+            header('Content-Type: application/pdf');
+        }
+        $model = new AdminModelRent();
+
+        $rentList = $model->getRentList($_POST['start-date'], $_POST['end-date']);
+
+        //echo "<h1>User Comments</h1>";
+        $denumiri = array();
+        $descrieri = array();
+        
+
+        $count = count($rentList);
+        for ($i = 0; $i < $count; $i++) {
+            $denumiri[$i] = $rentList[$i]['id_utilizator'];
+            $descrieri[$i] = $rentList[$i]['id_trotineta'];
+        }
+
+        $pdf = new PDF_result();
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->SetY(100);
+        $pdf->Cell(100, 13, "Situatia inchirierilor pe zile si ore");
+        $pdf->SetFont('Arial', '');
+        //$pdf->Cell(250, 13, $_POST['name']);
+        $pdf->SetFont('Arial', 'B');
+        $pdf->Cell(50, 13, "Date:");
+        $pdf->SetFont('Arial', '');
+        $pdf->Cell(100, 13, date('F j, Y'), 0, 1);
+        $pdf->SetFont('Arial', 'I');
+        $pdf->SetX(140);
+        $pdf->Cell(200, 15, "Data:acum", 0, 2);
+        $pdf->Cell(200, 15, "Oras:Toate", 0, 2);
+        $pdf->Cell(200, 15, "Trotinete:inchiriate sau nu", 0, 2);
+        $pdf->Ln(100);
+        
+        $pdf->Generate_Table($denumiri, $descrieri);
+        $pdf->Ln(50);
+        $message = "Stocul de trotinete ";
+        $pdf->MultiCell(0, 15, $message);
+        $pdf->SetFont('Arial', 'U', 12);
+        $pdf->SetTextColor(1, 162, 232);
+        $pdf->Write(13, "admin@youhack.me", "mailto:example@example.com");
+        $pdf->Output();
     }
 
 }

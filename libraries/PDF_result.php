@@ -1,6 +1,6 @@
 <?php
 
-require ('fpdf/fpdf.php');//including the main class
+//require ('fpdf/fpdf.php');//including the main class
 class PDF_result extends FPDF
 {
 /*The constructor takes 4 Arguments ,

@@ -113,6 +113,16 @@ class AdminModelDefault {
 
         return $row;
     }
+    
+    public function getLastScooter() {
+        $output = null;
+        $sql = "SELECT * FROM trotinete p WHERE p.id = LAST_INSERT_ID();";
+
+        $result = self::$db->query($sql);
+        $row = mysqli_fetch_array($result);
+
+        return $row;
+    }
 
     public function getScootersList1($sorting, $startIndex, $pageSize) {
         $output = null;
@@ -248,6 +258,7 @@ class AdminModelDefault {
         return $result;
     }
 
+    /*
     public function getScooterList($limit) {
         $output = null;
         $sql = "SELECT trotinete.*, puncte_de_lucru.nume as punct_de_lucru, tip_adaugare_trotinete.nume as mod_adaugare FROM trotinete LEFT JOIN puncte_de_lucru ON trotinete.id_punct_de_lucru = puncte_de_lucru.id LEFT JOIN tip_adaugare_trotinete on trotinete.tip_adaugare = tip_adaugare_trotinete.id {$limit}";
@@ -271,7 +282,7 @@ class AdminModelDefault {
 
         return $output;
     }
-
+*/
     public function getScooter($id) {
 
         $sql = "SELECT * FROM trotinete WHERE id=" . intval($id);
@@ -329,6 +340,9 @@ class AdminModelDefault {
     }
 
     public function isValidUser() {
+        if (!isset($_COOKIE['user_id']) || $_COOKIE['user_id'] == "" ||
+                !isset($_COOKIE['user_session_id']) || $_COOKIE['user_session_id'] == "")
+            return false;
         $sql = "SELECT * FROM admin WHERE id=" . intval($_COOKIE['user_id']) . " and id_sesiune='{$_COOKIE['user_session_id']}'";
 
         $result = self::$db->query($sql);
