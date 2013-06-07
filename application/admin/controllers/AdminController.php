@@ -326,17 +326,17 @@ class AdminController {
         $pdf->Cell(100, 13, "Stocul de trotinete");
         $pdf->SetFont('Arial', '');
         //$pdf->Cell(250, 13, $_POST['nume']);
-        $pdf->SetFont('Arial', 'B');
+        //$pdf->SetFont('Arial', 'B');
         $pdf->Cell(50, 13, "Date:");
         $pdf->SetFont('Arial', '');
         $pdf->Cell(100, 13, date('F j, Y'), 0, 1);
         $pdf->SetFont('Arial', 'I');
         $pdf->SetX(140);
-        $pdf->Cell(200, 15, "Data:acum", 0, 2);
-        $pdf->Cell(200, 15, "Oras:Toate", 0, 2);
-        $pdf->Cell(200, 15, "Trotinete:inchiriate sau nu", 0, 2);
+        //$pdf->Cell(200, 15, "Data:acum", 0, 2);
+        //$pdf->Cell(200, 15, "Oras:Toate", 0, 2);
+        //$pdf->Cell(200, 15, "Trotinete:inchiriate sau nu", 0, 2);
         $pdf->Ln(100);
-        $headers = ["Denumire", "Descriere"];
+        $headers = array("Denumire", "Descriere");
 
         $pdf->Generate_Table($denumiri, $descrieri, $headers);
 
@@ -364,8 +364,12 @@ class AdminController {
 
         $count = count($rentList);
         for ($i = 0; $i < $count; $i++) {
-            $denumiri[$i] = $rentList[$i]['id_utilizator'];
-            $descrieri[$i] = $rentList[$i]['id_trotineta'];
+            $user_name = $model->getUserName($rentList[$i]['id_utilizator']);
+            
+            $denumiri[$i] = $user_name[0]['nume'].' '.$user_name[0]['prenume'];
+            
+            $scooter_name = $model->getScooterName($rentList[$i]['id_trotineta']);
+            $descrieri[$i] = $scooter_name[0]['denumire'];
         }
 
         $pdf = new PDF_result();
@@ -381,12 +385,12 @@ class AdminController {
         $pdf->Cell(100, 13, date('F j, Y'), 0, 1);
         $pdf->SetFont('Arial', 'I');
         $pdf->SetX(140);
-        $pdf->Cell(200, 15, "Data:acum", 0, 2);
-        $pdf->Cell(200, 15, "Oras:Toate", 0, 2);
-        $pdf->Cell(200, 15, "Trotinete:inchiriate sau nu", 0, 2);
+        //$pdf->Cell(200, 15, "Data:acum", 0, 2);
+        //$pdf->Cell(200, 15, "Oras:Toate", 0, 2);
+        //$pdf->Cell(200, 15, "Trotinete:inchiriate sau nu", 0, 2);
         $pdf->Ln(100);
 
-        $headers = ["Utilizator", "Trotineta"];
+        $headers = array("Utilizator", "Trotineta");
 
         $pdf->Generate_Table($denumiri, $descrieri, $headers);
         $pdf->Ln(50);

@@ -1098,3 +1098,39 @@ footer{
 #rental-conditions ul li, #rental-cond ul li{
     margin-bottom: 10px;
 }
+#login-form{
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+#login-form form{
+    width: 300px;
+}
+#login-form form label{
+    width: 130px;
+    float:left;
+    font-size: 12pt;
+}
+#admin-header-left h1{
+    font-size: 14pt;
+    color: #9F9F9F;
+    float: left;
+    width: 330px;
+}
+#admin-header-left{
+    color: #9F9F9F; 
+}
+#admin-header-left input{
+    float: left;
+    margin-top: 16px;
+}
+#admin-header-navigation{
+    float: left;
+    width: 980px;
+}
+#admin-header-navigation a{
+    margin-left: 0px;
+    font-size: 14pt;
+    margin-left: 0;
+    margin-right: 20px;
+}

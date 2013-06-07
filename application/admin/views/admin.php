@@ -22,7 +22,7 @@ if (!$model->isValidUser())
             function Logout() {
                 deleteCookie('user_id');
                 deleteCookie('user_session_id');
-                window.location.href = "login.php";
+                window.location.href = "<?= WSystem::$url ?>admin";
             }
             function deleteCookie(name) {
                 var date = new Date();

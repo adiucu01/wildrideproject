@@ -363,14 +363,13 @@ class AdminModelDefault {
             // superadmin
             case "1":
                 $output = '<a href="' . WSystem::$url . 'admin/adminTable" title="Admins">Admins</a> 
-                              <a href="' . WSystem::$url . 'admin/workpoint" title="Workpoints">Workpoints</a> 
-                              <a href="' . WSystem::$url . 'admin/scooter" title="Scooters">Scooters</a>
-                               <a href="' . WSystem::$url . 'admin/reports" title="Scooters">Reports</a>
-                                <a href="' . WSystem::$url . 'admin/scooters.php" title="MyScooters">MyScooters</a>';
+                              <a href="' . WSystem::$url . 'admin/workpoint" title="Workpoints">Workpoints</a>
+                               <a href="' . WSystem::$url . 'admin/reports" title="Reports">Reports</a>';
                 break;
 
             // admin
             case "2":
+            $output = '<a href="' . WSystem::$url . 'admin/scooter" title="Scooters">Scooters</a> ';
                 break;
 
             // utilizator

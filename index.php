@@ -16,7 +16,8 @@
     dirname(__FILE__) . '/libraries/PHPOffice/Classes/PHPExcel/' . PATH_SEPARATOR .
     dirname(__FILE__) . '/plugins/';
 
-    set_include_path(get_include_path() . PATH_SEPARATOR . $paths);
+    //set_include_path(get_include_path() . PATH_SEPARATOR . $paths); 
+    set_include_path($paths);
 
     if (isset($_REQUEST["c"]) && $_REQUEST["c"]) {
         WSystem::$controller_name = $_REQUEST["c"];

@@ -1,13 +1,7 @@
-<?php
-//require_once("/../models/default.php");
-$model = new AdminModelDefault();
-if (!$model->isValidUser())
-    die();
-?>
+<?php $model = new AdminModelDefault(); ?> 
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>WildRide | Adrian Mihaila & Saveluc Diana & Unknown</title>
         <link rel="stylesheet" type="text/css" href="<?= WSystem::$url ?>assets/css/main.css" /> 
         <!--script src="http://code.jquery.com/jquery-1.9.1.js"></script-->
         <link href="<?= WSystem::$url ?>assets/js/jtable/themes/redmond/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
@@ -23,7 +17,7 @@ if (!$model->isValidUser())
             function Logout() {
                 deleteCookie('user_id');
                 deleteCookie('user_session_id');
-                window.location.href = "login.php";
+                window.location.href = "<?= WSystem::$url ?>admin";
             }
             function deleteCookie(name) {
                 var date = new Date();
@@ -62,104 +56,100 @@ if (!$model->isValidUser())
 
     <body> 
 
+        <div class="content">
+            <header>
+                <section id="admin-header-left">
+                    <h1>Bine ai venit, <?php
+                            $result = $model->getUser(null);
+                            echo $result['nume'] . " " . $result['prenume'];
+                        ?>!</h1>
+                    <input type="button" value="Logout" onclick="Logout()" class="input-logout"/>
+                </section>
+                <nav id="admin-header-navigation">
+                    <?php echo $nav = $model->createMenu($result['tip_admin']); ?>
+                    <a href="../controllers/scooter.php?action=import" title="Import Scooter List">Import Scooter List</a>
+                </nav>
 
-        <header>
-            <div class="content">
-                <div id="logo">
-                    <a href="<?= WSystem::$url ?>admin" title="WildRide"><img src="<?= WSystem::$url ?>img/logo.png" alt="WildRide"/></a>
-                </div>
+            </header>
 
-                <div id="navigator">
-                    <p>Bine ai venit, <?php $result = $model->getUser(null);
-echo $result['nume'] . " " . $result['prenume'];
-?>!<input type="button" value="Logout" onclick="Logout()" class="input-logout"/></p>
+            <div id="ScootersTableContainer"  style="width: 980px;margin: 0 auto;"></div>
+            
 
-                    <nav>
-<?php echo $nav = $model->createMenu($result['tip_admin']); ?>
-                    </nav>
-                </div>
+            <div id="ScootersTableContainer" style="width: 980px;"></div>
 
-            </div>
-        </header>
+            <script type="text/javascript">
 
-        <div id="ScootersTableContainer"  style="width: 1000px;margin-left:auto;margin-top:100px;margin-right:auto;"></div>
-        <a href="../controllers/scooter.php?action=import" title="Import Scooter List">Import Scooter List</a>
+                $(document).ready(function() {
 
-        <div id="ScootersTableContainer" style="width: 1000px;"></div>
+                        //Prepare jTable
+                        $('#ScootersTableContainer').jtable({
+                                title: 'Table of scooters',
+                                paging: true,
+                                pageSize: 5,
+                                sorting: true,
+                                defaultSorting: 'denumire ASC',
+                                actions: {
+                                    listAction: '<?= WSystem::$url ?>admin/scooterCRUD/list',
+                                    createAction: '<?= WSystem::$url ?>admin/scooterCRUD/create',
+                                    updateAction: '<?= WSystem::$url ?>admin/scooterCRUD/update',
+                                    deleteAction: '<?= WSystem::$url ?>admin/scooterCRUD/delete'
+                                },
+                                fields: {
+                                    id: {
+                                        key: true,
+                                        create: false,
+                                        edit: false,
+                                        list: false
+                                    },
+                                    denumire: {
+                                        title: 'Nume',
+                                        width: '10%'
+                                    },
+                                    caracteristici: {
+                                        title: 'Caracteristici',
+                                        width: '10%'
+                                    },
+                                    pret_inchiriere: {
+                                        title: 'Pret inchiriere',
+                                        width: '10%'
 
-        <script type="text/javascript">
+                                    },
+                                    id_punct_de_lucru: {
+                                        title: 'Punct de lucru',
+                                        width: '10%'
 
-            $(document).ready(function() {
+                                    },
+                                    data_adaugare: {
+                                        title: 'Data adaugare',
+                                        width: '10%',
+                                        create: false,
+                                        edit: false
 
-                //Prepare jTable
-                $('#ScootersTableContainer').jtable({
-                    title: 'Table of users',
-                    paging: true,
-                    pageSize: 5,
-                    sorting: true,
-                    defaultSorting: 'denumire ASC',
-                    actions: {
-                        listAction: '<?= WSystem::$url ?>admin/scooterCRUD/list',
-                        createAction: '<?= WSystem::$url ?>admin/scooterCRUD/create',
-                        updateAction: '<?= WSystem::$url ?>admin/scooterCRUD/update',
-                        deleteAction: '<?= WSystem::$url ?>admin/scooterCRUD/delete'
-                    },
-                    fields: {
-                        id: {
-                            key: true,
-                            create: false,
-                            edit: false,
-                            list: false
-                        },
-                        denumire: {
-                            title: 'Nume',
-                            width: '10%'
-                        },
-                        caracteristici: {
-                            title: 'Caracteristici',
-                            width: '10%'
-                        },
-                        pret_inchiriere: {
-                            title: 'Pret inchiriere',
-                            width: '10%'
+                                    },
+                                    nr_bucati: {
+                                        title: ' Nr bucati',
+                                        width: '10%'
 
-                        },
-                        id_punct_de_lucru: {
-                            title: 'Punct de lucru',
-                            width: '10%'
+                                    },
+                                    nr_bucati_inchiriate: {
+                                        title: '  Nr bucati inchiriate',
+                                        width: '15%'
 
-                        },
-                        data_adaugare: {
-                            title: 'Data adaugare',
-                            width: '10%',
-                            create: false,
-                            edit: false
+                                    }
+                                }
+                        });
 
-                        },
-                        nr_bucati: {
-                            title: ' Numar bucati',
-                            width: '10%'
+                        //Load person list from server
+                        $('#ScootersTableContainer').jtable('load');
 
-                        },
-                        nr_bucati_inchiriate: {
-                            title: '  Numar bucati inchiriate',
-                            width: '10%'
-
-                        }
-                    }
                 });
 
-                //Load person list from server
-                $('#ScootersTableContainer').jtable('load');
 
-            });
-
-
-        </script>    
+            </script>    
 
 
 
-
+        </div>
 
 
 
