@@ -28,7 +28,7 @@ class IndexController {
                 header('Location: ' . $_SESSION['HTTP_REFERER']);
             } else {
                 //header('Location: ../views/login.php');
-                require( $this->view . 'login.php' );
+                require( $this->view . 'user.php' );
             }
         } else {
             //header('Location: ../views/login.php');
@@ -55,6 +55,18 @@ class IndexController {
         
         public function aboutAction(){
             require($this->view . 'about-us.php');
+        }
+        public function contactAction(){
+            if(!empty($_POST)){
+                 $model = new ModelUser();
+                 $param = $_POST;
+                 $param['customer']['nume'] = $_POST['name'];   
+                 $param['customer']['message'] = $_POST['message'];
+                 $param['subject'] ='WildRide Contact Section';
+                 $model->SendMail($param);
+            }else{
+                require($this->view . 'contact.php');
+            }
         }
 
 }

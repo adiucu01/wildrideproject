@@ -41,11 +41,11 @@ var judete = [
     {"nume": "Valcea", "orase": {"Babeni": {"woeid": 866506, "cod_postal": 2511100, "latitudine": 44.966702, "longitudine": 24.233299}, "Baile Govora": {"woeid": 866648, "cod_postal": 0, "latitudine": 45.071911, "longitudine": 24.23727}, "Baile Olanesti": {"woeid": 866654, "cod_postal": 0, "latitudine": 45.186459, "longitudine": 24.239849}, "Balcesti": {"woeid": 866745, "cod_postal": 2521101, "latitudine": 44.616699, "longitudine": 23.950001}, "Berbesti": {"woeid": 867142, "cod_postal": 2511400, "latitudine": 44.985809, "longitudine": 23.883301}, "Brezoi": {"woeid": 868134, "cod_postal": 2511725, "latitudine": 45.349998, "longitudine": 24.25}, "Calimanesti": {"woeid": 868670, "cod_postal": 2511800, "latitudine": 45.23333, "longitudine": 24.33333}, "Dragasani": {"woeid": 871589, "cod_postal": 2520000, "latitudine": 44.650002, "longitudine": 24.266701}, "Horezu": {"woeid": 873763, "cod_postal": 2512612, "latitudine": 45.150002, "longitudine": 24.016701}, "Ocnele Mari": {"woeid": 876706, "cod_postal": 0, "latitudine": 45.081001, "longitudine": 24.30687}, "Ramnicu Valcea": {"woeid": 879084, "cod_postal": 0, "latitudine": 45.105171, "longitudine": 24.373249}, "Targu Secuiesc": {"woeid": 881863, "cod_postal": 2511410, "latitudine": 44.966702, "longitudine": 23.866699}}},
     {"nume": "Vaslui", "orase": {"Barlad": {"woeid": 867334, "cod_postal": 7520000, "latitudine": 46.22636, "longitudine": 27.67037}, "Husi": {"woeid": 873860, "cod_postal": 0, "latitudine": 46.67025, "longitudine": 28.070551}, "Murgeni": {"woeid": 15002115, "cod_postal": 7521801, "latitudine": 46.202511, "longitudine": 28.016701}, "Negresti": {"woeid": 876447, "cod_postal": 0, "latitudine": 46.833302, "longitudine": 27.4333}, "Vaslui": {"woeid": 883375, "cod_postal": 0, "latitudine": 46.638069, "longitudine": 27.732821}}},
     {"nume": "Vrancea", "orase": {"Adjud": {"woeid": 866023, "cod_postal": 0, "latitudine": 46.099998, "longitudine": 27.180901}, "Focsani": {"woeid": 872317, "cod_postal": 0, "latitudine": 45.695808, "longitudine": 27.184071}, "Marasesti": {"woeid": 875359, "cod_postal": 0, "latitudine": 45.883331, "longitudine": 27.23333}, "Odobesti": {"woeid": 876741, "cod_postal": 6512900, "latitudine": 45.766701, "longitudine": 27.049999}, "Panciu": {"woeid": 877174, "cod_postal": 6513200, "latitudine": 45.913361, "longitudine": 27.07744}}
-    }];
+}];
 function Logout() {
     deleteCookie('user_id');
     deleteCookie('user_session_id');
-    window.location.href = "index.php?c=index&a=login";
+    window.location.href = urlLogin;
 }
 function deleteCookie(name) {
     var date = new Date();
@@ -70,13 +70,13 @@ function selectOras(judet) {
     for (i = 0; i < judete.length; i++) {
         if (judete[i].nume === judetName)
             {
-                for (oras in judete[i].orase) {
-                    var option = document.createElement("option");
-                    option.setAttribute("value", oras);
-                    option.innerHTML = oras;
-                    select.appendChild(option);
-                }
+            for (oras in judete[i].orase) {
+                var option = document.createElement("option");
+                option.setAttribute("value", oras);
+                option.innerHTML = oras;
+                select.appendChild(option);
             }
+        }
     }
     var div = document.createElement("div");
     div.className = "search-select";
@@ -98,11 +98,14 @@ function ConfirmPassword() {
         return false;
     }
     else
-    {
+        {
         return true;
     }
 }
 
 function RentScooter(id) {
-    window.location = 'index.php?c=rent&a=view&id=' + id;
+    window.location = urlRentView + id;
+}
+function go(controller, action){
+    window.location.href = urlLogin;
 }

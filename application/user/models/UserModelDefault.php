@@ -1,8 +1,4 @@
 <?php
-    /*
-    require_once("/../../../classes/BD.php");
-    require_once("/../../../config/config.php");
-    */    
     class UserModelDefault{
         public static $db;
         public function __construct(){
@@ -83,9 +79,9 @@
                     }                                             
                 }
                 $output .= '<li class="scooter-detailed'.$class.'">
-                <a href="index.php?c=scooter&a=view&id='.$arr['id'].'" title="">
+                <a href="'.WSystem::$url.'scooter/view/'.$arr['id'].'" title="">
                 <div class="scooter-detailed-img">
-                <img src="'.$arr['imagine'].'" alt="" width="150"/>
+                <img src="'.WSystem::$url.$arr['imagine'].'" alt="" width="150"/>
                 </div>
                 <div class="scooter-detailed-title">
                 '.$arr['denumire'].'
@@ -129,9 +125,9 @@
                     }                                             
                 }
                 $output .= '<li class="scooter-detailed'.$class.'">
-                <a href="index.php?c=scooter&a=view&id='.$arr['id'].'" title="">
+                <a href="'.WSystem::$url.'scooter/view/'.$arr['id'].'" title="">
                 <div class="scooter-detailed-img">
-                <img src="'.$arr['imagine'].'" alt="" width="150"/>
+                <img src="'.WSystem::$url.$arr['imagine'].'" alt="" width="150"/>
                 </div>
                 <div class="scooter-detailed-title">
                 '.$arr['denumire'].'
@@ -319,9 +315,9 @@
                         $class = null;
                     }
                     $output .= '<li class="scooter-detailed'.$class.'">
-                    <a href="index.php?c=scooter&a=view&id='.$arr['id'].'" title="">
+                    <a href="'.WSystem::$url.'scooter/view/'.$arr['id'].'" title="">
                     <div class="scooter-detailed-img">
-                    <img src="'.$arr['imagine'].'" alt="" width="150"/>
+                    <img src="'.WSystem::$url.$arr['imagine'].'" alt="" width="150"/>
                     </div>
                     <div class="scooter-detailed-title">
                     '.$arr['denumire'].'
