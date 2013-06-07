@@ -311,7 +311,7 @@ class AdminController {
         //echo "<h1>User Comments</h1>";
         $denumiri = array();
         $descrieri = array();
-        
+
 
         $count = count($trotineteList);
         for ($i = 0; $i < $count; $i++) {
@@ -336,13 +336,16 @@ class AdminController {
         $pdf->Cell(200, 15, "Oras:Toate", 0, 2);
         $pdf->Cell(200, 15, "Trotinete:inchiriate sau nu", 0, 2);
         $pdf->Ln(100);
-        $pdf->Generate_Table($denumiri, $descrieri);
+        $headers = ["Denumire", "Descriere"];
+
+        $pdf->Generate_Table($denumiri, $descrieri, $headers);
+
         $pdf->Ln(50);
         $message = "Stocul de trotinete ";
         $pdf->MultiCell(0, 15, $message);
         $pdf->SetFont('Arial', 'U', 12);
         $pdf->SetTextColor(1, 162, 232);
-        $pdf->Write(13, "admin@youhack.me", "mailto:example@example.com");
+        $pdf->Write(13, "adi@timelife.ro", "mailto:adi@timelife.ro");
         $pdf->Output();
     }
 
@@ -357,7 +360,7 @@ class AdminController {
         //echo "<h1>User Comments</h1>";
         $denumiri = array();
         $descrieri = array();
-        
+
 
         $count = count($rentList);
         for ($i = 0; $i < $count; $i++) {
@@ -382,14 +385,16 @@ class AdminController {
         $pdf->Cell(200, 15, "Oras:Toate", 0, 2);
         $pdf->Cell(200, 15, "Trotinete:inchiriate sau nu", 0, 2);
         $pdf->Ln(100);
-        
-        $pdf->Generate_Table($denumiri, $descrieri);
+
+        $headers = ["Utilizator", "Trotineta"];
+
+        $pdf->Generate_Table($denumiri, $descrieri, $headers);
         $pdf->Ln(50);
         $message = "Stocul de trotinete ";
         $pdf->MultiCell(0, 15, $message);
         $pdf->SetFont('Arial', 'U', 12);
         $pdf->SetTextColor(1, 162, 232);
-        $pdf->Write(13, "admin@youhack.me", "mailto:example@example.com");
+        $pdf->Write(13, "diana@timelife.ro", "mailto:diana@timelife.ro");
         $pdf->Output();
     }
 
