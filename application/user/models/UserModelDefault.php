@@ -341,5 +341,9 @@
 
             setcookie('history_views', $history, time()+3600*24, "/"); 
         }
+        public function addNewsletter($param){
+            $sql = "INSERT INTO newsletter (email) VALUES ('{$param['email']}')";
+            return $result = self::$db->query($sql);               
+        }
     }
 ?>

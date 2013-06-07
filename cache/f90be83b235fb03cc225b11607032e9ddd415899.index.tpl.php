@@ -30,10 +30,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'nocache_hash' => '1754651b0bd759591b4-10756939',
   'cache_lifetime' => 120,
   'version' => 'Smarty-3.1.13',
-  'unifunc' => 'content_51b132fa74c240_85192785',
+  'unifunc' => 'content_51b1420ed650f4_32708529',
   'has_nocache_code' => false,
 ),true); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_51b132fa74c240_85192785')) {function content_51b132fa74c240_85192785($_smarty_tpl) {?><!DOCTYPE HTML>
+<?php if ($_valid && !is_callable('content_51b1420ed650f4_32708529')) {function content_51b1420ed650f4_32708529($_smarty_tpl) {?><!DOCTYPE HTML>
 <HEAD>
 <TITLE>foo</TITLE>
 <link rel="stylesheet" type="text/css" href="assets/css/template.css" /> 
@@ -58,7 +58,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 </header>
 <section id="container">
     <div class="content">
-        <h1>Hi, didut didut</h1>
+        <h1>Hi, hhh hhh</h1>
         <p>
                         <table>
                             <thead>

@@ -1,12 +1,11 @@
-<?php  $model = new ModelUser(); ?>
+<?php $model = new ModelUser(); ?>
 <!DOCTYPE HTML>
 <html>
     <head>
         <title>WildRide | Adrian-Nicolae Mihaila, Diana Alexandra Saveluc, Alin Paul Macovei</title>
         <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
-        <link rel="stylesheet" type="text/css" href="<?=WSystem::$url?>assets/css/main.css" /> 
+        <link rel="stylesheet" type="text/css" href="<?=WSystem::$url?>assets/css/main.css" />  
         <link rel="stylesheet" type="text/css" media="all" href="<?=WSystem::$url?>assets/css/jquery.hoverscroll.css" />
-
 
     </head>
     <body> 
@@ -19,7 +18,7 @@
                 <div id="navigator">
                     <nav>
                         <a href="<?=WSystem::$url?>about" title="About Us">about us</a>
-                        <a href="<?=WSystem::$url?>search/filter/special-offers" title="Special Offers">special offers</a>
+                        <a href="<?=WSystem::$url?>search/filter/view_special_offers" title="Special Offers">special offers</a>
                         <a href="<?=WSystem::$url?>partners" title="Partners">partners</a>
                         <a href="<?=WSystem::$url?>contact" title="Contact">contact</a>
                     </nav>
@@ -29,33 +28,25 @@
         </header>
         <section id="container">
             <div class="content">
-            <div id="contactwrapper">
-                <form id="contact" name="contact" method="post" action="" enctype="multipart/form-data">
-                    <input type="hidden" name="check" value="01">
-                    <small>*all form fields are required.</small>
-
-                    <label for="name" id="namelabel">Name:<span class="err topp">enter your name</span></label>
-                    <input type="text" name="name" id="name" class="textinput">
-
-
-                    <label for="email" id="emailabel">E-mail:<span class="err topp">enter a valid e-mail address</span></label>
-                    <input type="email" name="email" id="email" class="textinput">
-
-
-                    <label for="message" id="msglabel">Message:<span class="err txarea">share some stuff with us</span></label>
-                    <textarea name="message" id="message" class="msgtextarea"></textarea>
-
-
-                    <img src="<?=WSystem::$url?>libraries/captcha.php" id="captchaimg">
-
-                    <label for="captcha" id="captchalabel">You're not a spammer, right?<span class="err capter">your CAPTCHA code looks wrong</span></label>
-                    <input type="text" name="captchavalue" id="captchavalue" class="textcaptcha">
-
-
-                    <section id="subber">
-                        <a href="javascript:void(0);" name="submitlink" id="submitlink" class="btn">Send Message</a>
-                    </section>
-                </form>
+                <div id="rental-conditions">
+                    <h2>Scooter Rental Terms & Conditions</h2>
+                    <p>
+                        <b>WildRide rents scooters to its clients on the following terms:</b>
+                        <ul>
+                            <li>Rental rates are based on an hourly pricing</li> 
+                            <li>The payment is to be done ONLY in our stores (we do not accept online payments), after signing the rental conditions papers.</li>
+                            <li>If your age is somewhere between 2 and 98 then then our scooter rental services are a superb option for you to get all the fun you could hope for! However all scooter rentals require a valid ID in order for the signing of papers to be done, so the client be 18 years old or accompanied by a parent or guardian in order to sign the rental papers.</li>
+                            <li>Travel Insurance: It is the responsibility of clients to hold their own travel insurance policy to cover personnel medical care in case of accident, loss due to cancellation, and any third party liability that may arise from the use of the Rental Scooters by clients. No coverage is available from WildRide to insure Clients from loss in case of damage, theft or other liability incurred in the use of the Rental Scooters.</li>
+                            <li>Status of Rental Bicycle: WildRide confirms that an experienced scooter mechanic, prior to renting, reviews each scooter. Each scooter is prepped for rental and supplied to clients in properly operating status, and is ready to ride.</li> 
+                            <li>Theft of and Damage to Rental Scooters: Subject to this clause the client is responsible for any and all damage once scooters are received by clients. This includes but is not limited to any form of theft and damage to the Rental Scooter.</li>
+                        </ul>
+                    </p>
+                    <br/>
+                    <p> 
+                        <b>Other Details</b><br/><br/>
+                        We have several varieties of scooters in stock, ranging from kid scooters to scooters designed for stunts and competitions. We always provide outstanding customer services, meticulously planned and organized rides and tours (or you can just choose your own riding locations), top-of-the-line rental equipment, and we want our customers to have fun!  All of our scooters are eco-friendly and human powered.  They're all lightweight, compact, and easy to carry.  All rental scooters come with a shoulder strap for carrying, and a rear brake or even a front brake too on some models.  Our most durable scooters can support up to 300lbs. 
+                    </p>
+                </div> 
             </div>
         </section>
         <section id="aditional-tool"> 
@@ -92,7 +83,7 @@
                     </ul>
                     <input type="button" value="More" onclick="window.open('http://xe.com','_blank');"/>
                 </div>                     
-            </div>                                
+            </div>                                   
         </section>
         <footer>
             <div class="content">
@@ -131,7 +122,7 @@
                 <section class="footer-content">
                     <h3>Newsletter</h3>
                     <p>Keep up with new offers!</p>
-                    <form action="<?=WSystem::$url?>newsletter" method="post">                          
+                    <form action="<?=WSystem::$url?>newsletter" method="post">                            
                         <input type="email" name="email" id="email-newsletter" required="required">                             
                         <input type="submit" value="Subscribe"/>
                     </form>
@@ -140,9 +131,9 @@
         </footer>
         <div id="footer-copyright">
             Copyright © 2013 WildRide
-        </div>
-        <script type="text/javascript" src="<?=WSystem::$url?>assets/js/jquery-1.9.1.min.js"></script>   
-        <script type="text/javascript" src="<?=WSystem::$url?>assets/js/jquery.hoverscroll.js"></script>                
+        </div> 
+        <script type="text/javascript" src="<?=WSystem::$url?>assets/js/jquery-1.9.1.min.js"></script> 
+        <script type="text/javascript" src="<?=WSystem::$url?>assets/js/jquery.hoverscroll.js"></script>        
         <script src="<?=WSystem::$url?>assets/js/jquery.zweatherfeed.min.js" type="text/javascript"></script> 
         <script src="<?=WSystem::$url?>assets/js/functions.js" type="text/javascript"></script> 
         <script type="text/javascript">
@@ -150,103 +141,12 @@
             var urlRentView = '<?=WSystem::$url?>rent/view/';
         </script> 
         <script type="text/javascript">
-            function checkValidEmailAddress(emailAddress) {
-                var pattern = new RegExp(/^(("[\w-+\s]+")|([\w-+]+(?:\.[\w-+]+)*)|("[\w-+\s]+")([\w-+]+(?:\.[\w-+]+)*))(@((?:[\w-+]+\.)*\w[\w-+]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][\d]\.|1[\d]{2}\.|[\d]{1,2}\.))((25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\.){2}(25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\]?$)/i);
-
-                return pattern.test(emailAddress);
-            };
-
-            var mailsendstatus;
-            function userSendMailStatus(uname, uemail, umsg, ucaptcha) {
-                // checking for some valid user name
-                if(!uname) {
-                    $("#namelabel").children(".err").fadeIn('slow');
-                }
-                else if(uname.length > 3) {
-                    $("#namelabel").children(".err").fadeOut('slow');        
-                }
-
-                // checking for valid email
-                if(!checkValidEmailAddress(uemail)) {
-                    $("#emailabel").children(".err").fadeIn('slow');
-                }
-                else if(checkValidEmailAddress(uemail)) {
-                    $("#emailabel").children(".err").fadeOut('slow');    
-                }
-
-                // checking for valid message
-                if(!umsg) {
-                    $("#msglabel").children(".err").fadeIn('slow');
-                }
-                else if(umsg.length > 5) {
-                    $("#msglabel").children(".err").fadeOut('slow');
-                }
-
-                // ajax check for captcha code
-                $.ajax(
-                    {
-                        type: 'POST',
-                        url: 'libraries/captcha_check.php',
-                        data: $("#contact").serialize(),
-                        success: function(data) {
-                            if(data == "false") {
-                                mailsendstatus = false;
-                                $("#captchalabel").children(".err").fadeIn('slow');
-                            }
-                            else if(data == "true"){
-                                $("#captchalabel").children(".err").fadeOut('slow');
-
-                                if(uname.length > 3 && umsg.length > 5 && checkValidEmailAddress(uemail)) {
-                                    // in this case all of our inputs look good
-                                    // so we say true and send the mail
-                                    mailsendstatus = true;
-
-                                    $("#subber").html('<img src="<?=WSystem::$url?>img/load.gif" alt="loading...">');
-
-                                    $.ajax(
-                                        {
-                                            type: 'POST',
-                                            url: '<?=WSystem::$url?>contact',
-                                            data: $("#contact").serialize(),
-                                            success: function(data) {
-                                                if(data == "yes") {
-                                                    $("#contactwrapper").slideUp(650, function(){
-                                                            $(this).before("<strong>Yep your mail has been sent!</strong>");
-                                                    });
-                                                }
-                                            }
-                                        }
-                                    ); // close sending email ajax call    
-                                } // close if logic for mailsendstatus true
-                            } // close check CAPTCHA return true
-                        } // close ajax success callback function
-                    } // close ajax bracket open
-                );
-
-                return mailsendstatus;
-            }
-
-            $(document).ready(function(){
-                    $("#contact").submit(function() { return false; });
-
-                    $("#submitlink").bind("click", function(e){
-                            var usercaptvalue = $("#captchavalue").val();
-                            var subnamevalue  = $("#name").val();
-                            var emailvalue    = $("#email").val();
-                            var msgvalue      = $("#message").val();
-
-
-                            var postchecks = userSendMailStatus(subnamevalue, emailvalue, msgvalue, usercaptvalue);
-                    });
-            });
-        </script>
-        <script type="text/javascript">
 
             $(document).ready(function() {
                     $('#weather-content').weatherfeed(['873915'],{
                             woeid: true
                     });
-                    $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {
+                    $.fn.hoverscroll.params = $.extend($.fn.hoverscroll.params, {  
                             vertical: false,
                             width: 980,
                             height: 270,
@@ -290,8 +190,7 @@
                             });
                     });
 
-
             });
-        </script> 
+        </script>
     </body>
 </html>
