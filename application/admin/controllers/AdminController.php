@@ -398,4 +398,9 @@ class AdminController {
         $pdf->Output();
     }
 
+    public function liveScooterAction() {
+        $model = new AdminModelDefault();
+        require $this->view . 'liveScooters.php';
+    }
+
 }
