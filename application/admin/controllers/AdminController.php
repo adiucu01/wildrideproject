@@ -6,7 +6,11 @@ class AdminController {
     public $_secure = false;
 
     public function indexAction() {
-        require($this->view . 'default.php');
+        $model = new AdminModelDefault();
+        if ($model->isValidUser() && $model->is_logged())
+            require($this->view . 'default.php');
+        else
+            require($this->view . 'login.php');
     }
 
     public function signinAction() {
@@ -14,12 +18,12 @@ class AdminController {
         $param['session_id'] = session_id();
 
         $model = new AdminModelSignIn();
+        $res = $model->SignIn($param);
+
         if ($model->SignIn($param)) {
-            //header('Location: ../views/default.php');
-            require($this->view. 'default.php');
+            WSystem::redirect("admin");
         } else {
-            //header('Location: ../views/signin.php');
-            require($this->view. 'signin.php');
+            require($this->view . 'login.php');
         }
     }
 

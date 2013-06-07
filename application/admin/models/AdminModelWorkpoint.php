@@ -3,11 +3,8 @@
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
   */  
-  class AdminModelWorkpoint{
-      private static $db;
-      public function __construct(){
-          self::$db = new DB(); 
-      }
+  class AdminModelWorkpoint extends AdminModelDefault{
+      
       public function addWorkpoint($param){ 
            $sql = "INSERT INTO puncte_de_lucru(nume, adresa)
                     VALUES('{$param['nume']}','{$param['adresa']}')";   

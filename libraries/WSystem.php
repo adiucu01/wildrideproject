@@ -8,14 +8,19 @@ class WSystem {
     public static $url = null;
 
     public static function redirect($controller = "index", $action = "index") {
-        if ($controller != "index")
-            header("Location: " . self::$url . $controller . "/" . $action);
+        if ($controller != "index") {
+            if ($action != "index")
+                header("Location: " . self::$url . $controller . "/" . $action);
+            else
+                header("Location: " . self::$url . $controller);
+        }
         else {
             header("Location: " . self::$url . $action);
         }
     }
 
     public static function execute() {
+
         if (self::$url === null) {
             self::$url = "http://" . $_SERVER['HTTP_HOST'];
             self::$url .= str_replace("index.php", "", $_SERVER['SCRIPT_NAME']);

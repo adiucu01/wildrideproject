@@ -3,11 +3,8 @@
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
   */  
-  class ModelAdmin{
-      private static $db;
-      public function __construct(){
-          self::$db = new DB(); 
-      }
+  class ModelAdmin extends AdminModelDefault{
+      
       public function addAdmin($param){ 
            $password = $this->cryptp($param['password']);
            $sql = "INSERT INTO admin(nume, prenume, email, parola, id_punct_de_lucru, tip_admin)

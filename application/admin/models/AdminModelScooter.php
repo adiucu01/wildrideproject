@@ -3,11 +3,8 @@
   require_once("/../../../classes/BD.php");
   require_once("/../../../config/config.php");
   */  
-  class AdminModelScooter{
-      private static $db;
-      public function __construct(){
-          self::$db = new DB(); 
-      }
+  class AdminModelScooter extends AdminModelDefault{
+      
       public function addScooter($param){ 
            $sql = "INSERT INTO trotinete(denumire, caracteristici, pret_inchiriere, tip_adaugare, data_adaugare, id_punct_de_lucru)
                     VALUES('{$param['denumire']}','{$param['caracteristici']}','{$param['pret_inchiriere']}',2,NOW(),{$param['punct_de_lucru']})";   
